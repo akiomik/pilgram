@@ -24,17 +24,6 @@ from .sepia import sepia
 from . import util
 
 
-def _linear_gradient_mask(shape, start, end, is_horizontal=True):
-    if is_horizontal:
-        row = np.linspace(start, end, shape[0], dtype=np.uint8)
-        mask = np.tile(row, (shape[1], 1, 1))
-    else:
-        row = np.linspace(start, end, shape[1], dtype=np.uint8)
-        mask = np.tile(row, (shape[0], 1, 1)).transpose(1, 0, 2)
-
-    return Image.fromarray(mask).convert('L')
-
-
 def _radial_gradient_mask(shape, length=0., end=1.):
     if (length >= 1):
         mask = np.full(shape, 255, dtype=np.uint8)
@@ -78,7 +67,7 @@ def aden(im):
     cs = util.fill(cb.size, [66, 10, 14])
     cs = ImageChops.darker(cb, cs)
 
-    alpha_mask = _linear_gradient_mask(cb.size, [204] * 3, [255] * 3)
+    alpha_mask = util.linear_gradient_mask(cb.size, start=.8, end=1)
     cr = Image.composite(cb, cs, alpha_mask)
 
     cr = hue_rotate(cr, -20)
@@ -320,12 +309,7 @@ def nashville(im):
 def perpetua(im):
     cb = im.convert('RGB')
 
-    cs1 = util.fill(cb.size, [0, 91, 154])
-    cs2 = util.fill(cb.size, [230, 193, 61])
-
-    gradient_mask = _linear_gradient_mask(cb.size, [255] * 3, [0] * 3, False)
-    cs = Image.composite(cs1, cs2, gradient_mask)
-
+    cs = util.linear_gradient(cb.size, [0, 91, 154], [230, 193, 61], False)
     cs = Image4Layer.soft_light(cb, cs)
     cr = Image.blend(cb, cs, .5)
 
