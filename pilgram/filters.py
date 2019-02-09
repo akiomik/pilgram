@@ -21,6 +21,7 @@ from PIL import Image, ImageEnhance, ImageChops
 from .grayscale import grayscale
 from .hue_rotate import hue_rotate
 from .sepia import sepia
+from . import util
 
 
 def _linear_gradient_mask(shape, start, end, is_horizontal=True):
@@ -60,10 +61,8 @@ def _radial_gradient_mask(shape, length=0., end=1.):
 def _1977(im):
     cb = im.convert('RGB')
 
-    cs_array = np.full(cb.size + (3,), [243, 106, 188], dtype=np.uint8)
-    cs = Image.fromarray(cs_array)
+    cs = util.fill(cb.size, [243, 106, 188])
     cs = ImageChops.screen(cb, cs)
-
     cr = Image.blend(cb, cs, .3)
 
     cr = ImageEnhance.Contrast(cr).enhance(1.1)
@@ -76,8 +75,7 @@ def _1977(im):
 def aden(im):
     cb = im.convert('RGB')
 
-    cs_array = np.full(cb.size + (3,), [66, 10, 14], dtype=np.uint8)
-    cs = Image.fromarray(cs_array)
+    cs = util.fill(cb.size, [66, 10, 14])
     cs = ImageChops.darker(cb, cs)
 
     alpha_mask = _linear_gradient_mask(cb.size, [204] * 3, [255] * 3)
@@ -94,11 +92,10 @@ def aden(im):
 def brannan(im):
     cb = im.convert('RGB')
 
-    cs_array = np.full(cb.size + (3,), [161, 44, 199], dtype=np.uint8)
-    cs = Image.fromarray(cs_array)
+    cs = util.fill(cb.size, [161, 44, 199])
     cs = ImageChops.lighter(cb, cs)
-
     cr = Image.blend(cb, cs, .31)
+
     cr = sepia(cr, .5)
     cr = ImageEnhance.Contrast(cr).enhance(1.4)
 
@@ -108,11 +105,8 @@ def brannan(im):
 def brooklyn(im):
     cb = im.convert('RGB')
 
-    cs1_array = np.full(cb.size + (3,), [168, 223, 193], dtype=np.uint8)
-    cs1 = Image.fromarray(cs1_array)
-
-    cs2_array = np.full(cb.size + (3,), [196, 183, 200], dtype=np.uint8)
-    cs2 = Image.fromarray(cs2_array)
+    cs1 = util.fill(cb.size, [168, 223, 193])
+    cs2 = util.fill(cb.size, [196, 183, 200])
 
     gradient_mask = _radial_gradient_mask(cb.size, length=.7)
     cs = Image.composite(cs1, cs2, gradient_mask)
@@ -132,10 +126,8 @@ def brooklyn(im):
 def clarendon(im):
     cb = im.convert('RGB')
 
-    cs_array = np.full(cb.size + (3,), [127, 187, 227], dtype=np.uint8)
-    cs = Image.fromarray(cs_array)
+    cs = util.fill(cb.size, [127, 187, 227])
     cs = Image4Layer.overlay(cb, cs)
-
     cr = Image.blend(cb, cs, .2)
 
     cr = ImageEnhance.Contrast(cr).enhance(1.2)
@@ -147,21 +139,15 @@ def clarendon(im):
 def earlybird(im):
     cb = im.convert('RGB')
 
-    cs1_array = np.full(cb.size + (3,), [208, 186, 142], dtype=np.uint8)
-    cs1 = Image.fromarray(cs1_array)
-
-    cs2_array = np.full(cb.size + (3,), [54, 3, 9], dtype=np.uint8)
-    cs2 = Image.fromarray(cs2_array)
-
-    cs3_array = np.full(cb.size + (3,), [29, 2, 16], dtype=np.uint8)
-    cs3 = Image.fromarray(cs3_array)
+    cs1 = util.fill(cb.size, [208, 186, 142])
+    cs2 = util.fill(cb.size, [54, 3, 9])
+    cs3 = util.fill(cb.size, [29, 2, 16])
 
     gradient_mask1 = _radial_gradient_mask(cb.size, length=.2)
     cs = Image.composite(cs1, cs2, gradient_mask1)
 
     gradient_mask2 = _radial_gradient_mask(cb.size, length=.85)
     cs = Image.composite(cs, cs3, gradient_mask2)
-
     cr = Image4Layer.overlay(cb, cs)
 
     cr = ImageEnhance.Contrast(cr).enhance(.9)
@@ -173,9 +159,7 @@ def earlybird(im):
 def gingham(im):
     cb = im.convert('RGB')
 
-    cs_array = np.full(cb.size + (3,), [230, 230, 250], dtype=np.uint8)
-    cs = Image.fromarray(cs_array)
-
+    cs = util.fill(cb.size, [230, 230, 250])
     cr = Image4Layer.soft_light(cb, cs)
 
     cr = ImageEnhance.Brightness(cr).enhance(1.05)
@@ -187,16 +171,12 @@ def gingham(im):
 def hudson(im):
     cb = im.convert('RGB')
 
-    cs1_array = np.full(cb.size + (3,), [166, 177, 255], dtype=np.uint8)
-    cs1 = Image.fromarray(cs1_array)
-
-    cs2_array = np.full(cb.size + (3,), [52, 33, 52], dtype=np.uint8)
-    cs2 = Image.fromarray(cs2_array)
+    cs1 = util.fill(cb.size, [166, 177, 255])
+    cs2 = util.fill(cb.size, [52, 33, 52])
 
     gradient_mask = _radial_gradient_mask(cb.size, length=.5)
     cs = Image.composite(cs1, cs2, gradient_mask)
     cs = ImageChops.multiply(cb, cs)
-
     cr = Image.blend(cb, cs, .5)
 
     cr = ImageEnhance.Brightness(cr).enhance(1.2)
@@ -220,13 +200,10 @@ def inkwell(im):
 def kelvin(im):
     cb = im.convert('RGB')
 
-    cs1_array = np.full(cb.size + (3,), [56, 44, 52], dtype=np.uint8)
-    cs1 = Image.fromarray(cs1_array)
-
-    cs2_array = np.full(cb.size + (3,), [183, 125, 33], dtype=np.uint8)
-    cs2 = Image.fromarray(cs2_array)
-
+    cs1 = util.fill(cb.size, [56, 44, 52])
     cs = Image4Layer.color_dodge(cb, cs1)
+
+    cs2 = util.fill(cb.size, [183, 125, 33])
     cr = Image4Layer.overlay(cs, cs2)
 
     return cr.convert(im.mode)
@@ -235,15 +212,11 @@ def kelvin(im):
 def lark(im):
     cb = im.convert('RGB')
 
-    cs1_array = np.full(cb.size + (3,), [34, 37, 63], dtype=np.uint8)
-    cs1 = Image.fromarray(cs1_array)
-
-    cs2_array = np.full(cb.size + (3,), [242, 242, 242], dtype=np.uint8)
-    cs2 = Image.fromarray(cs2_array)
-
+    cs1 = util.fill(cb.size, [34, 37, 63])
     cs = Image4Layer.color_dodge(cb, cs1)
-    cs = ImageChops.darker(cs, cs2)
 
+    cs2 = util.fill(cb.size, [242, 242, 242])
+    cs = ImageChops.darker(cs, cs2)
     cr = Image.blend(cb, cs, .8)
 
     return cr.convert(im.mode)
@@ -252,8 +225,7 @@ def lark(im):
 def lofi(im):
     cb = im.convert('RGB')
 
-    cs_array = np.full(cb.size + (3,), [34, 34, 34], dtype=np.uint8)
-    cs = Image.fromarray(cs_array)
+    cs = util.fill(cb.size, [34, 34, 34])
     cs = ImageChops.multiply(cb, cs)
 
     mask = _radial_gradient_mask(cb.size, length=.7, end=1.5)
@@ -268,10 +240,8 @@ def lofi(im):
 def maven(im):
     cb = im.convert('RGB')
 
-    cs_array = np.full(cb.size + (3,), [3, 230, 26], dtype=np.uint8)
-    cs = Image.fromarray(cs_array)
+    cs = util.fill(cb.size, [3, 230, 26])
     cs = Image4Layer.hue(cb, cs)
-
     cr = Image.blend(cb, cs, .2)
 
     cr = sepia(cr, .25)
@@ -285,14 +255,9 @@ def maven(im):
 def mayfair(im):
     cb = im.convert('RGB')
 
-    cs1_array = np.full(cb.size + (3,), [255, 255, 255], dtype=np.uint8)
-    cs1 = Image.fromarray(cs1_array)
-
-    cs2_array = np.full(cb.size + (3,), [255, 200, 200], dtype=np.uint8)
-    cs2 = Image.fromarray(cs2_array)
-
-    cs3_array = np.full(cb.size + (3,), [17, 17, 17], dtype=np.uint8)
-    cs3 = Image.fromarray(cs3_array)
+    cs1 = util.fill(cb.size, [255, 255, 255])
+    cs2 = util.fill(cb.size, [255, 200, 200])
+    cs3 = util.fill(cb.size, [17, 17, 17])
 
     gradient_mask1 = _radial_gradient_mask(cb.size)
     cs = Image.composite(cs1, cs2, gradient_mask1)
@@ -300,7 +265,6 @@ def mayfair(im):
     # TODO: improve gradient mask
     gradient_mask2 = _radial_gradient_mask(cb.size, length=.3, end=.6)
     cs = Image.composite(cs, cs3, gradient_mask2)
-
     cs = Image4Layer.overlay(cb, cs)
 
     alpha_mask1_array = np.array(gradient_mask1) * .2
@@ -310,7 +274,6 @@ def mayfair(im):
     alpha_mask2_array = np.array(gradient_mask2) * .4
     alpha_mask2 = Image.fromarray(np.uint8(alpha_mask2_array.round()))
     cs = Image.composite(cb, cs, alpha_mask2)
-
     cr = Image.blend(cb, cs, .4)
 
     cr = ImageEnhance.Contrast(cr).enhance(1.1)
@@ -322,13 +285,10 @@ def mayfair(im):
 def moon(im):
     cb = im.convert('RGB')
 
-    cs1_array = np.full(cb.size + (3,), [160, 160, 160], dtype=np.uint8)
-    cs1 = Image.fromarray(cs1_array)
-
-    cs2_array = np.full(cb.size + (3,), [56, 56, 56], dtype=np.uint8)
-    cs2 = Image.fromarray(cs2_array)
-
+    cs1 = util.fill(cb.size, [160, 160, 160])
     cs = Image4Layer.soft_light(cb, cs1)
+
+    cs2 = util.fill(cb.size, [56, 56, 56])
     cr = ImageChops.lighter(cs, cs2)
 
     cr = grayscale(cr)
@@ -341,15 +301,11 @@ def moon(im):
 def nashville(im):
     cb = im.convert('RGB')
 
-    cs1_array = np.full(cb.size + (3,), [247, 176, 153], dtype=np.uint8)
-    cs1 = Image.fromarray(cs1_array)
-
+    cs1 = util.fill(cb.size, [247, 176, 153])
     cs = ImageChops.darker(cb, cs1)
     cs = Image.blend(cb, cs, .56)
 
-    cs2_array = np.full(cb.size + (3,), [0, 70, 150], dtype=np.uint8)
-    cs2 = Image.fromarray(cs2_array)
-
+    cs2 = util.fill(cb.size, [0, 70, 150])
     cs_ = ImageChops.lighter(cs, cs2)
     cr = Image.blend(cs, cs_, .4)
 
@@ -364,11 +320,8 @@ def nashville(im):
 def perpetua(im):
     cb = im.convert('RGB')
 
-    cs1_array = np.full(cb.size + (3,), [0, 91, 154], dtype=np.uint8)
-    cs1 = Image.fromarray(cs1_array)
-
-    cs2_array = np.full(cb.size + (3,), [230, 193, 61], dtype=np.uint8)
-    cs2 = Image.fromarray(cs2_array)
+    cs1 = util.fill(cb.size, [0, 91, 154])
+    cs2 = util.fill(cb.size, [230, 193, 61])
 
     gradient_mask = _linear_gradient_mask(cb.size, [255] * 3, [0] * 3, False)
     cs = Image.composite(cs1, cs2, gradient_mask)
@@ -382,9 +335,7 @@ def perpetua(im):
 def reyes(im):
     cb = im.convert('RGB')
 
-    cs_array = np.full(cb.size + (3,), [239, 205, 173], dtype=np.uint8)
-    cs = Image.fromarray(cs_array)
-
+    cs = util.fill(cb.size, [239, 205, 173])
     cs = Image4Layer.soft_light(cb, cs)
     cr = Image.blend(cb, cs, .5)
 
@@ -399,11 +350,9 @@ def reyes(im):
 def rise(im):
     cb = im.convert('RGB')
 
-    cs1_array = np.full(cb.size + (3,), [236, 205, 169], dtype=np.uint8)
-    cs1 = Image.fromarray(cs1_array)
-
-    cs2_array = np.full(cb.size + (3,), [50, 30, 7], dtype=np.uint8)
-    cs2 = Image.fromarray(cs2_array)
+    cs1 = util.fill(cb.size, [236, 205, 169])
+    cs2 = util.fill(cb.size, [50, 30, 7])
+    cs3 = util.fill(cb.size, [232, 197, 152])
 
     gradient_mask1 = _radial_gradient_mask(cb.size, length=.55)
     cs = Image.composite(cs1, cs2, gradient_mask1)
@@ -418,9 +367,6 @@ def rise(im):
     alpha_mask2 = Image.fromarray(np.uint8(alpha_mask2_array.round()))
     cs = Image.composite(cb, cs, alpha_mask2)
 
-    cs3_array = np.full(cb.size + (3,), [232, 197, 152], dtype=np.uint8)
-    cs3 = Image.fromarray(cs3_array)
-
     # TODO
     alpha_mask3 = _radial_gradient_mask(cb.size, end=.9)
     gradient_mask2 = ImageChops.invert(alpha_mask3)
@@ -432,7 +378,6 @@ def rise(im):
     alpha_mask4_array = np.array(gradient_mask2) * .2
     alpha_mask4 = Image.fromarray(np.uint8(alpha_mask4_array.round()))
     cs_ = Image.composite(cs, cs_, alpha_mask4)
-
     cr = Image.blend(cs, cs_, .6)
 
     cr = ImageEnhance.Brightness(cr).enhance(1.05)
@@ -446,13 +391,11 @@ def rise(im):
 def slumber(im):
     cb = im.convert('RGB')
 
-    cs1_array = np.full(cb.size + (3,), [69, 41, 12], dtype=np.uint8)
-    cs1 = Image.fromarray(cs1_array)
+    cs1 = util.fill(cb.size, [69, 41, 12])
     cs = ImageChops.lighter(cb, cs1)
     cs = Image.blend(cb, cs, .4)
 
-    cs2_array = np.full(cb.size + (3,), [125, 105, 24], dtype=np.uint8)
-    cs2 = Image.fromarray(cs2_array)
+    cs2 = util.fill(cb.size, [125, 105, 24])
     cs_ = Image4Layer.soft_light(cs, cs2)
     cr = Image.blend(cs, cs_, .5)
 
@@ -465,8 +408,7 @@ def slumber(im):
 def stinson(im):
     cb = im.convert('RGB')
 
-    cs_array = np.full(cb.size + (3,), [240, 149, 128], dtype=np.uint8)
-    cs = Image.fromarray(cs_array)
+    cs = util.fill(cb.size, [240, 149, 128])
     cs = Image4Layer.soft_light(cb, cs)
     cr = Image.blend(cb, cs, .2)
 
@@ -480,11 +422,8 @@ def stinson(im):
 def toaster(im):
     cb = im.convert('RGB')
 
-    cs1_array = np.full(cb.size + (3,), [128, 78, 15], dtype=np.uint8)
-    cs1 = Image.fromarray(cs1_array)
-
-    cs2_array = np.full(cb.size + (3,), [59, 0, 59], dtype=np.uint8)
-    cs2 = Image.fromarray(cs2_array)
+    cs1 = util.fill(cb.size, [128, 78, 15])
+    cs2 = util.fill(cb.size, [59, 0, 59])
 
     gradient_mask = _radial_gradient_mask(cb.size)
     cs = Image.composite(cs1, cs2, gradient_mask)
@@ -499,8 +438,7 @@ def toaster(im):
 def valencia(im):
     cb = im.convert('RGB')
 
-    cs_array = np.full(cb.size + (3,), [58, 3, 57], dtype=np.uint8)
-    cs = Image.fromarray(cs_array)
+    cs = util.fill(cb.size, [58, 3, 57])
     cs = Image4Layer.exclusion(cb, cs)
     cr = Image.blend(cb, cs, .5)
 
@@ -514,8 +452,7 @@ def valencia(im):
 def walden(im):
     cb = im.convert('RGB')
 
-    cs_array = np.full(cb.size + (3,), [0, 68, 204], dtype=np.uint8)
-    cs = Image.fromarray(cs_array)
+    cs = util.fill(cb.size, [0, 68, 204])
     cs = ImageChops.screen(cb, cs)
     cr = Image.blend(cb, cs, .3)
 
@@ -530,18 +467,14 @@ def walden(im):
 def willow(im):
     cb = im.convert('RGB')
 
-    cs1_array = np.full(cb.size + (3,), [212, 169, 175], dtype=np.uint8)
-    cs1 = Image.fromarray(cs1_array)
-
-    cs2_array = np.full(cb.size + (3,), [0, 0, 0], dtype=np.uint8)
-    cs2 = Image.fromarray(cs2_array)
+    cs1 = util.fill(cb.size, [212, 169, 175])
+    cs2 = util.fill(cb.size, [0, 0, 0])
 
     gradient_mask = _radial_gradient_mask(cb.size, length=.55, end=1.5)
     cs = Image.composite(cs1, cs2, gradient_mask)
     cs = Image4Layer.overlay(cb, cs)
 
-    cs3_array = np.full(cb.size + (3,), [216, 205, 203], dtype=np.uint8)
-    cs3 = Image.fromarray(cs3_array)
+    cs3 = util.fill(cb.size, [216, 205, 203])
     cr = Image4Layer.color(cs, cs3)
 
     cr = grayscale(cr, .5)
@@ -554,11 +487,8 @@ def willow(im):
 def xpro2(im):
     cb = im.convert('RGB')
 
-    cs1_array = np.full(cb.size + (3,), [230, 231, 224], dtype=np.uint8)
-    cs1 = Image.fromarray(cs1_array)
-
-    cs2_array = np.full(cb.size + (3,), [43, 42, 161], dtype=np.uint8)
-    cs2 = Image.fromarray(cs2_array)
+    cs1 = util.fill(cb.size, [230, 231, 224])
+    cs2 = util.fill(cb.size, [43, 42, 161])
 
     gradient_mask = _radial_gradient_mask(cb.size, length=.4, end=1.1)
     cs = Image.composite(cs1, cs2, gradient_mask)
