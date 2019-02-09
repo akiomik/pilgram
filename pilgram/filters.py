@@ -18,151 +18,9 @@ from image4layer import Image4Layer
 import numpy as np
 from PIL import Image, ImageEnhance, ImageChops
 
-
-def _to_rgbaw_array(rgb_array, a=255, w=255):
-    rgbaw_array = np.pad(rgb_array,
-                         [[0, 0], [0, 0], [0, 2]],
-                         'constant', constant_values=[a, w])
-    return rgbaw_array
-
-
-def _hue_rotate(im, deg):
-    cos_hue = math.cos(deg * math.pi / 180)
-    sin_hue = math.sin(deg * math.pi / 180)
-
-    # matrix from chromium project:
-    # https://chromium.googlesource.com/chromium/chromium/+/trunk/cc/output/render_surface_filters.cc#75
-    color_matrix = np.array([
-        [
-            .213 + cos_hue * .787 - sin_hue * .213,
-            .715 - cos_hue * .715 - sin_hue * .715,
-            .072 - cos_hue * .072 + sin_hue * .928,
-            0,
-            0,
-        ],
-        [
-            .213 - cos_hue * .213 + sin_hue * .143,
-            .715 + cos_hue * .285 + sin_hue * .140,
-            .072 - cos_hue * .072 - sin_hue * .283,
-            0,
-            0,
-        ],
-        [
-            .213 - cos_hue * .213 - sin_hue * .787,
-            .715 - cos_hue * .715 + sin_hue * .715,
-            .072 + cos_hue * .928 + sin_hue * .072,
-            0,
-            0,
-        ],
-        [
-            0, 0, 0, 1, 0,
-        ],
-    ]).T
-
-    im_array = np.array(im.convert('RGB'))
-    im_array = _to_rgbaw_array(im_array)
-    im_array = np.matmul(im_array, color_matrix).round()
-    im_array = im_array[:, :, :3]  # to RGB
-    im_array = np.clip(im_array, 0, 255)
-
-    return Image.fromarray(np.uint8(im_array)).convert(im.mode)
-
-
-def _sepia(im, amount):
-    amount = 1. - amount
-
-    # matrix from a w3c draft:
-    # https://www.w3.org/TR/filter-effects-1/#sepiaEquivalent
-    color_matrix = np.array([
-        [.393 + .607 * amount, .769 - .769 * amount, .189 - .189 * amount],
-        [.349 - .349 * amount, .686 + .314 * amount, .168 - .168 * amount],
-        [.272 - .272 * amount, .534 - .534 * amount, .131 + .869 * amount],
-    ]).T
-
-    im_array = np.array(im.convert('RGB'))
-    im_array = np.matmul(im_array, color_matrix).round()
-    im_array = np.clip(im_array, 0, 255)
-
-    return Image.fromarray(np.uint8(im_array)).convert(im.mode)
-
-
-def _grayscale(im, amount=1.):
-    amount = 1 - amount
-
-    # matrix from a w3c draft:
-    # https://drafts.fxtf.org/filter-effects/#grayscaleEquivalent
-    matrix = np.array([
-        [
-            .2126 + .7874 * amount,
-            .7152 - .7152 * amount,
-            .0722 - .0722 * amount,
-        ],
-        [
-            .2126 - .2126 * amount,
-            .7152 + .2848 * amount,
-            .0722 - .0722 * amount,
-        ],
-        [
-            .2126 - .2126 * amount,
-            .7152 - .7152 * amount,
-            .0722 + .9278 * amount,
-        ],
-    ]).T
-
-    im_array = np.array(im.convert('RGB'))
-    im_array = np.matmul(im_array, matrix).round()
-    im_array = np.clip(im_array, 0, 255)
-
-    return Image.fromarray(np.uint8(im_array)).convert(im.mode)
-
-
-# strict function of contrast
-def _contrast(im, amount):
-    # matrix from chromium project:
-    # https://chromium.googlesource.com/chromium/chromium/+/trunk/cc/output/render_surface_filters.cc#49
-    color_matrix = np.array([
-        [amount, 0,      0,      0, (-0.5 * amount + 0.5)],
-        [0,      amount, 0,      0, (-0.5 * amount + 0.5)],
-        [0,      0,      amount, 0, (-0.5 * amount + 0.5)],
-        [0,      0,      0,      1, 0],
-        [0,      0,      0,      0, 1],
-    ]).T
-
-    im_array = np.array(im.convert('RGB'))
-    im_array = _to_rgbaw_array(im_array)
-    im_array = np.matmul(im_array, color_matrix).round()
-    im_array = im_array[:, :, :3]  # to RGB
-    im_array = np.clip(im_array, 0, 255)
-
-    return Image.fromarray(np.uint8(im_array)).convert(im.mode)
-
-
-def _saturate(im, amount):
-    # matrix from chromium project:
-    # https://chromium.googlesource.com/chromium/chromium/+/trunk/cc/output/render_surface_filters.cc#56
-    color_matrix = np.array([
-        [
-            .213 + .787 * amount,
-            .715 - .715 * amount,
-            1 - (.213 + .787 * amount) - (.715 - .715 * amount),
-        ],
-        [
-            .213 - .213 * amount,
-            .715 + .285 * amount,
-            1 - (.213 - .213 * amount) - (.715 + .285 * amount)
-        ],
-        [
-            .213 - .213 * amount,
-            .715 - .715 * amount,
-            1 - (.213 - .213 * amount) - (.715 - .715 * amount)
-        ],
-    ]).T
-
-    im_array = np.array(im.convert('RGB'))
-    im_array = np.matmul(im_array, color_matrix).round()
-    im_array = np.clip(im_array, 0, 255)
-
-    return Image.fromarray(np.uint8(im_array)).convert(im.mode)
+from .grayscale import grayscale
+from .hue_rotate import hue_rotate
+from .sepia import sepia
 
 
 def _linear_gradient_mask(shape, start, end, is_horizontal=True):
@@ -225,7 +83,7 @@ def aden(im):
     alpha_mask = _linear_gradient_mask(cb.size, [204] * 3, [255] * 3)
     cr = Image.composite(cb, cs, alpha_mask)
 
-    cr = _hue_rotate(cr, -20)
+    cr = hue_rotate(cr, -20)
     cr = ImageEnhance.Contrast(cr).enhance(.9)
     cr = ImageEnhance.Color(cr).enhance(.85)
     cr = ImageEnhance.Brightness(cr).enhance(1.2)
@@ -241,7 +99,7 @@ def brannan(im):
     cs = ImageChops.lighter(cb, cs)
 
     cr = Image.blend(cb, cs, .31)
-    cr = _sepia(cr, .5)
+    cr = sepia(cr, .5)
     cr = ImageEnhance.Contrast(cr).enhance(1.4)
 
     return cr.convert(im.mode)
@@ -307,7 +165,7 @@ def earlybird(im):
     cr = Image4Layer.overlay(cb, cs)
 
     cr = ImageEnhance.Contrast(cr).enhance(.9)
-    cr = _sepia(cr, .2)
+    cr = sepia(cr, .2)
 
     return cr.convert(im.mode)
 
@@ -321,7 +179,7 @@ def gingham(im):
     cr = Image4Layer.soft_light(cb, cs)
 
     cr = ImageEnhance.Brightness(cr).enhance(1.05)
-    cr = _hue_rotate(cr, -10)
+    cr = hue_rotate(cr, -10)
 
     return cr.convert(im.mode)
 
@@ -349,10 +207,12 @@ def hudson(im):
 
 
 def inkwell(im):
-    cr = _sepia(im, .3)
+    cb = im.convert('RGB')
+
+    cr = sepia(cb, .3)
     cr = ImageEnhance.Contrast(cr).enhance(1.1)
     cr = ImageEnhance.Brightness(cr).enhance(1.1)
-    cr = _grayscale(cr)
+    cr = grayscale(cr)
 
     return cr.convert(im.mode)
 
@@ -414,7 +274,7 @@ def maven(im):
 
     cr = Image.blend(cb, cs, .2)
 
-    cr = _sepia(cr, .25)
+    cr = sepia(cr, .25)
     cr = ImageEnhance.Brightness(cr).enhance(.95)
     cr = ImageEnhance.Contrast(cr).enhance(.95)
     cr = ImageEnhance.Color(cr).enhance(1.5)
@@ -471,7 +331,7 @@ def moon(im):
     cs = Image4Layer.soft_light(cb, cs1)
     cr = ImageChops.lighter(cs, cs2)
 
-    cr = _grayscale(cr)
+    cr = grayscale(cr)
     cr = ImageEnhance.Contrast(cr).enhance(1.1)
     cr = ImageEnhance.Brightness(cr).enhance(1.1)
 
@@ -493,7 +353,7 @@ def nashville(im):
     cs_ = ImageChops.lighter(cs, cs2)
     cr = Image.blend(cs, cs_, .4)
 
-    cr = _sepia(cr, .2)
+    cr = sepia(cr, .2)
     cr = ImageEnhance.Contrast(cr).enhance(1.2)
     cr = ImageEnhance.Brightness(cr).enhance(1.05)
     cr = ImageEnhance.Color(cr).enhance(1.2)
@@ -528,7 +388,7 @@ def reyes(im):
     cs = Image4Layer.soft_light(cb, cs)
     cr = Image.blend(cb, cs, .5)
 
-    cr = _sepia(cr, .22)
+    cr = sepia(cr, .22)
     cr = ImageEnhance.Brightness(cr).enhance(1.1)
     cr = ImageEnhance.Contrast(cr).enhance(.85)
     cr = ImageEnhance.Color(cr).enhance(.75)
@@ -576,7 +436,7 @@ def rise(im):
     cr = Image.blend(cs, cs_, .6)
 
     cr = ImageEnhance.Brightness(cr).enhance(1.05)
-    cr = _sepia(cr, .2)
+    cr = sepia(cr, .2)
     cr = ImageEnhance.Contrast(cr).enhance(.9)
     cr = ImageEnhance.Color(cr).enhance(.9)
 
@@ -646,7 +506,7 @@ def valencia(im):
 
     cr = ImageEnhance.Contrast(cr).enhance(1.08)
     cr = ImageEnhance.Brightness(cr).enhance(1.08)
-    cr = _sepia(cr, .08)
+    cr = sepia(cr, .08)
 
     return cr.convert(im.mode)
 
@@ -660,8 +520,8 @@ def walden(im):
     cr = Image.blend(cb, cs, .3)
 
     cr = ImageEnhance.Brightness(cr).enhance(1.1)
-    cr = _hue_rotate(cr, -10)
-    cr = _sepia(cr, .3)
+    cr = hue_rotate(cr, -10)
+    cr = sepia(cr, .3)
     cr = ImageEnhance.Color(cr).enhance(1.6)
 
     return cr.convert(im.mode)
@@ -684,8 +544,8 @@ def willow(im):
     cs3 = Image.fromarray(cs3_array)
     cr = Image4Layer.color(cs, cs3)
 
-    cr = _grayscale(cr, .5)
-    cr = _contrast(cr, .95)
+    cr = grayscale(cr, .5)
+    cr = ImageEnhance.Contrast(cr).enhance(.95)
     cr = ImageEnhance.Brightness(cr).enhance(.9)
 
     return cr.convert(im.mode)
@@ -709,6 +569,6 @@ def xpro2(im):
     alpha_mask = Image.fromarray(np.uint8(alpha_mask_array.round()))
     cr = Image.composite(cb, cs, alpha_mask)
 
-    cr = _sepia(cr, .3)
+    cr = sepia(cr, .3)
 
     return cr.convert(im.mode)
