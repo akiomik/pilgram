@@ -15,10 +15,10 @@
 from image4layer import Image4Layer
 from PIL import Image, ImageEnhance, ImageChops
 
-from .grayscale import grayscale
-from .hue_rotate import hue_rotate
-from .sepia import sepia
-from . import util
+from pilgram.grayscale import grayscale
+from pilgram.hue_rotate import hue_rotate
+from pilgram.sepia import sepia
+from pilgram import util
 
 
 def _1977(im):
