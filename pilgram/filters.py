@@ -13,7 +13,6 @@
 # limitations under the License.
 
 from image4layer import Image4Layer
-import numpy as np
 from PIL import Image, ImageEnhance, ImageChops
 
 from .grayscale import grayscale
@@ -77,8 +76,7 @@ def brooklyn(im):
     cs = Image4Layer.overlay(cb, cs)
 
     # TODO: improve alpha masking
-    alpha_mask_array = np.array(gradient_mask) * .6
-    alpha_mask = Image.fromarray(np.uint8(alpha_mask_array.round()))
+    alpha_mask = util.scale_color(gradient_mask, .6)
     cr = Image.composite(cb, cs, alpha_mask)
 
     cr = ImageEnhance.Contrast(cr).enhance(.9)
@@ -228,12 +226,12 @@ def mayfair(im):
     cs = Image.composite(cs, cs3, gradient_mask2)
     cs = Image4Layer.overlay(cb, cs)
 
-    alpha_mask1_array = np.array(gradient_mask1) * .2
-    alpha_mask1 = Image.fromarray(np.uint8(alpha_mask1_array.round()))
+    # TODO: improve alpha masking
+    alpha_mask1 = util.scale_color(gradient_mask1, .2)
     cs = Image.composite(cb, cs, alpha_mask1)
 
-    alpha_mask2_array = np.array(gradient_mask2) * .4
-    alpha_mask2 = Image.fromarray(np.uint8(alpha_mask2_array.round()))
+    # TODO: improve alpha masking
+    alpha_mask2 = util.scale_color(gradient_mask2, .4)
     cs = Image.composite(cb, cs, alpha_mask2)
     cr = Image.blend(cb, cs, .4)
 
@@ -315,12 +313,10 @@ def rise(im):
     cs = ImageChops.multiply(cb, cs)
 
     # TODO
-    alpha_mask1_array = np.array(gradient_mask1) * .85
-    alpha_mask1 = Image.fromarray(np.uint8(alpha_mask1_array.round()))
+    alpha_mask1 = util.scale_color(gradient_mask1, .85)
     cs = Image.composite(cb, cs, alpha_mask1)
 
-    alpha_mask2_array = 255. - ((255. - np.array(gradient_mask1)) * .4)
-    alpha_mask2 = Image.fromarray(np.uint8(alpha_mask2_array.round()))
+    alpha_mask2 = util.scale_color(gradient_mask1, .4)
     cs = Image.composite(cb, cs, alpha_mask2)
 
     # TODO
@@ -331,8 +327,7 @@ def rise(im):
     cs_ = Image4Layer.overlay(cs, cs_)
     cs_ = Image.composite(cs, cs_, alpha_mask3)
 
-    alpha_mask4_array = np.array(gradient_mask2) * .2
-    alpha_mask4 = Image.fromarray(np.uint8(alpha_mask4_array.round()))
+    alpha_mask4 = util.scale_color(gradient_mask2, .2)
     cs_ = Image.composite(cs, cs_, alpha_mask4)
     cr = Image.blend(cs, cs_, .6)
 
@@ -445,9 +440,8 @@ def xpro2(im):
     cs = Image.composite(cs1, cs2, gradient_mask)
     cs = Image4Layer.color_burn(cb, cs)
 
-    alpha_mask_array = np.array(gradient_mask)
-    alpha_mask_array = (255 - alpha_mask_array) * .6
-    alpha_mask = Image.fromarray(np.uint8(alpha_mask_array.round()))
+    # TODO: improve alpha masking
+    alpha_mask = util.scale_color(ImageChops.invert(gradient_mask), .6)
     cr = Image.composite(cb, cs, alpha_mask)
 
     cr = sepia(cr, .3)
