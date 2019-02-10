@@ -11,19 +11,30 @@ Filter implementations are inspired by [CSSgram](https://una.im/CSSgram/).
 
 ## Usage
 
-Available filters: `_1977`, `aden`, `brannan`, `brooklyn`, `clarendon`, `earlybird`, `gingham`, `hudson`, `inkwell`, `kelvin`, `lark`, `lofi`, `maven`, `mayfair`, `moon`, `nashville`, `perpetua`, `reyes`, `rise`, `slumber`, `stinson`, `toaster`, `valencia`, `walden`, `willow`, `xpro2`.
+Available instagram filters on `pilgram`: `_1977`, `aden`, `brannan`, `brooklyn`, `clarendon`, `earlybird`, `gingham`, `hudson`, `inkwell`, `kelvin`, `lark`, `lofi`, `maven`, `mayfair`, `moon`, `nashville`, `perpetua`, `reyes`, `rise`, `slumber`, `stinson`, `toaster`, `valencia`, `walden`, `willow`, `xpro2`
 
 ```python
 from PIL import Image
 import pilgram
 
 im = Image.open('sample.jpg')
-aden(im).save('sample-aden.jpg')
+pilgram.aden(im).save('sample-aden.jpg')
+```
+
+Available css filters on `pilgram.css`: `contrast`, `grayscale`, `hue_rotate`, `saturate`, `sepia`
+
+```python
+from PIL import Image
+import pilgram.css
+
+im = Image.open('sample.jpg')
+pilgram.css.sepia(im).save('sample-sepia.jpg')
 ```
 
 ## Test
 
 ```sh
 pipenv install --dev
-pytest
+pipenv run pytest
+pipenv run flake8 pilgram  # lint
 ```
