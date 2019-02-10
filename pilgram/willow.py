@@ -15,7 +15,7 @@
 from image4layer import Image4Layer
 from PIL import ImageEnhance
 
-from pilgram.grayscale import grayscale
+from pilgram import css
 from pilgram import util
 
 
@@ -31,7 +31,7 @@ def willow(im):
     cs_ = util.fill(cb.size, [216, 205, 203])
     cr = Image4Layer.color(cs, cs_)
 
-    cr = grayscale(cr, .5)
+    cr = css.grayscale(cr, .5)
     cr = ImageEnhance.Contrast(cr).enhance(.95)
     cr = ImageEnhance.Brightness(cr).enhance(.9)
 

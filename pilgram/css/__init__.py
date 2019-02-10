@@ -12,23 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from image4layer import Image4Layer
-from PIL import Image, ImageEnhance
+from pilgram.css.contrast import contrast
+from pilgram.css.grayscale import grayscale
+from pilgram.css.hue_rotate import hue_rotate
+from pilgram.css.saturate import saturate
+from pilgram.css.sepia import sepia
 
-from pilgram import css
-from pilgram import util
-
-
-def reyes(im):
-    cb = im.convert('RGB')
-
-    cs = util.fill(cb.size, [239, 205, 173])
-    cs = Image4Layer.soft_light(cb, cs)
-    cr = Image.blend(cb, cs, .5)
-
-    cr = css.sepia(cr, .22)
-    cr = ImageEnhance.Brightness(cr).enhance(1.1)
-    cr = ImageEnhance.Contrast(cr).enhance(.85)
-    cr = ImageEnhance.Color(cr).enhance(.75)
-
-    return cr.convert(im.mode)
+__all__ = ['contrast', 'grayscale', 'hue_rotate', 'saturate', 'sepia']

@@ -15,7 +15,7 @@
 from image4layer import Image4Layer
 from PIL import Image, ImageEnhance
 
-from pilgram.sepia import sepia
+from pilgram import css
 from pilgram import util
 
 
@@ -28,6 +28,6 @@ def valencia(im):
 
     cr = ImageEnhance.Contrast(cr).enhance(1.08)
     cr = ImageEnhance.Brightness(cr).enhance(1.08)
-    cr = sepia(cr, .08)
+    cr = css.sepia(cr, .08)
 
     return cr.convert(im.mode)

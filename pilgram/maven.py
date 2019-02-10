@@ -15,7 +15,7 @@
 from image4layer import Image4Layer
 from PIL import Image, ImageEnhance
 
-from pilgram.sepia import sepia
+from pilgram import css
 from pilgram import util
 
 
@@ -26,7 +26,7 @@ def maven(im):
     cs = Image4Layer.hue(cb, cs)
     cr = Image.blend(cb, cs, .2)
 
-    cr = sepia(cr, .25)
+    cr = css.sepia(cr, .25)
     cr = ImageEnhance.Brightness(cr).enhance(.95)
     cr = ImageEnhance.Contrast(cr).enhance(.95)
     cr = ImageEnhance.Color(cr).enhance(1.5)

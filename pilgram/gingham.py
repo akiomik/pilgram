@@ -15,7 +15,7 @@
 from image4layer import Image4Layer
 from PIL import ImageEnhance
 
-from pilgram.hue_rotate import hue_rotate
+from pilgram import css
 from pilgram import util
 
 
@@ -26,6 +26,6 @@ def gingham(im):
     cr = Image4Layer.soft_light(cb, cs)
 
     cr = ImageEnhance.Brightness(cr).enhance(1.05)
-    cr = hue_rotate(cr, -10)
+    cr = css.hue_rotate(cr, -10)
 
     return cr.convert(im.mode)

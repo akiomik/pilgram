@@ -15,7 +15,7 @@
 from image4layer import Image4Layer
 from PIL import Image, ImageChops
 
-from pilgram.sepia import sepia
+from pilgram import css
 from pilgram import util
 
 
@@ -33,6 +33,6 @@ def xpro2(im):
     alpha_mask = util.scale_color(ImageChops.invert(gradient_mask), .6)
     cr = Image.composite(cb, cs, alpha_mask)
 
-    cr = sepia(cr, .3)
+    cr = css.sepia(cr, .3)
 
     return cr.convert(im.mode)

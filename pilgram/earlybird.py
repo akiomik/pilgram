@@ -15,7 +15,7 @@
 from image4layer import Image4Layer
 from PIL import Image, ImageEnhance
 
-from pilgram.sepia import sepia
+from pilgram import css
 from pilgram import util
 
 
@@ -30,6 +30,6 @@ def earlybird(im):
     cr = Image4Layer.overlay(cb, cs)
 
     cr = ImageEnhance.Contrast(cr).enhance(.9)
-    cr = sepia(cr, .2)
+    cr = css.sepia(cr, .2)
 
     return cr.convert(im.mode)

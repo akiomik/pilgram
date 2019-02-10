@@ -14,16 +14,15 @@
 
 from PIL import ImageEnhance
 
-from pilgram.grayscale import grayscale
-from pilgram.sepia import sepia
+from pilgram import css
 
 
 def inkwell(im):
     cb = im.convert('RGB')
 
-    cr = sepia(cb, .3)
+    cr = css.sepia(cb, .3)
     cr = ImageEnhance.Contrast(cr).enhance(1.1)
     cr = ImageEnhance.Brightness(cr).enhance(1.1)
-    cr = grayscale(cr)
+    cr = css.grayscale(cr)
 
     return cr.convert(im.mode)

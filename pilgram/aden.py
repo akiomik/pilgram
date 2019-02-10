@@ -14,7 +14,7 @@
 
 from PIL import Image, ImageEnhance, ImageChops
 
-from pilgram.hue_rotate import hue_rotate
+from pilgram import css
 from pilgram import util
 
 
@@ -27,7 +27,7 @@ def aden(im):
     alpha_mask = util.linear_gradient_mask(cb.size, start=.8, end=1)
     cr = Image.composite(cb, cs, alpha_mask)
 
-    cr = hue_rotate(cr, -20)
+    cr = css.hue_rotate(cr, -20)
     cr = ImageEnhance.Contrast(cr).enhance(.9)
     cr = ImageEnhance.Color(cr).enhance(.85)
     cr = ImageEnhance.Brightness(cr).enhance(1.2)

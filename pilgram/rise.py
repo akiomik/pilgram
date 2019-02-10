@@ -15,7 +15,7 @@
 from image4layer import Image4Layer
 from PIL import Image, ImageEnhance, ImageChops
 
-from pilgram.sepia import sepia
+from pilgram import css
 from pilgram import util
 
 
@@ -50,7 +50,7 @@ def rise(im):
     cr = Image.blend(cs, cs_, .6)
 
     cr = ImageEnhance.Brightness(cr).enhance(1.05)
-    cr = sepia(cr, .2)
+    cr = css.sepia(cr, .2)
     cr = ImageEnhance.Contrast(cr).enhance(.9)
     cr = ImageEnhance.Color(cr).enhance(.9)
 

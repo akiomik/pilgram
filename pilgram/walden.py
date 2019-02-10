@@ -14,8 +14,7 @@
 
 from PIL import Image, ImageEnhance, ImageChops
 
-from pilgram.hue_rotate import hue_rotate
-from pilgram.sepia import sepia
+from pilgram import css
 from pilgram import util
 
 
@@ -27,8 +26,8 @@ def walden(im):
     cr = Image.blend(cb, cs, .3)
 
     cr = ImageEnhance.Brightness(cr).enhance(1.1)
-    cr = hue_rotate(cr, -10)
-    cr = sepia(cr, .3)
+    cr = css.hue_rotate(cr, -10)
+    cr = css.sepia(cr, .3)
     cr = ImageEnhance.Color(cr).enhance(1.6)
 
     return cr.convert(im.mode)

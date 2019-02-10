@@ -14,7 +14,7 @@
 
 from PIL import Image, ImageEnhance, ImageChops
 
-from pilgram.sepia import sepia
+from pilgram import css
 from pilgram import util
 
 
@@ -25,7 +25,7 @@ def brannan(im):
     cs = ImageChops.lighter(cb, cs)
     cr = Image.blend(cb, cs, .31)
 
-    cr = sepia(cr, .5)
+    cr = css.sepia(cr, .5)
     cr = ImageEnhance.Contrast(cr).enhance(1.4)
 
     return cr.convert(im.mode)

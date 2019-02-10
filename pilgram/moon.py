@@ -15,7 +15,7 @@
 from image4layer import Image4Layer
 from PIL import ImageEnhance, ImageChops
 
-from pilgram.grayscale import grayscale
+from pilgram import css
 from pilgram import util
 
 
@@ -28,7 +28,7 @@ def moon(im):
     cs2 = util.fill(cb.size, [56, 56, 56])
     cr = ImageChops.lighter(cs, cs2)
 
-    cr = grayscale(cr)
+    cr = css.grayscale(cr)
     cr = ImageEnhance.Contrast(cr).enhance(1.1)
     cr = ImageEnhance.Brightness(cr).enhance(1.1)
 
