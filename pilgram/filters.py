@@ -12,8 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import math
-
 from image4layer import Image4Layer
 import numpy as np
 from PIL import Image, ImageEnhance, ImageChops
@@ -22,29 +20,6 @@ from .grayscale import grayscale
 from .hue_rotate import hue_rotate
 from .sepia import sepia
 from . import util
-
-
-def _radial_gradient_mask(shape, length=0., end=1.):
-    if (length >= 1):
-        mask = np.full(shape, 255, dtype=np.uint8)
-        return Image.fromarray(mask)
-
-    w, h = shape
-    x, y = np.ogrid[:w, :h]
-    cx = w / 2
-    cy = h / 2
-    r = math.sqrt(cx ** 2 + cy ** 2)
-    end_factor = (1 / end) ** 2 if end > 1 else (1 / end)  # TODO
-
-    def adjust_length(x):
-        return (((x / r) - length) / (1 - length)) * end_factor
-
-    mask = np.sqrt((x - cx) ** 2 + (y - cy) ** 2)  # distance from center
-    mask = np.apply_along_axis(adjust_length, 0, mask)
-    mask = np.clip(mask, 0, 1)
-    mask = np.round(255 * (1 - mask))  # invert: distance to center
-
-    return Image.fromarray(np.uint8(mask))
 
 
 def _1977(im):
@@ -97,7 +72,7 @@ def brooklyn(im):
     cs1 = util.fill(cb.size, [168, 223, 193])
     cs2 = util.fill(cb.size, [196, 183, 200])
 
-    gradient_mask = _radial_gradient_mask(cb.size, length=.7)
+    gradient_mask = util.radial_gradient_mask(cb.size, length=.7)
     cs = Image.composite(cs1, cs2, gradient_mask)
     cs = Image4Layer.overlay(cb, cs)
 
@@ -128,14 +103,10 @@ def clarendon(im):
 def earlybird(im):
     cb = im.convert('RGB')
 
-    cs1 = util.fill(cb.size, [208, 186, 142])
-    cs2 = util.fill(cb.size, [54, 3, 9])
+    cs = util.radial_gradient(cb.size, [208, 186, 142], [54, 3, 9], length=.2)
+
+    gradient_mask2 = util.radial_gradient_mask(cb.size, length=.85)
     cs3 = util.fill(cb.size, [29, 2, 16])
-
-    gradient_mask1 = _radial_gradient_mask(cb.size, length=.2)
-    cs = Image.composite(cs1, cs2, gradient_mask1)
-
-    gradient_mask2 = _radial_gradient_mask(cb.size, length=.85)
     cs = Image.composite(cs, cs3, gradient_mask2)
     cr = Image4Layer.overlay(cb, cs)
 
@@ -160,11 +131,8 @@ def gingham(im):
 def hudson(im):
     cb = im.convert('RGB')
 
-    cs1 = util.fill(cb.size, [166, 177, 255])
-    cs2 = util.fill(cb.size, [52, 33, 52])
-
-    gradient_mask = _radial_gradient_mask(cb.size, length=.5)
-    cs = Image.composite(cs1, cs2, gradient_mask)
+    cs = util.radial_gradient(
+            cb.size, [166, 177, 255], [52, 33, 52], length=.5)
     cs = ImageChops.multiply(cb, cs)
     cr = Image.blend(cb, cs, .5)
 
@@ -217,7 +185,7 @@ def lofi(im):
     cs = util.fill(cb.size, [34, 34, 34])
     cs = ImageChops.multiply(cb, cs)
 
-    mask = _radial_gradient_mask(cb.size, length=.7, end=1.5)
+    mask = util.radial_gradient_mask(cb.size, length=.7, scale=1.5)
     cr = Image.composite(cb, cs, mask)
 
     cr = ImageEnhance.Color(cr).enhance(1.1)
@@ -248,11 +216,15 @@ def mayfair(im):
     cs2 = util.fill(cb.size, [255, 200, 200])
     cs3 = util.fill(cb.size, [17, 17, 17])
 
-    gradient_mask1 = _radial_gradient_mask(cb.size)
+    mask_pos = (.4, .4)
+    mask_scale = .6
+
+    gradient_mask1 = util.radial_gradient_mask(
+            cb.size, scale=mask_scale, position=mask_pos)
     cs = Image.composite(cs1, cs2, gradient_mask1)
 
-    # TODO: improve gradient mask
-    gradient_mask2 = _radial_gradient_mask(cb.size, length=.3, end=.6)
+    gradient_mask2 = util.radial_gradient_mask(
+            cb.size, length=.3, scale=mask_scale, position=mask_pos)
     cs = Image.composite(cs, cs3, gradient_mask2)
     cs = Image4Layer.overlay(cb, cs)
 
@@ -338,7 +310,7 @@ def rise(im):
     cs2 = util.fill(cb.size, [50, 30, 7])
     cs3 = util.fill(cb.size, [232, 197, 152])
 
-    gradient_mask1 = _radial_gradient_mask(cb.size, length=.55)
+    gradient_mask1 = util.radial_gradient_mask(cb.size, length=.55)
     cs = Image.composite(cs1, cs2, gradient_mask1)
     cs = ImageChops.multiply(cb, cs)
 
@@ -352,7 +324,7 @@ def rise(im):
     cs = Image.composite(cb, cs, alpha_mask2)
 
     # TODO
-    alpha_mask3 = _radial_gradient_mask(cb.size, end=.9)
+    alpha_mask3 = util.radial_gradient_mask(cb.size, scale=.9)
     gradient_mask2 = ImageChops.invert(alpha_mask3)
     cs_ = Image.composite(cs, cs3, gradient_mask2)
 
@@ -406,11 +378,7 @@ def stinson(im):
 def toaster(im):
     cb = im.convert('RGB')
 
-    cs1 = util.fill(cb.size, [128, 78, 15])
-    cs2 = util.fill(cb.size, [59, 0, 59])
-
-    gradient_mask = _radial_gradient_mask(cb.size)
-    cs = Image.composite(cs1, cs2, gradient_mask)
+    cs = util.radial_gradient(cb.size, [128, 78, 15], [59, 0, 59])
     cr = ImageChops.screen(cb, cs)
 
     cr = ImageEnhance.Contrast(cr).enhance(1.5)
@@ -451,11 +419,10 @@ def walden(im):
 def willow(im):
     cb = im.convert('RGB')
 
-    cs1 = util.fill(cb.size, [212, 169, 175])
-    cs2 = util.fill(cb.size, [0, 0, 0])
-
-    gradient_mask = _radial_gradient_mask(cb.size, length=.55, end=1.5)
-    cs = Image.composite(cs1, cs2, gradient_mask)
+    cs = util.radial_gradient(
+            cb.size,
+            [212, 169, 175], [0, 0, 0],
+            length=.55, scale=1.5)
     cs = Image4Layer.overlay(cb, cs)
 
     cs3 = util.fill(cb.size, [216, 205, 203])
@@ -474,7 +441,7 @@ def xpro2(im):
     cs1 = util.fill(cb.size, [230, 231, 224])
     cs2 = util.fill(cb.size, [43, 42, 161])
 
-    gradient_mask = _radial_gradient_mask(cb.size, length=.4, end=1.1)
+    gradient_mask = util.radial_gradient_mask(cb.size, length=.4, scale=1.1)
     cs = Image.composite(cs1, cs2, gradient_mask)
     cs = Image4Layer.color_burn(cb, cs)
 
