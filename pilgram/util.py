@@ -99,11 +99,4 @@ def radial_gradient(shape, start, end, **kwargs):
 
 
 def scale_color(im, scale=1):
-    matrix = [
-        scale, 0,     0,     0,
-        0,     scale, 0,     0,
-        0,     0,     scale, 0,
-    ]
-
-    im_ = im.copy()
-    return im_.convert('RGB').convert(im.mode, matrix)
+    return im.point(lambda x: round(x * scale))
