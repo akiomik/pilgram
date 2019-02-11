@@ -40,21 +40,12 @@ def sepia(im, amount=1):
     """
 
     assert amount >= 0
-    amount = 1 - min(amount, 1)
 
+    amount = 1 - min(amount, 1)
     matrix = [
-        .393 + .607 * amount,
-        .769 - .769 * amount,
-        .189 - .189 * amount,
-        0,
-        .349 - .349 * amount,
-        .686 + .314 * amount,
-        .168 - .168 * amount,
-        0,
-        .272 - .272 * amount,
-        .534 - .534 * amount,
-        .131 + .869 * amount,
-        0,
+        .393 + .607 * amount, .769 - .769 * amount, .189 - .189 * amount, 0,
+        .349 - .349 * amount, .686 + .314 * amount, .168 - .168 * amount, 0,
+        .272 - .272 * amount, .534 - .534 * amount, .131 + .869 * amount, 0,
     ]
 
     return im.convert('RGB').convert('RGB', matrix).convert(im.mode)

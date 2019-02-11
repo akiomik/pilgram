@@ -40,21 +40,12 @@ def grayscale(im, amount=1):
     """
 
     assert amount >= 0
-    amount = 1 - min(amount, 1)
 
+    g = 1 - min(amount, 1)
     matrix = [
-        .2126 + .7874 * amount,
-        .7152 - .7152 * amount,
-        .0722 - .0722 * amount,
-        0,
-        .2126 - .2126 * amount,
-        .7152 + .2848 * amount,
-        .0722 - .0722 * amount,
-        0,
-        .2126 - .2126 * amount,
-        .7152 - .7152 * amount,
-        .0722 + .9278 * amount,
-        0,
+        .2126 + .7874 * g, .7152 - .7152 * g, .0722 - .0722 * g, 0,
+        .2126 - .2126 * g, .7152 + .2848 * g, .0722 - .0722 * g, 0,
+        .2126 - .2126 * g, .7152 - .7152 * g, .0722 + .9278 * g, 0,
     ]
 
     return im.convert('RGB').convert('RGB', matrix).convert(im.mode)
