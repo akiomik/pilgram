@@ -19,6 +19,15 @@ from pilgram import util
 
 
 def stinson(im):
+    """Applies Stinson filter.
+
+    Arguments:
+        im: An input image.
+
+    Returns:
+        The output image.
+    """
+
     cb = im.convert('RGB')
 
     cs = util.fill(cb.size, [240, 149, 128])

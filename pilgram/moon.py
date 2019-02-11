@@ -20,6 +20,15 @@ from pilgram import util
 
 
 def moon(im):
+    """Applies Moon filter.
+
+    Arguments:
+        im: An input image.
+
+    Returns:
+        The output image.
+    """
+
     cb = im.convert('RGB')
 
     cs1 = util.fill(cb.size, [160, 160, 160])

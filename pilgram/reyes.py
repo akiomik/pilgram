@@ -20,6 +20,15 @@ from pilgram import util
 
 
 def reyes(im):
+    """Applies Reyes filter.
+
+    Arguments:
+        im: An input image.
+
+    Returns:
+        The output image.
+    """
+
     cb = im.convert('RGB')
 
     cs = util.fill(cb.size, [239, 205, 173])

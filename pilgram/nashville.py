@@ -19,6 +19,15 @@ from pilgram import util
 
 
 def nashville(im):
+    """Applies Nashville filter.
+
+    Arguments:
+        im: An input image.
+
+    Returns:
+        The output image.
+    """
+
     cb = im.convert('RGB')
 
     cs1 = util.fill(cb.size, [247, 176, 153])

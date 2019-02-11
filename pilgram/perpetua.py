@@ -19,6 +19,15 @@ from pilgram import util
 
 
 def perpetua(im):
+    """Applies Perpetua filter.
+
+    Arguments:
+        im: An input image.
+
+    Returns:
+        The output image.
+    """
+
     cb = im.convert('RGB')
 
     cs = util.linear_gradient(cb.size, [0, 91, 154], [230, 193, 61], False)

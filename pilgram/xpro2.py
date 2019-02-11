@@ -20,6 +20,15 @@ from pilgram import util
 
 
 def xpro2(im):
+    """Applies X-pro II filter.
+
+    Arguments:
+        im: An input image.
+
+    Returns:
+        The output image.
+    """
+
     cb = im.convert('RGB')
 
     cs1 = util.fill(cb.size, [230, 231, 224])

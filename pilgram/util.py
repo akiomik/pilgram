@@ -20,6 +20,19 @@ from PIL import Image
 
 
 def fill(shape, color):
+    """Fills new image with the color.
+
+    Arguments:
+        shape: A tuple/list of 2 integers. The shape of output image.
+        color: A tuple/list of 3 integers. The fill color.
+
+    Returns:
+        The output image.
+
+    Raises:
+        AssertionError: if `shape` and/or `color` have invalid size.
+    """
+
     assert len(shape) == 2
     assert len(color) == 3
 
@@ -31,6 +44,28 @@ def fill(shape, color):
 
 
 def linear_gradient_mask(shape, start=1, end=0, is_horizontal=True):
+    """Creates mask image for linear gradient image.
+
+    Arguments:
+        shape: A tuple/list of 2 integers. The shape of output image.
+        start: An optional integer/float.
+            The left alpha when `is_horizontal` is True,
+            The top alpha otherwise.
+            Defaults to 1.
+        end: An optional integer/float.
+            The right alpha when `is_horizontal` is True,
+            The bottom alpha otherwise.
+            Defaults to 0.
+        is_horizontal: A optional boolean. The direction of gradient line.
+            Left to right if True, top to bottom else.
+
+    Returns:
+        The mask image.
+
+    Raises:
+        AssertionError: if `shape`, `start` and/or `end` have invalid size.
+    """
+
     assert len(shape) == 2
 
     if is_horizontal:
@@ -47,6 +82,26 @@ def linear_gradient_mask(shape, start=1, end=0, is_horizontal=True):
 
 
 def linear_gradient(shape, start, end, is_horizontal=True):
+    """Creates linear gradient image.
+
+    Arguments:
+        shape: A tuple/list of 2 integers. The shape of output image.
+        start: A tuple/list of 3 integers.
+            The left color when `is_horizontal` is True,
+            The top color otherwise.
+        end: A tuple/list of 3 integers.
+            The right color when `is_horizontal` is True,
+            The bottom color otherwise.
+        is_horizontal: An optional boolean. The direction of gradient line.
+            Left to right if True, top to bottom else.
+
+    Returns:
+        The output image.
+
+    Raises:
+        AssertionError: if `shape`, `start` and/or `end` have invalid size.
+    """
+
     assert len(shape) == 2
     assert len(start) == 3
     assert len(end) == 3
@@ -60,6 +115,25 @@ def linear_gradient(shape, start, end, is_horizontal=True):
 
 # TODO: add start and end value as parameters
 def radial_gradient_mask(shape, length=0, scale=1, position=(.5, .5)):
+    """Creates mask image for radial gradient image.
+
+    Arguments:
+        shape: A tuple/list of 2 integers. The shape of mask image.
+        length: An optional integer/float. The percentage of inner color stop.
+            Defaults to 0.
+        scale: An optional integer/float. The percentage of ending shape.
+            Defaults to 1.
+        position: An optional tuple/list of two floats.
+            The percentage of center position for the circle.
+            Defaults to the center (0.5, 0.5).
+
+    Returns:
+        The mask image.
+
+    Raises:
+        AssertionError: if `scale` equals `length`.
+    """
+
     # TODO: support scale <= length
     assert scale != length
 
@@ -89,6 +163,20 @@ def radial_gradient_mask(shape, length=0, scale=1, position=(.5, .5)):
 
 # TODO: improve reproduction of gradient when multiple color stops
 def radial_gradient(shape, *color_stops, **kwargs):
+    """Creates radial gradient image.
+
+    Arguments:
+        shape: A tuple/list of 2 integers. The shape of output image.
+        color_stops: A tuple/list of color stops.
+            The color stop is a pair of RGB color and length.
+
+    Returns:
+        The output image.
+
+    Raises:
+        AssertionError: if `shape` and/or `color_stop` have invalid size.
+    """
+
     assert len(shape) == 2
     assert len(color_stops) >= 2
     for color_stop in color_stops:
@@ -110,4 +198,15 @@ def radial_gradient(shape, *color_stops, **kwargs):
 
 
 def scale_color(im, scale=1):
+    """Scales colors of input image.
+
+    Arguments:
+        im: An input image.
+        scale: An optional integer or float. The scaling factor.
+            Defaults to 1.
+
+    Returns:
+        The output image.
+    """
+
     return im.point(lambda x: round(x * scale))

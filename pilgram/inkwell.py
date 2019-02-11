@@ -18,6 +18,15 @@ from pilgram import css
 
 
 def inkwell(im):
+    """Applies Inkwell filter.
+
+    Arguments:
+        im: An input image.
+
+    Returns:
+        The output image.
+    """
+
     cb = im.convert('RGB')
 
     cr = css.sepia(cb, .3)

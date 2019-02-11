@@ -20,6 +20,15 @@ from pilgram import util
 
 
 def rise(im):
+    """Applies Rise filter.
+
+    Arguments:
+        im: An input image.
+
+    Returns:
+        The output image.
+    """
+
     cb = im.convert('RGB')
 
     cs1 = util.fill(cb.size, [236, 205, 169])

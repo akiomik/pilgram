@@ -20,6 +20,15 @@ from pilgram import util
 
 
 def valencia(im):
+    """Applies Valencia filter.
+
+    Arguments:
+        im: An input image.
+
+    Returns:
+        The output image.
+    """
+
     cb = im.convert('RGB')
 
     cs = util.fill(cb.size, [58, 3, 57])

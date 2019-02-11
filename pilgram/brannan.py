@@ -19,6 +19,15 @@ from pilgram import util
 
 
 def brannan(im):
+    """Applies Brannan filter.
+
+    Arguments:
+        im: An input image.
+
+    Returns:
+        The output image.
+    """
+
     cb = im.convert('RGB')
 
     cs = util.fill(cb.size, [161, 44, 199])

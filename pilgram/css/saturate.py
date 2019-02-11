@@ -14,10 +14,33 @@
 
 
 def saturate(im, amount=1):
+    """Saturates image.
+
+    A saturate operation is equivalent to the following matrix operation:
+
+        | R' |     |0.213+0.787s  0.715-0.715s  0.072-0.072s 0  0 |   | R |
+        | G' |     |0.213-0.213s  0.715+0.285s  0.072-0.072s 0  0 |   | G |
+        | B' |  =  |0.213-0.213s  0.715-0.715s  0.072+0.928s 0  0 | * | B |
+        | A' |     |           0            0             0  1  0 |   | A |
+        | 1  |     |           0            0             0  0  1 |   | 1 |
+
+    See the W3C document:
+    https://www.w3.org/TR/SVG11/filters.html#feColorMatrixValuesAttribute
+
+    Arguments:
+        im: An input image.
+        amount: An optional integer/float. The filter amount (percentage).
+            Defaults to 1.
+
+    Returns:
+        The output image.
+
+    Raises:
+        AssertionError: if `amount` is less than 0.
+    """
+
     assert amount >= 0
 
-    # matrix from a w3c document:
-    # https://www.w3.org/TR/SVG11/filters.html#feColorMatrixValuesAttribute
     matrix = [
         .213 + .787 * amount,
         .715 - .715 * amount,

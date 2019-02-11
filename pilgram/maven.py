@@ -20,6 +20,15 @@ from pilgram import util
 
 
 def maven(im):
+    """Applies Maven filter.
+
+    Arguments:
+        im: An input image.
+
+    Returns:
+        The output image.
+    """
+
     cb = im.convert('RGB')
 
     cs = util.fill(cb.size, [3, 230, 26])

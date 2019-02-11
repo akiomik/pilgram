@@ -18,6 +18,15 @@ from pilgram import util
 
 
 def _1977(im):
+    """Applies 1977 filter.
+
+    Arguments:
+        im: An input image.
+
+    Returns:
+        The output image.
+    """
+
     cb = im.convert('RGB')
 
     cs = util.fill(cb.size, [243, 106, 188])

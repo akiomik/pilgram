@@ -18,6 +18,15 @@ from pilgram import util
 
 
 def kelvin(im):
+    """Applies Kelvin filter.
+
+    Arguments:
+        im: An input image.
+
+    Returns:
+        The output image.
+    """
+
     cb = im.convert('RGB')
 
     cs1 = util.fill(cb.size, [56, 44, 52])

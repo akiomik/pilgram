@@ -18,6 +18,15 @@ from pilgram import util
 
 
 def hudson(im):
+    """Applies Hudson filter.
+
+    Arguments:
+        im: An input image.
+
+    Returns:
+        The output image.
+    """
+
     cb = im.convert('RGB')
 
     cs = util.radial_gradient(

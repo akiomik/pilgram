@@ -19,6 +19,15 @@ from pilgram import util
 
 
 def aden(im):
+    """Applies Aden filter.
+
+    Arguments:
+        im: An input image.
+
+    Returns:
+        The output image.
+    """
+
     cb = im.convert('RGB')
 
     cs = util.fill(cb.size, [66, 10, 14])

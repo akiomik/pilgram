@@ -20,6 +20,15 @@ from pilgram import util
 
 
 def gingham(im):
+    """Applies Gingham filter.
+
+    Arguments:
+        im: An input image.
+
+    Returns:
+        The output image.
+    """
+
     cb = im.convert('RGB')
 
     cs = util.fill(cb.size, [230, 230, 250])

@@ -18,6 +18,15 @@ from pilgram import util
 
 
 def lofi(im):
+    """Applies Lo-Fi filter.
+
+    Arguments:
+        im: An input image.
+
+    Returns:
+        The output image.
+    """
+
     cb = im.convert('RGB')
 
     cs = util.fill(cb.size, [34, 34, 34])

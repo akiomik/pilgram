@@ -14,11 +14,34 @@
 
 
 def grayscale(im, amount=1):
+    """Converts image to grayscale.
+
+    A grayscale operation is equivalent to the following matrix operation:
+
+    | R' |     |0.2126+0.7874g  0.7152-0.7152g  0.0722-0.0722g 0  0 |   | R |
+    | G' |     |0.2126-0.2126g  0.7152+0.2848g  0.0722-0.0722g 0  0 |   | G |
+    | B' |  =  |0.2126-0.2126g  0.7152-0.7152g  0.0722+0.9278g 0  0 | * | B |
+    | A' |     |            0               0               0  1  0 |   | A |
+    | 1  |     |            0               0               0  0  1 |   | 1 |
+
+    See the W3C document:
+    https://www.w3.org/TR/filter-effects-1/#grayscaleEquivalent
+
+    Arguments:
+        im: An input image.
+        amount: An optional integer/float. The filter amount (percentage).
+            Defaults to 1.
+
+    Returns:
+        The output image.
+
+    Raises:
+        AssertionError: if `amount` is less than 0.
+    """
+
     assert amount >= 0
     amount = 1 - min(amount, 1)
 
-    # matrix from a w3c document:
-    # https://www.w3.org/TR/filter-effects-1/#grayscaleEquivalent
     matrix = [
         .2126 + .7874 * amount,
         .7152 - .7152 * amount,

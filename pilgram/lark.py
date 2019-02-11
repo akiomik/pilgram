@@ -19,6 +19,15 @@ from pilgram import util
 
 
 def lark(im):
+    """Applies Lark filter.
+
+    Arguments:
+        im: An input image.
+
+    Returns:
+        The output image.
+    """
+
     cb = im.convert('RGB')
 
     cs1 = util.fill(cb.size, [34, 37, 63])

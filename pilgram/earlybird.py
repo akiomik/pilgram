@@ -20,6 +20,15 @@ from pilgram import util
 
 
 def earlybird(im):
+    """Applies Earlybird filter.
+
+    Arguments:
+        im: An input image.
+
+    Returns:
+        The output image.
+    """
+
     cb = im.convert('RGB')
 
     # TODO: improve reproduction of gradient when multiple color stops

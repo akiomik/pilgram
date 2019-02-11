@@ -20,6 +20,15 @@ from pilgram import util
 
 
 def willow(im):
+    """Applies Willow filter.
+
+    Arguments:
+        im: An input image.
+
+    Returns:
+        The output image.
+    """
+
     cb = im.convert('RGB')
 
     cs = util.radial_gradient(

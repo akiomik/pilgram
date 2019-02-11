@@ -19,6 +19,15 @@ from pilgram import util
 
 
 def walden(im):
+    """Applies Walden filter.
+
+    Arguments:
+        im: An input image.
+
+    Returns:
+        The output image.
+    """
+
     cb = im.convert('RGB')
 
     cs = util.fill(cb.size, [0, 68, 204])

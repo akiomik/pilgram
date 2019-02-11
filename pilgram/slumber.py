@@ -19,6 +19,15 @@ from pilgram import util
 
 
 def slumber(im):
+    """Applies Slumber filter.
+
+    Arguments:
+        im: An input image.
+
+    Returns:
+        The output image.
+    """
+
     cb = im.convert('RGB')
 
     cs1 = util.fill(cb.size, [69, 41, 12])

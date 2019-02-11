@@ -19,6 +19,15 @@ from pilgram import util
 
 
 def clarendon(im):
+    """Applies Clarendon filter.
+
+    Arguments:
+        im: An input image.
+
+    Returns:
+        The output image.
+    """
+
     cb = im.convert('RGB')
 
     cs = util.fill(cb.size, [127, 187, 227])

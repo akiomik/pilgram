@@ -20,6 +20,15 @@ from pilgram import util
 
 
 def mayfair(im):
+    """Applies Mayfair filter.
+
+    Arguments:
+        im: An input image.
+
+    Returns:
+        The output image.
+    """
+
     cb = im.convert('RGB')
 
     cs1 = util.fill(cb.size, [255, 255, 255])

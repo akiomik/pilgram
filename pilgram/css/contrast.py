@@ -14,8 +14,31 @@
 
 
 def contrast(im, amount=1):
+    """Adjusts the contrast.
+
+    A contrast operation is equivalent to the following matrix operation:
+
+        | R' |     | c  0  0  0  -0.5c+0.5 |   | R |
+        | G' |     | 0  c  0  0  -0.5c+0.5 |   | G |
+        | B' |  =  | 0  0  c  0  -0.5c+0.5 | * | B |
+        | A' |     | 0  0  0  1          0 |   | A |
+        | 1  |     | 0  0  0  0          1 |   | 1 |
+
+    See the W3C document:
+    https://www.w3.org/TR/filter-effects-1/#contrastEquivalent.
+
+    Arguments:
+        im: An input image.
+        amount: An optional integer/float. The filter amount (percentage).
+            Defaults to 1.
+
+    Returns:
+        The output image.
+
+    Raises:
+        AssertionError: if `amount` is less than 0.
+    """
+
     assert amount >= 0
 
-    # expression from a w3c document:
-    # https://www.w3.org/TR/filter-effects-1/#contrastEquivalent
     return im.point(lambda x: round(x * amount + 255 * (-0.5 * amount + 0.5)))

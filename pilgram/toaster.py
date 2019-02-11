@@ -18,6 +18,15 @@ from pilgram import util
 
 
 def toaster(im):
+    """Applies Toaster filter.
+
+    Arguments:
+        im: An input image.
+
+    Returns:
+        The output image.
+    """
+
     cb = im.convert('RGB')
 
     cs = util.radial_gradient(cb.size, ([128, 78, 15], 0), ([59, 0, 59], 1))

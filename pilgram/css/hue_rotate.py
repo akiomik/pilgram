@@ -16,11 +16,43 @@ import math
 
 
 def hue_rotate(im, deg=0):
+    """Applies hue rotation.
+
+    A hue rotate operation is equivalent to the following matrix operation:
+
+        | R' |     | a00  a01  a02  0  0 |   | R |
+        | G' |     | a10  a11  a12  0  0 |   | G |
+        | B' |  =  | a20  a21  a22  0  0 | * | B |
+        | A' |     | 0    0    0    1  0 |   | A |
+        | 1  |     | 0    0    0    0  1 |   | 1 |
+
+    where
+
+        | a00 a01 a02 |    [+0.213 +0.715 +0.072]
+        | a10 a11 a12 | =  [+0.213 +0.715 +0.072] +
+        | a20 a21 a22 |    [+0.213 +0.715 +0.072]
+                                [+0.787 -0.715 -0.072]
+        cos(hueRotate value) *  [-0.213 +0.285 -0.072] +
+                                [-0.213 -0.715 +0.928]
+                                [-0.213 -0.715+0.928]
+        sin(hueRotate value) *  [+0.143 +0.140-0.283]
+                                [-0.787 +0.715+0.072]
+
+    See the W3C document:
+    https://www.w3.org/TR/SVG11/filters.html#feColorMatrixValuesAttribute
+
+    Arguments:
+        im: An input image.
+        amount: An optional integer/float. The hue rotate value (degrees).
+            Defaults to 0.
+
+    Returns:
+        The output image.
+    """
+
     cos_hue = math.cos(deg * math.pi / 180)
     sin_hue = math.sin(deg * math.pi / 180)
 
-    # matrix from a w3c document:
-    # https://www.w3.org/TR/SVG11/filters.html#feColorMatrixValuesAttribute
     matrix = [
         .213 + cos_hue * .787 - sin_hue * .213,
         .715 - cos_hue * .715 - sin_hue * .715,
