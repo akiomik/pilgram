@@ -36,4 +36,4 @@ def hue_rotate(im, deg=0):
         0,
     ]
 
-    return im.convert('RGB', matrix)
+    return im.convert('RGB').convert('RGB', matrix).convert(im.mode)

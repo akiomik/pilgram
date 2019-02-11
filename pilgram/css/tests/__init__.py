@@ -11,27 +11,3 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
-
-def sepia(im, amount=1):
-    assert amount >= 0
-    amount = 1 - min(amount, 1)
-
-    # matrix from a w3c document:
-    # https://www.w3.org/TR/filter-effects-1/#sepiaEquivalent
-    matrix = [
-        .393 + .607 * amount,
-        .769 - .769 * amount,
-        .189 - .189 * amount,
-        0,
-        .349 - .349 * amount,
-        .686 + .314 * amount,
-        .168 - .168 * amount,
-        0,
-        .272 - .272 * amount,
-        .534 - .534 * amount,
-        .131 + .869 * amount,
-        0,
-    ]
-
-    return im.convert('RGB').convert('RGB', matrix).convert(im.mode)

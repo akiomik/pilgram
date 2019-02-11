@@ -34,4 +34,4 @@ def grayscale(im, amount=1):
         0,
     ]
 
-    return im.convert('RGB', matrix)
+    return im.convert('RGB').convert('RGB', matrix).convert(im.mode)

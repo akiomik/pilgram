@@ -15,7 +15,6 @@
 
 def saturate(im, amount=1):
     assert amount >= 0
-    amount = min(amount, 1)
 
     # matrix from a w3c document:
     # https://www.w3.org/TR/SVG11/filters.html#feColorMatrixValuesAttribute
@@ -34,4 +33,4 @@ def saturate(im, amount=1):
         0,
     ]
 
-    return im.convert('RGB', matrix)
+    return im.convert('RGB').convert('RGB', matrix).convert(im.mode)
