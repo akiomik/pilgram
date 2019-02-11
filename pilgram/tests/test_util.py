@@ -16,57 +16,53 @@ from pilgram import util
 
 
 def test_fill():
-    im = util.fill((4, 4), [0, 127, 255])
+    w, h = (4, 4)
+    im = util.fill((w, h), [0, 127, 255])
 
-    expected = [(0, 127, 255)] * (4 * 4)
-    actual = list(im.getdata())
-
-    assert actual == expected
+    assert list(im.getdata()) == [(0, 127, 255)] * (w * h)
+    assert im.size == (w, h)
+    assert im.mode == 'RGB'
 
 
 def test_linear_gradient_mask_horizontal():
-    mask = util.linear_gradient_mask((4, 4))
+    w, h = (4, 4)
+    mask = util.linear_gradient_mask((w, h))
 
-    expected = [255, 170, 85, 0] * 4
-    actual = list(mask.getdata())
-
-    assert actual == expected
+    assert list(mask.getdata()) == [255, 170, 85, 0] * h
+    assert mask.size == (w, h)
+    assert mask.mode == 'L'
 
 
 def test_linear_gradient_mask_vertical():
-    mask = util.linear_gradient_mask((4, 4), is_horizontal=False)
+    w, h = (4, 4)
+    mask = util.linear_gradient_mask((w, h), is_horizontal=False)
 
-    expected = [255] * 4 + [170] * 4 + [85] * 4 + [0] * 4
-    actual = list(mask.getdata())
-
-    assert actual == expected
+    assert list(mask.getdata()) == [255] * w + [170] * w + [85] * w + [0] * w
+    assert mask.size == (w, h)
+    assert mask.mode == 'L'
 
 
 def test_linear_gradient_mask_start_end():
+    w, h = (4, 4)
     start = 100 / 255
     end = 200 / 255
-    mask = util.linear_gradient_mask((4, 4), start=start, end=end)
+    mask = util.linear_gradient_mask((w, h), start=start, end=end)
 
-    expected = [100, 133, 167, 200] * 4
-    actual = list(mask.getdata())
-
-    assert actual == expected
+    assert list(mask.getdata()) == [100, 133, 167, 200] * h
+    assert mask.size == (w, h)
+    assert mask.mode == 'L'
 
 
 def test_linear_gradient():
+    w, h = (4, 4)
     black = [0] * 3
     white = [255] * 3
-    gradient = util.linear_gradient((4, 4), black, white)
+    gradient = util.linear_gradient((w, h), black, white)
+    expected_data = [(c,) * 3 for c in [0, 85, 170, 255]] * h
 
-    actual = list(gradient.getdata())
-    expected = [
-        (0, 0, 0),
-        (85, 85, 85),
-        (170, 170, 170),
-        (255, 255, 255),
-    ] * 4
-
-    assert actual == expected
+    assert list(gradient.getdata()) == expected_data
+    assert gradient.size == (w, h)
+    assert gradient.mode == 'RGB'
 
 
 def test_radial_gradient_mask():
@@ -78,9 +74,10 @@ def test_radial_gradient():
 
 
 def test_scale_color():
-    im = util.fill((4, 4), [0, 127, 255])
+    w, h = (4, 4)
+    im = util.fill((w, h), [0, 127, 255])
+    scaled_im = util.scale_color(im, .5)
 
-    expected = [(0, 64, 128)] * (4 * 4)
-    actual = list(util.scale_color(im, .5).getdata())
-
-    assert actual == expected
+    assert list(scaled_im.getdata()) == [(0, 64, 128)] * (w * h)
+    assert scaled_im.mode == im.mode
+    assert scaled_im.size == im.size
