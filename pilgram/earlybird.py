@@ -13,7 +13,7 @@
 # limitations under the License.
 
 from image4layer import Image4Layer
-from PIL import Image, ImageEnhance
+from PIL import ImageEnhance
 
 from pilgram import css
 from pilgram import util
@@ -22,11 +22,12 @@ from pilgram import util
 def earlybird(im):
     cb = im.convert('RGB')
 
-    cs = util.radial_gradient(cb.size, [208, 186, 142], [54, 3, 9], length=.2)
-
-    gradient_mask = util.radial_gradient_mask(cb.size, length=.85)
-    cs_ = util.fill(cb.size, [29, 2, 16])
-    cs = Image.composite(cs, cs_, gradient_mask)
+    # TODO: improve reproduction of gradient when multiple color stops
+    cs = util.radial_gradient(
+            cb.size,
+            ([208, 186, 142], .2),
+            ([54, 3, 9], .85),
+            ([29, 2, 16], 1))
     cr = Image4Layer.overlay(cb, cs)
 
     cr = ImageEnhance.Contrast(cr).enhance(.9)

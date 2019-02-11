@@ -24,15 +24,16 @@ def willow(im):
 
     cs = util.radial_gradient(
             cb.size,
-            [212, 169, 175], [0, 0, 0],
-            length=.55, scale=1.5)
+            ([212, 169, 175], .55),
+            ([0, 0, 0], 1.5))
     cs = Image4Layer.overlay(cb, cs)
 
     cs_ = util.fill(cb.size, [216, 205, 203])
     cr = Image4Layer.color(cs, cs_)
 
     cr = css.grayscale(cr, .5)
-    cr = ImageEnhance.Contrast(cr).enhance(.95)
+    cr = css.contrast(cr, .95)
+    # cr = ImageEnhance.Contrast(cr).enhance(.95)
     cr = ImageEnhance.Brightness(cr).enhance(.9)
 
     return cr.convert(im.mode)

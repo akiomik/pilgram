@@ -20,7 +20,7 @@ from pilgram import util
 def toaster(im):
     cb = im.convert('RGB')
 
-    cs = util.radial_gradient(cb.size, [128, 78, 15], [59, 0, 59])
+    cs = util.radial_gradient(cb.size, ([128, 78, 15], 0), ([59, 0, 59], 1))
     cr = ImageChops.screen(cb, cs)
 
     cr = ImageEnhance.Contrast(cr).enhance(1.5)

@@ -21,7 +21,9 @@ def hudson(im):
     cb = im.convert('RGB')
 
     cs = util.radial_gradient(
-            cb.size, [166, 177, 255], [52, 33, 52], length=.5)
+            cb.size,
+            ([166, 177, 255], .5),
+            ([52, 33, 52], 1))
     cs = ImageChops.multiply(cb, cs)
     cr = Image.blend(cb, cs, .5)
 

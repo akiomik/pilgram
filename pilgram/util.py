@@ -13,6 +13,7 @@
 # limitations under the License.
 
 import math
+from functools import reduce
 
 import numpy as np
 from PIL import Image
@@ -86,16 +87,26 @@ def radial_gradient_mask(shape, length=0, scale=1, position=(.5, .5)):
     return Image.fromarray(np.uint8(mask.round()))
 
 
-# TODO: support multiple color stops
-def radial_gradient(shape, start, end, **kwargs):
+# TODO: improve reproduction of gradient when multiple color stops
+def radial_gradient(shape, *color_stops, **kwargs):
     assert len(shape) == 2
-    assert len(start) == 3 and len(end) == 3
+    assert len(color_stops) >= 2
+    for color_stop in color_stops:
+        assert len(color_stop) == 2
+        assert len(color_stop[0]) == 3
 
-    im_start = fill(shape, start)
-    im_end = fill(shape, end)
-    mask = radial_gradient_mask(shape, **kwargs)
+    scale = color_stops[-1][1]  # use length of the last color stop as scale
+    color_stops = [(fill(shape, c), l) for c, l in color_stops]
 
-    return Image.composite(im_start, im_end, mask)
+    def compose(x, y):
+        kwargs_ = kwargs.copy()
+        kwargs_['length'] = x[1]
+        kwargs_['scale'] = scale
+        print(kwargs_)
+        mask = radial_gradient_mask(shape, **kwargs_)
+        return (Image.composite(x[0], y[0], mask), y[1])
+
+    return reduce(compose, color_stops)[0]
 
 
 def scale_color(im, scale=1):
