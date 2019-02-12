@@ -60,7 +60,7 @@ def rise(im):
 
     cr = ImageEnhance.Brightness(cr).enhance(1.05)
     cr = css.sepia(cr, .2)
-    cr = ImageEnhance.Contrast(cr).enhance(.9)
+    cr = css.contrast(cr, .9)
     cr = ImageEnhance.Color(cr).enhance(.9)
 
     return cr.convert(im.mode)

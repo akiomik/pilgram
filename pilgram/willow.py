@@ -42,7 +42,6 @@ def willow(im):
 
     cr = css.grayscale(cr, .5)
     cr = css.contrast(cr, .95)
-    # cr = ImageEnhance.Contrast(cr).enhance(.95)
     cr = ImageEnhance.Brightness(cr).enhance(.9)
 
     return cr.convert(im.mode)

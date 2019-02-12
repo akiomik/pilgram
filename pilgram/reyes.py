@@ -37,7 +37,7 @@ def reyes(im):
 
     cr = css.sepia(cr, .22)
     cr = ImageEnhance.Brightness(cr).enhance(1.1)
-    cr = ImageEnhance.Contrast(cr).enhance(.85)
+    cr = css.contrast(cr, .85)
     cr = ImageEnhance.Color(cr).enhance(.75)
 
     return cr.convert(im.mode)

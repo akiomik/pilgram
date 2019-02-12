@@ -15,6 +15,7 @@
 from image4layer import Image4Layer
 from PIL import Image, ImageEnhance
 
+from pilgram import css
 from pilgram import util
 
 
@@ -41,7 +42,7 @@ def brooklyn(im):
     alpha_mask = util.scale_color(gradient_mask, .6)
     cr = Image.composite(cb, cs, alpha_mask)
 
-    cr = ImageEnhance.Contrast(cr).enhance(.9)
+    cr = css.contrast(cr, .9)
     cr = ImageEnhance.Brightness(cr).enhance(1.1)
 
     return cr.convert(im.mode)

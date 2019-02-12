@@ -35,7 +35,7 @@ def valencia(im):
     cs = Image4Layer.exclusion(cb, cs)
     cr = Image.blend(cb, cs, .5)
 
-    cr = ImageEnhance.Contrast(cr).enhance(1.08)
+    cr = css.contrast(cr, 1.08)
     cr = ImageEnhance.Brightness(cr).enhance(1.08)
     cr = css.sepia(cr, .08)
 

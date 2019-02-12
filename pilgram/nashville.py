@@ -39,7 +39,7 @@ def nashville(im):
     cr = Image.blend(cs, cs_, .4)
 
     cr = css.sepia(cr, .2)
-    cr = ImageEnhance.Contrast(cr).enhance(1.2)
+    cr = css.contrast(cr, 1.2)
     cr = ImageEnhance.Brightness(cr).enhance(1.05)
     cr = ImageEnhance.Color(cr).enhance(1.2)
 

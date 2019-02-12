@@ -30,7 +30,7 @@ def inkwell(im):
     cb = im.convert('RGB')
 
     cr = css.sepia(cb, .3)
-    cr = ImageEnhance.Contrast(cr).enhance(1.1)
+    cr = css.contrast(cr, 1.1)
     cr = ImageEnhance.Brightness(cr).enhance(1.1)
     cr = css.grayscale(cr)
 

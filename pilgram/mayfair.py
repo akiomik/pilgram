@@ -16,6 +16,7 @@
 from image4layer import Image4Layer
 from PIL import Image, ImageEnhance
 
+from pilgram import css
 from pilgram import util
 
 
@@ -56,7 +57,7 @@ def mayfair(im):
     cs = Image.composite(cb, cs, alpha_mask2)
     cr = Image.blend(cb, cs, .4)
 
-    cr = ImageEnhance.Contrast(cr).enhance(1.1)
+    cr = css.contrast(cr, 1.1)
     cr = ImageEnhance.Color(cr).enhance(1.1)
 
     return cr.convert(im.mode)

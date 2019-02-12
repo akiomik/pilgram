@@ -37,7 +37,7 @@ def maven(im):
 
     cr = css.sepia(cr, .25)
     cr = ImageEnhance.Brightness(cr).enhance(.95)
-    cr = ImageEnhance.Contrast(cr).enhance(.95)
+    cr = css.contrast(cr, .95)
     cr = ImageEnhance.Color(cr).enhance(1.5)
 
     return cr.convert(im.mode)

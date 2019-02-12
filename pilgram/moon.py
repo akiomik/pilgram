@@ -38,7 +38,7 @@ def moon(im):
     cr = ImageChops.lighter(cs, cs2)
 
     cr = css.grayscale(cr)
-    cr = ImageEnhance.Contrast(cr).enhance(1.1)
+    cr = css.contrast(cr, 1.1)
     cr = ImageEnhance.Brightness(cr).enhance(1.1)
 
     return cr.convert(im.mode)

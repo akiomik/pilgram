@@ -14,6 +14,7 @@
 
 from PIL import Image, ImageEnhance, ImageChops
 
+from pilgram import css
 from pilgram import util
 
 
@@ -33,7 +34,7 @@ def _1977(im):
     cs = ImageChops.screen(cb, cs)
     cr = Image.blend(cb, cs, .3)
 
-    cr = ImageEnhance.Contrast(cr).enhance(1.1)
+    cr = css.contrast(cr, 1.1)
     cr = ImageEnhance.Brightness(cr).enhance(1.1)
     cr = ImageEnhance.Color(cr).enhance(1.3)
 

@@ -15,6 +15,7 @@
 from image4layer import Image4Layer
 from PIL import Image, ImageEnhance
 
+from pilgram import css
 from pilgram import util
 
 
@@ -34,7 +35,7 @@ def clarendon(im):
     cs = Image4Layer.overlay(cb, cs)
     cr = Image.blend(cb, cs, .2)
 
-    cr = ImageEnhance.Contrast(cr).enhance(1.2)
+    cr = css.contrast(cr, 1.2)
     cr = ImageEnhance.Color(cr).enhance(1.35)
 
     return cr.convert(im.mode)

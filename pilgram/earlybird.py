@@ -13,7 +13,6 @@
 # limitations under the License.
 
 from image4layer import Image4Layer
-from PIL import ImageEnhance
 
 from pilgram import css
 from pilgram import util
@@ -39,7 +38,7 @@ def earlybird(im):
             ([29, 2, 16], 1))
     cr = Image4Layer.overlay(cb, cs)
 
-    cr = ImageEnhance.Contrast(cr).enhance(.9)
+    cr = css.contrast(cr, .9)
     cr = css.sepia(cr, .2)
 
     return cr.convert(im.mode)

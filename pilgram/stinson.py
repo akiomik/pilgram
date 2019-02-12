@@ -15,6 +15,7 @@
 from image4layer import Image4Layer
 from PIL import Image, ImageEnhance
 
+from pilgram import css
 from pilgram import util
 
 
@@ -34,7 +35,7 @@ def stinson(im):
     cs = Image4Layer.soft_light(cb, cs)
     cr = Image.blend(cb, cs, .2)
 
-    cr = ImageEnhance.Contrast(cr).enhance(.75)
+    cr = css.contrast(cr, .75)
     cr = ImageEnhance.Color(cr).enhance(.85)
     cr = ImageEnhance.Brightness(cr).enhance(1.15)
 

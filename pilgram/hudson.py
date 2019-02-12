@@ -14,6 +14,7 @@
 
 from PIL import Image, ImageEnhance, ImageChops
 
+from pilgram import css
 from pilgram import util
 
 
@@ -37,7 +38,7 @@ def hudson(im):
     cr = Image.blend(cb, cs, .5)
 
     cr = ImageEnhance.Brightness(cr).enhance(1.2)
-    cr = ImageEnhance.Contrast(cr).enhance(.9)
+    cr = css.contrast(cr, .9)
     cr = ImageEnhance.Color(cr).enhance(1.1)
 
     return cr.convert(im.mode)

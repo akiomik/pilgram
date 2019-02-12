@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from PIL import Image, ImageEnhance, ImageChops
+from PIL import Image, ImageChops
 
 from pilgram import css
 from pilgram import util
@@ -35,6 +35,6 @@ def brannan(im):
     cr = Image.blend(cb, cs, .31)
 
     cr = css.sepia(cr, .5)
-    cr = ImageEnhance.Contrast(cr).enhance(1.4)
+    cr = css.contrast(cr, 1.4)
 
     return cr.convert(im.mode)

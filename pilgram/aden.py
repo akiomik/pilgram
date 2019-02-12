@@ -37,7 +37,7 @@ def aden(im):
     cr = Image.composite(cb, cs, alpha_mask)
 
     cr = css.hue_rotate(cr, -20)
-    cr = ImageEnhance.Contrast(cr).enhance(.9)
+    cr = css.contrast(cr, .9)
     cr = ImageEnhance.Color(cr).enhance(.85)
     cr = ImageEnhance.Brightness(cr).enhance(1.2)
 

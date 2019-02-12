@@ -15,6 +15,7 @@
 from PIL import Image, ImageEnhance, ImageChops
 
 from pilgram import util
+from pilgram import css
 
 
 def lofi(im):
@@ -36,6 +37,6 @@ def lofi(im):
     cr = Image.composite(cb, cs, mask)
 
     cr = ImageEnhance.Color(cr).enhance(1.1)
-    cr = ImageEnhance.Contrast(cr).enhance(1.5)
+    cr = css.contrast(cr, 1.5)
 
     return cr.convert(im.mode)
