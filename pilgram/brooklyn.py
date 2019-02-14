@@ -32,15 +32,14 @@ def brooklyn(im):
     cb = im.convert('RGB')
 
     cs1 = util.fill(cb.size, [168, 223, 193])
+    cm1 = Image4Layer.overlay(cb, cs1)
+    cm1 = Image.blend(cb, cm1, .4)
+
     cs2 = util.fill(cb.size, [196, 183, 200])
+    cm2 = Image4Layer.overlay(cb, cs2)
 
     gradient_mask = util.radial_gradient_mask(cb.size, length=.7)
-    cs = Image.composite(cs1, cs2, gradient_mask)
-    cs = Image4Layer.overlay(cb, cs)
-
-    # TODO: improve alpha masking
-    alpha_mask = util.scale_color(gradient_mask, .6)
-    cr = Image.composite(cb, cs, alpha_mask)
+    cr = Image.composite(cm1, cm2, gradient_mask)
 
     cr = css.contrast(cr, .9)
     cr = ImageEnhance.Brightness(cr).enhance(1.1)
