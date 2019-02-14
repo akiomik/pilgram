@@ -31,30 +31,25 @@ def mayfair(im):
     """
 
     cb = im.convert('RGB')
+    size = cb.size
+    pos = (.4, .4)
 
-    cs1 = util.fill(cb.size, [255, 255, 255])
-    cs2 = util.fill(cb.size, [255, 200, 200])
-    cs3 = util.fill(cb.size, [17, 17, 17])
+    cs1 = util.fill(size, [255, 255, 255])
+    cm1 = Image4Layer.overlay(cb, cs1)
+    cm1 = Image.blend(cb, cm1, .8)
 
-    mask_pos = (.4, .4)
-    mask_scale = .6
+    cs2 = util.fill(size, [255, 200, 200])
+    cm2 = Image4Layer.overlay(cb, cs2)
+    cm2 = Image.blend(cb, cm2, .6)
 
-    gradient_mask1 = util.radial_gradient_mask(
-            cb.size, scale=mask_scale, position=mask_pos)
-    cs = Image.composite(cs1, cs2, gradient_mask1)
+    cs3 = util.fill(size, [17, 17, 17])
+    cm3 = Image4Layer.overlay(cb, cs3)
 
-    gradient_mask2 = util.radial_gradient_mask(
-            cb.size, length=.3, scale=mask_scale, position=mask_pos)
-    cs = Image.composite(cs, cs3, gradient_mask2)
-    cs = Image4Layer.overlay(cb, cs)
+    mask1 = util.radial_gradient_mask(size, scale=.3, position=pos)
+    cs = Image.composite(cm1, cm2, mask1)
 
-    # TODO: improve alpha masking
-    alpha_mask1 = util.scale_color(gradient_mask1, .2)
-    cs = Image.composite(cb, cs, alpha_mask1)
-
-    # TODO: improve alpha masking
-    alpha_mask2 = util.scale_color(gradient_mask2, .4)
-    cs = Image.composite(cb, cs, alpha_mask2)
+    mask2 = util.radial_gradient_mask(size, length=.3, scale=.6, position=pos)
+    cs = Image.composite(cs, cm3, mask2)
     cr = Image.blend(cb, cs, .4)
 
     cr = css.contrast(cr, 1.1)
