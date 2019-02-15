@@ -113,7 +113,6 @@ def linear_gradient(shape, start, end, is_horizontal=True):
     return Image.composite(im_start, im_end, mask)
 
 
-# TODO: add start and end value as parameters
 def radial_gradient_mask(shape, length=0, scale=1, position=(.5, .5)):
     """Creates mask image for radial gradient image.
 
@@ -129,13 +128,7 @@ def radial_gradient_mask(shape, length=0, scale=1, position=(.5, .5)):
 
     Returns:
         The mask image.
-
-    Raises:
-        AssertionError: if `scale` equals `length`.
     """
-
-    # TODO: support scale <= length
-    assert scale != length
 
     if (length >= 1):
         return Image.new('L', shape, 255)
@@ -150,9 +143,10 @@ def radial_gradient_mask(shape, length=0, scale=1, position=(.5, .5)):
     r = math.sqrt((w / 2) ** 2 + (h / 2) ** 2) * r_scale
 
     def adjust_length(x):
-        return ((x / r) - length) / (scale - length)
+        base = max(scale - length, 0.001)  # avoid a division by zero
+        return (x - length) / base
 
-    mask = np.sqrt((x - cx) ** 2 + (y - cy) ** 2)  # distance from center
+    mask = np.sqrt((x - cx) ** 2 + (y - cy) ** 2) / r  # distance from center
     mask = np.apply_along_axis(adjust_length, 0, mask)
     mask = 1 - mask  # invert: distance to center
     mask *= 255
@@ -190,7 +184,6 @@ def radial_gradient(shape, *color_stops, **kwargs):
         kwargs_ = kwargs.copy()
         kwargs_['length'] = x[1]
         kwargs_['scale'] = scale
-        print(kwargs_)
         mask = radial_gradient_mask(shape, **kwargs_)
         return (Image.composite(x[0], y[0], mask), y[1])
 
