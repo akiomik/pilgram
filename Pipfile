@@ -4,13 +4,10 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
-flake8 = "*"
+pilgram = {editable = true,path = "."}
 pytest = "*"
-
-[packages]
-pillow = "*"
-numpy = "*"
-image4layer = "*"
+pytest-cov = "*"
+flake8 = "*"
 
 [requires]
 python_version = "3.7"

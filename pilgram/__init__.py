@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from pilgram._version import __version__
 from pilgram._1977 import _1977
 from pilgram.aden import aden
 from pilgram.brannan import brannan
@@ -41,6 +42,7 @@ from pilgram.xpro2 import xpro2
 
 
 __all__ = [
+    '__version__',
     '_1977', 'aden', 'brannan', 'brooklyn', 'clarendon', 'earlybird',
     'gingham', 'hudson', 'inkwell', 'kelvin', 'lark', 'lofi', 'maven',
     'mayfair', 'moon', 'nashville', 'perpetua', 'reyes', 'rise',
