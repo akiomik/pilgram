@@ -13,7 +13,7 @@
 # limitations under the License.
 
 from image4layer import Image4Layer
-from PIL import Image, ImageChops
+from PIL import Image
 
 from pilgram import css
 from pilgram import util
@@ -33,14 +33,16 @@ def xpro2(im):
 
     cs1 = util.fill(cb.size, [230, 231, 224])
     cs2 = util.fill(cb.size, [43, 42, 161])
+    cs2 = Image.blend(cb, cs2, .6)
 
     gradient_mask = util.radial_gradient_mask(cb.size, length=.4, scale=1.1)
     cs = Image.composite(cs1, cs2, gradient_mask)
-    cs = Image4Layer.color_burn(cb, cs)
 
-    # TODO: improve alpha masking
-    alpha_mask = util.scale_color(ImageChops.invert(gradient_mask), .6)
-    cr = Image.composite(cb, cs, alpha_mask)
+    # TODO: improve alpha blending
+    cm1 = Image4Layer.color_burn(cb, cs)
+    cm2 = Image4Layer.color_burn(cb, cs)
+    cm2 = Image.blend(cb, cm2, .6)
+    cr = Image.composite(cm1, cm2, gradient_mask)
 
     cr = css.sepia(cr, .3)
 
