@@ -13,7 +13,6 @@
 # limitations under the License.
 
 from image4layer import Image4Layer
-from PIL import Image, ImageChops
 
 from pilgram import util
 
@@ -33,8 +32,7 @@ def lark(im):
     cs1 = util.fill(cb.size, [34, 37, 63])
     cs = Image4Layer.color_dodge(cb, cs1)
 
-    cs2 = util.fill(cb.size, [242, 242, 242])
-    cs = ImageChops.darker(cs, cs2)
-    cr = Image.blend(cb, cs, .8)
+    cs2 = util.fill(cb.size, [242, 242, 242, .8])
+    cr = Image4Layer.darken(cs, cs2)
 
     return cr.convert(im.mode)

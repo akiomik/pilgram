@@ -24,7 +24,7 @@ def fill(shape, color):
 
     Arguments:
         shape: A tuple/list of 2 integers. The shape of output image.
-        color: A tuple/list of 3 integers. The fill color.
+        color: A tuple/list of 3 or 4 integers. The fill color.
 
     Returns:
         The output image.
@@ -34,13 +34,17 @@ def fill(shape, color):
     """
 
     assert len(shape) == 2
-    assert len(color) == 3
+    assert len(color) in [3, 4]
 
     r = Image.new('L', shape, color[0])
     g = Image.new('L', shape, color[1])
     b = Image.new('L', shape, color[2])
 
-    return Image.merge('RGB', (r, g, b))
+    if len(color) == 3:
+        return Image.merge('RGB', (r, g, b))
+    else:
+        a = Image.new('L', shape, round(255 * color[3]))
+        return Image.merge('RGBA', (r, g, b, a))
 
 
 def linear_gradient_mask(shape, start=1, end=0, is_horizontal=True):

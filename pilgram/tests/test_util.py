@@ -24,6 +24,15 @@ def test_fill():
     assert im.mode == 'RGB'
 
 
+def test_fill_alpha():
+    w, h = (4, 4)
+    im = util.fill((w, h), [0, 127, 255, .5])
+
+    assert list(im.getdata()) == [(0, 127, 255, 128)] * (w * h)
+    assert im.size == (w, h)
+    assert im.mode == 'RGBA'
+
+
 def test_linear_gradient_mask_horizontal():
     w, h = (4, 4)
     mask = util.linear_gradient_mask((w, h))

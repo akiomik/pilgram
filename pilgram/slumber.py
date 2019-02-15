@@ -13,7 +13,7 @@
 # limitations under the License.
 
 from image4layer import Image4Layer
-from PIL import Image, ImageEnhance, ImageChops
+from PIL import ImageEnhance
 
 from pilgram import util
 
@@ -30,13 +30,11 @@ def slumber(im):
 
     cb = im.convert('RGB')
 
-    cs1 = util.fill(cb.size, [69, 41, 12])
-    cs = ImageChops.lighter(cb, cs1)
-    cs = Image.blend(cb, cs, .4)
+    cs1 = util.fill(cb.size, [69, 41, 12, .4])
+    cm = Image4Layer.lighten(cb, cs1)
 
-    cs2 = util.fill(cb.size, [125, 105, 24])
-    cs_ = Image4Layer.soft_light(cs, cs2)
-    cr = Image.blend(cs, cs_, .5)
+    cs2 = util.fill(cb.size, [125, 105, 24, .5])
+    cr = Image4Layer.soft_light(cm, cs2)
 
     cr = ImageEnhance.Color(cr).enhance(.66)
     cr = ImageEnhance.Brightness(cr).enhance(1.05)

@@ -34,13 +34,11 @@ def mayfair(im):
     size = cb.size
     pos = (.4, .4)
 
-    cs1 = util.fill(size, [255, 255, 255])
+    cs1 = util.fill(size, [255, 255, 255, .8])
     cm1 = Image4Layer.overlay(cb, cs1)
-    cm1 = Image.blend(cb, cm1, .8)
 
-    cs2 = util.fill(size, [255, 200, 200])
+    cs2 = util.fill(size, [255, 200, 200, .6])
     cm2 = Image4Layer.overlay(cb, cs2)
-    cm2 = Image.blend(cb, cm2, .6)
 
     cs3 = util.fill(size, [17, 17, 17])
     cm3 = Image4Layer.overlay(cb, cs3)

@@ -13,7 +13,7 @@
 # limitations under the License.
 
 from image4layer import Image4Layer
-from PIL import Image, ImageEnhance
+from PIL import ImageEnhance
 
 from pilgram import css
 from pilgram import util
@@ -31,9 +31,8 @@ def stinson(im):
 
     cb = im.convert('RGB')
 
-    cs = util.fill(cb.size, [240, 149, 128])
-    cs = Image4Layer.soft_light(cb, cs)
-    cr = Image.blend(cb, cs, .2)
+    cs = util.fill(cb.size, [240, 149, 128, .2])
+    cr = Image4Layer.soft_light(cb, cs)
 
     cr = css.contrast(cr, .75)
     cr = ImageEnhance.Color(cr).enhance(.85)

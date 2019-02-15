@@ -31,9 +31,8 @@ def brooklyn(im):
 
     cb = im.convert('RGB')
 
-    cs1 = util.fill(cb.size, [168, 223, 193])
+    cs1 = util.fill(cb.size, [168, 223, 193, .4])
     cm1 = Image4Layer.overlay(cb, cs1)
-    cm1 = Image.blend(cb, cm1, .4)
 
     cs2 = util.fill(cb.size, [196, 183, 200])
     cm2 = Image4Layer.overlay(cb, cs2)
