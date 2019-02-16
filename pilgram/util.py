@@ -137,14 +137,20 @@ def radial_gradient_mask(shape, length=0, scale=1, position=(.5, .5)):
     if (length >= 1):
         return Image.new('L', shape, 255)
 
-    w, h = shape
-    x, y = np.ogrid[:w, :h]
-    cx = w * position[0]
-    cy = h * position[1]
+    if (scale <= 0):
+        return Image.new('L', shape, 0)
 
-    # TODO: r_scale is unknown factor for mayfair filter
-    r_scale = 1 + abs(.5 - position[0]) + abs(.5 - position[1])
-    r = math.sqrt((w / 2) ** 2 + (h / 2) ** 2) * r_scale
+    w, h = shape
+    y, x = np.ogrid[:h, :w]
+    cx = (w - 1) * position[0]
+    cy = (h - 1) * position[1]
+
+    # rw (or rh) is a width (height) from cx (cy) to farthest side
+    rw_factor = max(position[0], 1 - position[0])
+    rh_factor = max(position[1], 1 - position[1])
+    rw = (w - 1) * rw_factor
+    rh = (h - 1) * rh_factor
+    r = math.sqrt(rw ** 2 + rh ** 2)
 
     def adjust_length(x):
         base = max(scale - length, 0.001)  # avoid a division by zero
