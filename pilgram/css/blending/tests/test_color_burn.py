@@ -12,12 +12,27 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from pilgram.css.blending.color_burn import color_burn
-from pilgram.css.blending.hard_light import hard_light
-from pilgram.css.blending.overlay import overlay
+import numpy as np
+from PIL import Image
+import pytest
 
-__all__ = [
-    'color_burn',
-    'hard_light',
-    'overlay',
-]
+from pilgram import css
+from pilgram import util
+
+
+def test_color_burn():
+    cb = util.fill((2, 2), [0, 128, 255])
+    cs_array = np.array([
+        [[0] * 3, [127] * 3],
+        [[128] * 3, [255] * 3],
+    ], dtype=np.uint8)
+    cs = Image.fromarray(cs_array)
+    color_burn = css.blending.color_burn(cb, cs)
+
+    expected = [
+        (0, 0, 0), (0, 0, 255),
+        (0, 2, 255), (0, 128, 255),
+    ]
+    expected = [pytest.approx(c, 1) for c in expected]
+
+    assert list(color_burn.getdata()) == expected  # almost eq
