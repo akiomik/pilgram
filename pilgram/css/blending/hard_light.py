@@ -53,10 +53,10 @@ def hard_light(im1, im2):
     """
 
     im2_multiply = im2.point(lambda x: _clip(2 * x))
-    multiply = np.array(ImageChops.multiply(im1, im2_multiply))
+    multiply = np.asarray(ImageChops.multiply(im1, im2_multiply))
 
     im2_screen = im2.point(lambda x: _clip(2 * x - 255))
-    screen = np.array(ImageChops.screen(im1, im2_screen))
+    screen = np.asarray(ImageChops.screen(im1, im2_screen))
 
-    cm = np.where(np.array(im2) < 128, multiply, screen)
+    cm = np.where(np.asarray(im2) < 128, multiply, screen)
     return Image.fromarray(cm)
