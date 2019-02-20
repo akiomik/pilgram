@@ -13,11 +13,13 @@
 # limitations under the License.
 
 from pilgram.css.blending.color_burn import color_burn
+from pilgram.css.blending.exclusion import exclusion
 from pilgram.css.blending.hard_light import hard_light
 from pilgram.css.blending.overlay import overlay
 
 __all__ = [
     'color_burn',
+    'exclusion',
     'hard_light',
     'overlay',
 ]
