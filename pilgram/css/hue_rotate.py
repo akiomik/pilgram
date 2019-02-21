@@ -14,6 +14,8 @@
 
 import math
 
+from pilgram import util
+
 
 def hue_rotate(im, deg=0):
     """Applies hue rotation.
@@ -68,4 +70,5 @@ def hue_rotate(im, deg=0):
         0,
     ]
 
-    return im.convert('RGB').convert('RGB', matrix).convert(im.mode)
+    rotated = util.or_convert(im, 'RGB').convert('RGB', matrix)
+    return util.or_convert(rotated, im.mode)

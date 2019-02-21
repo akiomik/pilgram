@@ -12,7 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from image4layer import Image4Layer
 from PIL import Image
 
 from pilgram import css
@@ -29,7 +28,7 @@ def xpro2(im):
         The output image.
     """
 
-    cb = im.convert('RGB')
+    cb = util.or_convert(im, 'RGB')
 
     cs1 = util.fill(cb.size, [230, 231, 224])
     cs2 = util.fill(cb.size, [43, 42, 161])
@@ -39,11 +38,11 @@ def xpro2(im):
     cs = Image.composite(cs1, cs2, gradient_mask)
 
     # TODO: improve alpha blending
-    cm1 = Image4Layer.color_burn(cb, cs)
-    cm2 = Image4Layer.color_burn(cb, cs)
+    cm1 = css.blending.color_burn(cb, cs)
+    cm2 = cm1.copy()
     cm2 = Image.blend(cb, cm2, .6)
     cr = Image.composite(cm1, cm2, gradient_mask)
 
     cr = css.sepia(cr, .3)
 
-    return cr.convert(im.mode)
+    return cr

@@ -12,8 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from image4layer import Image4Layer
-
 from pilgram import css
 from pilgram import util
 
@@ -28,7 +26,7 @@ def earlybird(im):
         The output image.
     """
 
-    cb = im.convert('RGB')
+    cb = util.or_convert(im, 'RGB')
 
     # TODO: improve reproduction of gradient when multiple color stops
     cs = util.radial_gradient(
@@ -36,9 +34,9 @@ def earlybird(im):
             ([208, 186, 142], .2),
             ([54, 3, 9], .85),
             ([29, 2, 16], 1))
-    cr = Image4Layer.overlay(cb, cs)
+    cr = css.blending.overlay(cb, cs)
 
     cr = css.contrast(cr, .9)
     cr = css.sepia(cr, .2)
 
-    return cr.convert(im.mode)
+    return cr

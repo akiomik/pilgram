@@ -12,6 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from pilgram import util
+
 
 def sepia(im, amount=1):
     """Converts image to sepia.
@@ -48,4 +50,5 @@ def sepia(im, amount=1):
         .272 - .272 * amount, .534 - .534 * amount, .131 + .869 * amount, 0,
     ]
 
-    return im.convert('RGB').convert('RGB', matrix).convert(im.mode)
+    sepia_toned = util.or_convert(im, 'RGB').convert('RGB', matrix)
+    return util.or_convert(sepia_toned, im.mode)

@@ -12,8 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from image4layer import Image4Layer
-from PIL import Image, ImageEnhance
+from PIL import Image
 
 from pilgram import css
 from pilgram import util
@@ -29,14 +28,14 @@ def valencia(im):
         The output image.
     """
 
-    cb = im.convert('RGB')
+    cb = util.or_convert(im, 'RGB')
 
     cs = util.fill(cb.size, [58, 3, 57])
-    cs = Image4Layer.exclusion(cb, cs)
+    cs = css.blending.exclusion(cb, cs)
     cr = Image.blend(cb, cs, .5)
 
     cr = css.contrast(cr, 1.08)
-    cr = ImageEnhance.Brightness(cr).enhance(1.08)
+    cr = css.brightness(cr, 1.08)
     cr = css.sepia(cr, .08)
 
-    return cr.convert(im.mode)
+    return cr

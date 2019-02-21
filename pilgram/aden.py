@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from PIL import Image, ImageEnhance, ImageChops
+from PIL import Image, ImageChops
 
 from pilgram import css
 from pilgram import util
@@ -28,7 +28,7 @@ def aden(im):
         The output image.
     """
 
-    cb = im.convert('RGB')
+    cb = util.or_convert(im, 'RGB')
 
     cs = util.fill(cb.size, [66, 10, 14])
     cs = ImageChops.darker(cb, cs)
@@ -38,7 +38,7 @@ def aden(im):
 
     cr = css.hue_rotate(cr, -20)
     cr = css.contrast(cr, .9)
-    cr = ImageEnhance.Color(cr).enhance(.85)
-    cr = ImageEnhance.Brightness(cr).enhance(1.2)
+    cr = css.saturate(cr, .85)
+    cr = css.brightness(cr, 1.2)
 
-    return cr.convert(im.mode)
+    return cr

@@ -19,6 +19,8 @@ from pilgram.css.hue_rotate import hue_rotate
 from pilgram.css.saturate import saturate
 from pilgram.css.sepia import sepia
 
+from pilgram.css import blending  # noqa
+
 __all__ = [
     'brightness', 'contrast', 'grayscale', 'hue_rotate', 'saturate', 'sepia'
 ]

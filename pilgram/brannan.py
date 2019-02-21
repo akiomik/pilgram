@@ -28,7 +28,7 @@ def brannan(im):
         The output image.
     """
 
-    cb = im.convert('RGB')
+    cb = util.or_convert(im, 'RGB')
 
     cs = util.fill(cb.size, [161, 44, 199])
     cs = ImageChops.lighter(cb, cs)
@@ -37,4 +37,4 @@ def brannan(im):
     cr = css.sepia(cr, .5)
     cr = css.contrast(cr, 1.4)
 
-    return cr.convert(im.mode)
+    return cr

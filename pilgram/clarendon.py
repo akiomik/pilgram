@@ -12,8 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from image4layer import Image4Layer
-from PIL import Image, ImageEnhance
+from PIL import Image
 
 from pilgram import css
 from pilgram import util
@@ -29,13 +28,13 @@ def clarendon(im):
         The output image.
     """
 
-    cb = im.convert('RGB')
+    cb = util.or_convert(im, 'RGB')
 
     cs = util.fill(cb.size, [127, 187, 227])
-    cs = Image4Layer.overlay(cb, cs)
-    cr = Image.blend(cb, cs, .2)
+    cm = css.blending.overlay(cb, cs)
+    cr = Image.blend(cb, cm, .2)
 
     cr = css.contrast(cr, 1.2)
-    cr = ImageEnhance.Color(cr).enhance(1.35)
+    cr = css.saturate(cr, 1.35)
 
-    return cr.convert(im.mode)
+    return cr

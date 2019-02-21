@@ -12,8 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from image4layer import Image4Layer
-from PIL import Image, ImageEnhance
+from PIL import Image, ImageChops
 
 from pilgram import css
 from pilgram import util
@@ -29,27 +28,30 @@ def rise(im):
         The output image.
     """
 
-    cb = im.convert('RGB')
+    cb = util.or_convert(im, 'RGB')
 
-    cs1 = util.fill(cb.size, [236, 205, 169, .15])
-    cm1 = Image4Layer.multiply(cb, cs1)
+    cs1 = util.fill(cb.size, [236, 205, 169])
+    cm1 = ImageChops.multiply(cb, cs1)
+    cm1 = Image.blend(cb, cm1, .15)
 
-    cs2 = util.fill(cb.size, [50, 30, 7, .4])
-    cm2 = Image4Layer.multiply(cb, cs2)
+    cs2 = util.fill(cb.size, [50, 30, 7])
+    cm2 = ImageChops.multiply(cb, cs2)
+    cm2 = Image.blend(cb, cm2, .4)
 
     gradient_mask1 = util.radial_gradient_mask(cb.size, length=.55)
     cm = Image.composite(cm1, cm2, gradient_mask1)
 
-    cs3 = util.fill(cb.size, [232, 197, 152, .8])
-    cm3 = Image4Layer.overlay(cm, cs3)
+    cs3 = util.fill(cb.size, [232, 197, 152])
+    cm3 = css.blending.overlay(cm, cs3)
+    cm3 = Image.blend(cm, cm3, .8)
 
     gradient_mask2 = util.radial_gradient_mask(cb.size, scale=.9)
     cm_ = Image.composite(cm3, cm, gradient_mask2)
     cr = Image.blend(cm, cm_, .6)
 
-    cr = ImageEnhance.Brightness(cr).enhance(1.05)
+    cr = css.brightness(cr, 1.05)
     cr = css.sepia(cr, .2)
     cr = css.contrast(cr, .9)
-    cr = ImageEnhance.Color(cr).enhance(.9)
+    cr = css.saturate(cr, .9)
 
-    return cr.convert(im.mode)
+    return cr

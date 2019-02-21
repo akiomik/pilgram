@@ -13,7 +13,6 @@
 # limitations under the License.
 
 from image4layer import Image4Layer
-from PIL import ImageEnhance
 
 from pilgram import css
 from pilgram import util
@@ -29,14 +28,14 @@ def maven(im):
         The output image.
     """
 
-    cb = im.convert('RGB')
+    cb = util.or_convert(im, 'RGB')
 
     cs = util.fill(cb.size, [3, 230, 26, .2])
     cr = Image4Layer.hue(cb, cs)
 
     cr = css.sepia(cr, .25)
-    cr = ImageEnhance.Brightness(cr).enhance(.95)
+    cr = css.brightness(cr, .95)
     cr = css.contrast(cr, .95)
-    cr = ImageEnhance.Color(cr).enhance(1.5)
+    cr = css.saturate(cr, 1.5)
 
-    return cr.convert(im.mode)
+    return cr

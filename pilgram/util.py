@@ -19,6 +19,20 @@ import numpy as np
 from PIL import Image
 
 
+def or_convert(im, mode):
+    """Converts image to mode if necessary
+
+    Arguments:
+        im: An input image.
+        mode: A string. The requested mode.
+
+    Returns:
+        The output image.
+    """
+
+    return im if im.mode == mode else im.convert(mode)
+
+
 def fill(shape, color):
     """Fills new image with the color.
 
@@ -36,15 +50,18 @@ def fill(shape, color):
     assert len(shape) == 2
     assert len(color) in [3, 4]
 
-    r = Image.new('L', shape, color[0])
-    g = Image.new('L', shape, color[1])
-    b = Image.new('L', shape, color[2])
+    if len(color) == 4:
+        color[3] = round(color[3] * 255)  # alpha
+
+    uniqued = list(set(color))
+    cmap = {c: Image.new('L', shape, c) for c in uniqued}
 
     if len(color) == 3:
-        return Image.merge('RGB', (r, g, b))
+        r, g, b = color
+        return Image.merge('RGB', (cmap[r], cmap[g], cmap[b]))
     else:
-        a = Image.new('L', shape, round(255 * color[3]))
-        return Image.merge('RGBA', (r, g, b, a))
+        r, g, b, a = color
+        return Image.merge('RGBA', (cmap[r], cmap[g], cmap[b], cmap[a]))
 
 
 def linear_gradient_mask(shape, start=1, end=0, is_horizontal=True):

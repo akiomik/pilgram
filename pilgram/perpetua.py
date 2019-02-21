@@ -12,9 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from image4layer import Image4Layer
 from PIL import Image
 
+from pilgram import css
 from pilgram import util
 
 
@@ -28,10 +28,10 @@ def perpetua(im):
         The output image.
     """
 
-    cb = im.convert('RGB')
+    cb = util.or_convert(im, 'RGB')
 
     cs = util.linear_gradient(cb.size, [0, 91, 154], [230, 193, 61], False)
-    cs = Image4Layer.soft_light(cb, cs)
+    cs = css.blending.soft_light(cb, cs)
     cr = Image.blend(cb, cs, .5)
 
-    return cr.convert(im.mode)
+    return cr

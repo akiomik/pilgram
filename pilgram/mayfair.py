@@ -13,8 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from image4layer import Image4Layer
-from PIL import Image, ImageEnhance
+from PIL import Image
 
 from pilgram import css
 from pilgram import util
@@ -30,18 +29,20 @@ def mayfair(im):
         The output image.
     """
 
-    cb = im.convert('RGB')
+    cb = util.or_convert(im, 'RGB')
     size = cb.size
     pos = (.4, .4)
 
-    cs1 = util.fill(size, [255, 255, 255, .8])
-    cm1 = Image4Layer.overlay(cb, cs1)
+    cs1 = util.fill(size, [255, 255, 255])
+    cm1 = css.blending.overlay(cb, cs1)
+    cm1 = Image.blend(cb, cm1, .8)
 
-    cs2 = util.fill(size, [255, 200, 200, .6])
-    cm2 = Image4Layer.overlay(cb, cs2)
+    cs2 = util.fill(size, [255, 200, 200])
+    cm2 = css.blending.overlay(cb, cs2)
+    cm2 = Image.blend(cb, cm2, .6)
 
     cs3 = util.fill(size, [17, 17, 17])
-    cm3 = Image4Layer.overlay(cb, cs3)
+    cm3 = css.blending.overlay(cb, cs3)
 
     mask1 = util.radial_gradient_mask(size, scale=.3, position=pos)
     cs = Image.composite(cm1, cm2, mask1)
@@ -51,6 +52,6 @@ def mayfair(im):
     cr = Image.blend(cb, cs, .4)
 
     cr = css.contrast(cr, 1.1)
-    cr = ImageEnhance.Color(cr).enhance(1.1)
+    cr = css.saturate(cr, 1.1)
 
-    return cr.convert(im.mode)
+    return cr

@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from PIL import Image, ImageEnhance, ImageChops
+from PIL import Image, ImageChops
 
 from pilgram import css
 from pilgram import util
@@ -28,14 +28,14 @@ def _1977(im):
         The output image.
     """
 
-    cb = im.convert('RGB')
+    cb = util.or_convert(im, 'RGB')
 
     cs = util.fill(cb.size, [243, 106, 188])
     cs = ImageChops.screen(cb, cs)
     cr = Image.blend(cb, cs, .3)
 
     cr = css.contrast(cr, 1.1)
-    cr = ImageEnhance.Brightness(cr).enhance(1.1)
-    cr = ImageEnhance.Color(cr).enhance(1.3)
+    cr = css.brightness(cr, 1.1)
+    cr = css.saturate(cr, 1.3)
 
-    return cr.convert(im.mode)
+    return cr

@@ -12,8 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from image4layer import Image4Layer
-
+from pilgram import css
 from pilgram import util
 
 
@@ -27,12 +26,12 @@ def kelvin(im):
         The output image.
     """
 
-    cb = im.convert('RGB')
+    cb = util.or_convert(im, 'RGB')
 
     cs1 = util.fill(cb.size, [56, 44, 52])
-    cs = Image4Layer.color_dodge(cb, cs1)
+    cs = css.blending.color_dodge(cb, cs1)
 
     cs2 = util.fill(cb.size, [183, 125, 33])
-    cr = Image4Layer.overlay(cs, cs2)
+    cr = css.blending.overlay(cs, cs2)
 
-    return cr.convert(im.mode)
+    return cr

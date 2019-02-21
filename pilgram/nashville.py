@@ -12,8 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from image4layer import Image4Layer
-from PIL import ImageEnhance
+from PIL import Image, ImageChops
 
 from pilgram import css
 from pilgram import util
@@ -29,17 +28,19 @@ def nashville(im):
         The output image.
     """
 
-    cb = im.convert('RGB')
+    cb = util.or_convert(im, 'RGB')
 
-    cs1 = util.fill(cb.size, [247, 176, 153, .56])
-    cm1 = Image4Layer.darken(cb, cs1)
+    cs1 = util.fill(cb.size, [247, 176, 153])
+    cm1 = ImageChops.darker(cb, cs1)
+    cm1 = Image.blend(cb, cm1, .56)
 
-    cs2 = util.fill(cb.size, [0, 70, 150, .4])
-    cr = Image4Layer.lighten(cm1, cs2)
+    cs2 = util.fill(cb.size, [0, 70, 150])
+    cm2 = ImageChops.lighter(cm1, cs2)
+    cr = Image.blend(cm1, cm2, .4)
 
     cr = css.sepia(cr, .2)
     cr = css.contrast(cr, 1.2)
-    cr = ImageEnhance.Brightness(cr).enhance(1.05)
-    cr = ImageEnhance.Color(cr).enhance(1.2)
+    cr = css.brightness(cr, 1.05)
+    cr = css.saturate(cr, 1.2)
 
-    return cr.convert(im.mode)
+    return cr

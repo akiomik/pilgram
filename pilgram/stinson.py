@@ -12,8 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from image4layer import Image4Layer
-from PIL import ImageEnhance
+from PIL import Image
 
 from pilgram import css
 from pilgram import util
@@ -29,13 +28,14 @@ def stinson(im):
         The output image.
     """
 
-    cb = im.convert('RGB')
+    cb = util.or_convert(im, 'RGB')
 
-    cs = util.fill(cb.size, [240, 149, 128, .2])
-    cr = Image4Layer.soft_light(cb, cs)
+    cs = util.fill(cb.size, [240, 149, 128])
+    cm = css.blending.soft_light(cb, cs)
+    cr = Image.blend(cb, cm, .2)
 
     cr = css.contrast(cr, .75)
-    cr = ImageEnhance.Color(cr).enhance(.85)
-    cr = ImageEnhance.Brightness(cr).enhance(1.15)
+    cr = css.saturate(cr, .85)
+    cr = css.brightness(cr, 1.15)
 
-    return cr.convert(im.mode)
+    return cr

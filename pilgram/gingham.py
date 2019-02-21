@@ -12,9 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from image4layer import Image4Layer
-from PIL import ImageEnhance
-
 from pilgram import css
 from pilgram import util
 
@@ -29,12 +26,12 @@ def gingham(im):
         The output image.
     """
 
-    cb = im.convert('RGB')
+    cb = util.or_convert(im, 'RGB')
 
     cs = util.fill(cb.size, [230, 230, 250])
-    cr = Image4Layer.soft_light(cb, cs)
+    cr = css.blending.soft_light(cb, cs)
 
-    cr = ImageEnhance.Brightness(cr).enhance(1.05)
+    cr = css.brightness(cr, 1.05)
     cr = css.hue_rotate(cr, -10)
 
-    return cr.convert(im.mode)
+    return cr

@@ -12,6 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from pilgram import util
+
 
 def grayscale(im, amount=1):
     """Converts image to grayscale.
@@ -48,4 +50,5 @@ def grayscale(im, amount=1):
         .2126 - .2126 * g, .7152 - .7152 * g, .0722 + .9278 * g, 0,
     ]
 
-    return im.convert('RGB').convert('RGB', matrix).convert(im.mode)
+    grayscaled = util.or_convert(im, 'RGB').convert('RGB', matrix)
+    return util.or_convert(grayscaled, im.mode)

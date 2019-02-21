@@ -12,6 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from pilgram import util
+
 
 def saturate(im, amount=1):
     """Saturates image.
@@ -47,4 +49,5 @@ def saturate(im, amount=1):
         .213 - .213 * amount, .715 - .715 * amount, .072 + .928 * amount, 0,
     ]
 
-    return im.convert('RGB').convert('RGB', matrix).convert(im.mode)
+    saturated = util.or_convert(im, 'RGB').convert('RGB', matrix)
+    return util.or_convert(saturated, im.mode)

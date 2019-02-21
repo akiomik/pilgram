@@ -12,9 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from PIL import ImageEnhance
-
 from pilgram import css
+from pilgram import util
 
 
 def inkwell(im):
@@ -27,11 +26,11 @@ def inkwell(im):
         The output image.
     """
 
-    cb = im.convert('RGB')
+    cb = util.or_convert(im, 'RGB')
 
     cr = css.sepia(cb, .3)
     cr = css.contrast(cr, 1.1)
-    cr = ImageEnhance.Brightness(cr).enhance(1.1)
+    cr = css.brightness(cr, 1.1)
     cr = css.grayscale(cr)
 
-    return cr.convert(im.mode)
+    return cr

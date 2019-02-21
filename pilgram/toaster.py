@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from PIL import ImageEnhance, ImageChops
+from PIL import ImageChops
 
 from pilgram import css
 from pilgram import util
@@ -28,12 +28,12 @@ def toaster(im):
         The output image.
     """
 
-    cb = im.convert('RGB')
+    cb = util.or_convert(im, 'RGB')
 
     cs = util.radial_gradient(cb.size, ([128, 78, 15], 0), ([59, 0, 59], 1))
     cr = ImageChops.screen(cb, cs)
 
     cr = css.contrast(cr, 1.5)
-    cr = ImageEnhance.Brightness(cr).enhance(.9)
+    cr = css.brightness(cr, .9)
 
-    return cr.convert(im.mode)
+    return cr

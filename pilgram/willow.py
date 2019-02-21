@@ -13,7 +13,6 @@
 # limitations under the License.
 
 from image4layer import Image4Layer
-from PIL import ImageEnhance
 
 from pilgram import css
 from pilgram import util
@@ -29,19 +28,19 @@ def willow(im):
         The output image.
     """
 
-    cb = im.convert('RGB')
+    cb = util.or_convert(im, 'RGB')
 
     cs = util.radial_gradient(
             cb.size,
             ([212, 169, 175], .55),
             ([0, 0, 0], 1.5))
-    cs = Image4Layer.overlay(cb, cs)
+    cs = css.blending.overlay(cb, cs)
 
     cs_ = util.fill(cb.size, [216, 205, 203])
     cr = Image4Layer.color(cs, cs_)
 
     cr = css.grayscale(cr, .5)
     cr = css.contrast(cr, .95)
-    cr = ImageEnhance.Brightness(cr).enhance(.9)
+    cr = css.brightness(cr, .9)
 
-    return cr.convert(im.mode)
+    return cr
