@@ -16,7 +16,7 @@ import math
 from functools import reduce
 
 import numpy as np
-from PIL import Image
+from PIL import Image, ImageChops
 
 
 def or_convert(im, mode):
@@ -134,6 +134,19 @@ def linear_gradient(shape, start, end, is_horizontal=True):
     return Image.composite(im_start, im_end, mask)
 
 
+def _prepared_radial_gradient_mask(shape, scale=1):
+    """Returns prepared radial gradient mask"""
+
+    mask = ImageChops.invert(Image.radial_gradient('L'))
+
+    w, h = mask.size
+    xoffset = round((w - w / scale) / 2)
+    yoffset = round((h - h / scale) / 2)
+    box = (xoffset, yoffset, w - xoffset, h - yoffset)
+
+    return mask.resize(shape, box=box)
+
+
 def radial_gradient_mask(shape, length=0, scale=1, position=(.5, .5)):
     """Creates mask image for radial gradient image.
 
@@ -151,13 +164,18 @@ def radial_gradient_mask(shape, length=0, scale=1, position=(.5, .5)):
         The mask image.
     """
 
-    if (length >= 1):
+    if length >= 1:
         return Image.new('L', shape, 255)
 
-    if (scale <= 0):
+    if scale <= 0:
         return Image.new('L', shape, 0)
 
     w, h = shape
+
+    # use faster method if possible
+    if length == 0 and scale >= 1 and w == h and position == (.5, .5):
+        return _prepared_radial_gradient_mask(shape, scale)
+
     y, x = np.ogrid[:h, :w]
     cx = (w - 1) * position[0]
     cy = (h - 1) * position[1]
