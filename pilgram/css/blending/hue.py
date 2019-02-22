@@ -16,28 +16,28 @@ from PIL import Image, ImageMath
 from PIL.ImageMath import imagemath_convert as _convert
 from PIL.ImageMath import imagemath_float as _float
 
-from pilgram.css.blending.nonseparable import set_lum_im, lum_im
+from pilgram.css.blending.nonseparable import set_lum, set_sat, sat, lum_im
 
 
-def _color(cs, lum_cb, lum_cs):
-    """Returns ImageMath operands for color blend mode"""
+def _hue(cb, cs, lum_cb):
+    """Returns ImageMath operands for hue blend mode"""
+    cb = [_float(c) for c in cb]
     cs = [_float(c) for c in cs]
     lum_cb = _float(lum_cb)
-    lum_cs = _float(lum_cs)
 
-    return set_lum_im(cs, lum_cb, lum_cs)
+    return set_lum(set_sat(cs, sat(cb)), lum_cb)
 
 
-def color(im1, im2):
-    """Creates a color with the hue and saturation of the source color
-    and the luminosity of the backdrop color.
+def hue(im1, im2):
+    """Creates a color with the hue of the source color
+    and the saturation and luminosity of the backdrop color.
 
-    The color formula is defined as:
+    The hue formula is defined as:
 
-        B(Cb, Cs) = SetLum(Cs, Lum(Cb))
+        B(Cb, Cs) = SetLum(SetSat(Cs, Sat(Cb)), Lum(Cb))
 
     See the W3C document:
-    https://www.w3.org/TR/compositing-1/#blendingcolor
+    https://www.w3.org/TR/compositing-1/#blendinghue
 
     Arguments:
         im1: A backdrop image.
@@ -47,13 +47,13 @@ def color(im1, im2):
         The output image.
     """
 
-    r, g, b = im2.split()  # Cs
-    lum_cb = lum_im(im1)   # Lum(Cb)
-    lum_cs = lum_im(im2)   # Lum(C) in SetLum
+    r1, g1, b1 = im1.split()  # Cb
+    r2, g2, b2 = im2.split()  # Cs
+    lum_cb = lum_im(im1)      # Lum(Cb)
 
     bands = ImageMath.eval(
-            'f((r, g, b), lum_cb, lum_cs)',
-            f=_color, r=r, g=g, b=b, lum_cb=lum_cb, lum_cs=lum_cs)
+            'f((r1, g1, b1), (r2, g2, b2), lum_cb)',
+            f=_hue, r1=r1, g1=g1, b1=b1, r2=r2, g2=g2, b2=b2, lum_cb=lum_cb)
     bands = [_convert(band, 'L').im for band in bands]
 
     return Image.merge('RGB', bands)

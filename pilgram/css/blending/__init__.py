@@ -17,6 +17,7 @@ from pilgram.css.blending.color_burn import color_burn
 from pilgram.css.blending.color_dodge import color_dodge
 from pilgram.css.blending.exclusion import exclusion
 from pilgram.css.blending.hard_light import hard_light
+from pilgram.css.blending.hue import hue
 from pilgram.css.blending.overlay import overlay
 from pilgram.css.blending.soft_light import soft_light
 
@@ -26,6 +27,7 @@ __all__ = [
     'color_dodge',
     'exclusion',
     'hard_light',
+    'hue',
     'overlay',
     'soft_light',
 ]
