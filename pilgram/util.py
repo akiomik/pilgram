@@ -64,19 +64,32 @@ def fill(shape, color):
         return Image.merge('RGBA', (cmap[r], cmap[g], cmap[b], cmap[a]))
 
 
-def linear_gradient_mask(shape, start=1, end=0, is_horizontal=True):
+def _prepared_linear_gradient_mask(shape, start, end, is_horizontal=True):
+    """Returns prepared linear gradient mask."""
+    assert end >= 1
+
+    mask = ImageChops.invert(Image.linear_gradient('L'))
+    w, h = mask.size
+    box = (0, round(h * start), w, round(h / end))
+    resized_mask = mask.resize(shape, box=box)
+
+    if is_horizontal:
+        return resized_mask.rotate(90)
+    else:
+        return resized_mask
+
+
+def linear_gradient_mask(shape, start=0, end=1, is_horizontal=True):
     """Creates mask image for linear gradient image.
 
     Arguments:
         shape: A tuple/list of 2 integers. The shape of output image.
-        start: An optional integer/float.
-            The left alpha when `is_horizontal` is True,
-            The top alpha otherwise.
-            Defaults to 1.
-        end: An optional integer/float.
-            The right alpha when `is_horizontal` is True,
-            The bottom alpha otherwise.
+        start: An optional integer/float. The starting point start.
+            The point is left-side when `is_horizontal` is True, top otherwise.
             Defaults to 0.
+        end: An optional integer/float. The ending point.
+            The point is right-side when `is_horizontal` is True,
+            bottom otherwise. Defaults to 1.
         is_horizontal: A optional boolean. The direction of gradient line.
             Left to right if True, top to bottom else.
 
@@ -89,12 +102,18 @@ def linear_gradient_mask(shape, start=1, end=0, is_horizontal=True):
 
     assert len(shape) == 2
 
+    if end >= 1:
+        return _prepared_linear_gradient_mask(
+                shape, start, end, is_horizontal)
+
+    w, h = shape
+
     if is_horizontal:
-        row = np.linspace(start, end, shape[0])
-        mask = np.tile(row, (shape[1], 1))
+        row = np.linspace(start, end, w)
+        mask = np.tile(row, (h, 1))
     else:
-        row = np.linspace(start, end, shape[1])
-        mask = np.tile(row, (shape[0], 1)).T
+        row = np.linspace(start, end, h)
+        mask = np.tile(row, (w, 1)).T
 
     mask *= 255
     mask = np.clip(mask, 0, 255)
@@ -107,12 +126,11 @@ def linear_gradient(shape, start, end, is_horizontal=True):
 
     Arguments:
         shape: A tuple/list of 2 integers. The shape of output image.
-        start: A tuple/list of 3 integers.
-            The left color when `is_horizontal` is True,
-            The top color otherwise.
-        end: A tuple/list of 3 integers.
-            The right color when `is_horizontal` is True,
-            The bottom color otherwise.
+        start: A tuple/list of 3 integers. The starting point color.
+            The point is left-side when `is_horizontal` is True, top otherwise.
+        end: A tuple/list of 3 integers. The ending point color.
+            The point is right-side when `is_horizontal` is True,
+            the bottom otherwise.
         is_horizontal: An optional boolean. The direction of gradient line.
             Left to right if True, top to bottom else.
 
