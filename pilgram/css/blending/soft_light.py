@@ -15,7 +15,7 @@
 import math
 
 from PIL import Image, ImageMath
-from PIL.ImageMath import imagemath_int as _int
+from PIL.ImageMath import imagemath_convert as _convert
 from PIL.ImageMath import imagemath_float as _float
 
 
@@ -30,12 +30,13 @@ def _soft_light(cb, cs, d_cb):
     rs, gs, bs = cs
     d_rd, d_gd, d_bd = d_cb
 
-    r1 = _int(rs <= .5) * (rb - (1 - 2 * rs) * rb * (1 - rb))
-    r2 = _int(rs > .5) * (rb + (2 * rs - 1) * d_rd)
-    g1 = _int(gs <= .5) * (gb - (1 - 2 * gs) * gb * (1 - gb))
-    g2 = _int(gs > .5) * (gb + (2 * gs - 1) * d_gd)
-    b1 = _int(bs <= .5) * (bb - (1 - 2 * bs) * bb * (1 - bb))
-    b2 = _int(bs > .5) * (bb + (2 * bs - 1) * d_bd)
+    r1 = (rs <= .5) * (rb - (1 - 2 * rs) * rb * (1 - rb))
+    g1 = (gs <= .5) * (gb - (1 - 2 * gs) * gb * (1 - gb))
+    b1 = (bs <= .5) * (bb - (1 - 2 * bs) * bb * (1 - bb))
+
+    r2 = (rs > .5) * (rb + (2 * rs - 1) * d_rd)
+    g2 = (gs > .5) * (gb + (2 * gs - 1) * d_gd)
+    b2 = (bs > .5) * (bb + (2 * bs - 1) * d_bd)
 
     return (r1 + r2, g1 + g2, b1 + b2)
 
@@ -46,11 +47,11 @@ def _d_cb(cb):
     cb /= 255
 
     if cb <= .25:
-        d_cb = ((16 * cb - 12) * cb + 4) * cb - cb
+        d = ((16 * cb - 12) * cb + 4) * cb
     else:
-        d_cb = math.sqrt(cb) - cb
+        d = math.sqrt(cb)
 
-    return round(d_cb * 255)
+    return round((d - cb) * 255)
 
 
 def soft_light(im1, im2):
@@ -81,14 +82,14 @@ def soft_light(im1, im2):
         The output image.
     """
 
-    r1, g1, b1 = im1.split()  # cb
-    r2, g2, b2 = im2.split()  # cs
-    d_rd, d_gd, d_bd = im1.point(_d_cb).split()  # d(cb) - cb
+    r1, g1, b1 = im1.split()  # Cb
+    r2, g2, b2 = im2.split()  # Cs
+    d_rd, d_gd, d_bd = im1.point(_d_cb).split()  # D(Cb) - Cb
 
-    c = ImageMath.eval(
+    bands = ImageMath.eval(
             'f((r1, g1, b1), (r2, g2, b2), (d_rd, d_gd, d_bd))',
             f=_soft_light, r1=r1, g1=g1, b1=b1, r2=r2, g2=g2, b2=b2,
             d_rd=d_rd, d_gd=d_gd, d_bd=d_bd)
-    rgb = [ImageMath.imagemath_convert(c_ * 255, 'L').im for c_ in c]
+    bands = [_convert(band * 255, 'L').im for band in bands]
 
-    return Image.merge('RGB', rgb)
+    return Image.merge('RGB', bands)
