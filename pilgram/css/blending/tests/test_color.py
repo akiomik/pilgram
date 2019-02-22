@@ -12,20 +12,27 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from pilgram.css.blending.color import color
-from pilgram.css.blending.color_burn import color_burn
-from pilgram.css.blending.color_dodge import color_dodge
-from pilgram.css.blending.exclusion import exclusion
-from pilgram.css.blending.hard_light import hard_light
-from pilgram.css.blending.overlay import overlay
-from pilgram.css.blending.soft_light import soft_light
+import numpy as np
+from PIL import Image
+import pytest
 
-__all__ = [
-    'color',
-    'color_burn',
-    'color_dodge',
-    'exclusion',
-    'hard_light',
-    'overlay',
-    'soft_light',
-]
+from pilgram import css
+from pilgram import util
+
+
+def test_color():
+    cb_array = np.array([
+        [[0] * 3, [127] * 3],
+        [[128] * 3, [255] * 3],
+    ], dtype=np.uint8)
+    cb = Image.fromarray(cb_array)
+    cs = util.fill((2, 2), [0, 128, 255])
+    color = css.blending.color(cb, cs)
+
+    expected = [
+        (0, 0, 0), (39, 148, 255),
+        (41, 148, 255), (255, 255, 255),
+    ]
+    expected = [pytest.approx(c, 1) for c in expected]
+
+    assert list(color.getdata()) == expected  # almost eq
