@@ -196,13 +196,3 @@ def test_radial_gradient_mask_scale_le_0():
 
 def test_radial_gradient():
     pass  # TODO
-
-
-def test_scale_color():
-    w, h = (4, 4)
-    im = util.fill((w, h), [0, 127, 255])
-    scaled_im = util.scale_color(im, .5)
-
-    assert list(scaled_im.getdata()) == [(0, 64, 128)] * (w * h)
-    assert scaled_im.mode == im.mode
-    assert scaled_im.size == im.size

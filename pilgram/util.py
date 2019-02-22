@@ -251,18 +251,3 @@ def radial_gradient(shape, *color_stops, **kwargs):
         return (Image.composite(x[0], y[0], mask), y[1])
 
     return reduce(compose, color_stops)[0]
-
-
-def scale_color(im, scale=1):
-    """Scales colors of input image.
-
-    Arguments:
-        im: An input image.
-        scale: An optional integer or float. The scaling factor.
-            Defaults to 1.
-
-    Returns:
-        The output image.
-    """
-
-    return im.point(lambda x: round(x * scale))
