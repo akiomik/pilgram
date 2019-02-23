@@ -14,19 +14,11 @@
 
 from PIL import Image, ImageMath
 from PIL.ImageMath import imagemath_convert as _convert
-from PIL.ImageMath import imagemath_float as _int
-from PIL.ImageMath import imagemath_min as _min
 
 
 def _color_burn(cb, cs):
-    rb, gb, bb = cb
-    rs, gs, bs = cs
-
-    r = _int(rs > 0) * (255 - _min((255 - rb) * 255 / rs, 255))
-    g = _int(gs > 0) * (255 - _min((255 - gb) * 255 / gs, 255))
-    b = _int(bs > 0) * (255 - _min((255 - bb) * 255 / bs, 255))
-
-    return (r, g, b)
+    cm = (cs > 0) * (255 - ((255 - cb) * 255 / cs))
+    return _convert(cm, 'L')
 
 
 def color_burn(im1, im2):
@@ -52,11 +44,7 @@ def color_burn(im1, im2):
         The output image.
     """
 
-    r1, g1, b1 = im1.split()
-    r2, g2, b2 = im2.split()
-
-    bands = ImageMath.eval(
-            'f((r1, g1, b1), (r2, g2, b2))',
-            f=_color_burn, r1=r1, g1=g1, b1=b1, r2=r2, g2=g2, b2=b2)
-
-    return Image.merge('RGB', [_convert(band, 'L').im for band in bands])
+    return Image.merge('RGB', [
+        ImageMath.eval('f(cb, cs)', f=_color_burn, cb=cb, cs=cs)
+        for cb, cs in zip(im1.split(), im2.split())
+    ])
