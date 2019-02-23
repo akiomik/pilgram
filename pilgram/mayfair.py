@@ -44,10 +44,10 @@ def mayfair(im):
     cs3 = util.fill(size, [17, 17, 17])
     cm3 = css.blending.overlay(cb, cs3)
 
-    mask1 = util.radial_gradient_mask(size, scale=.3, position=pos)
+    mask1 = util.radial_gradient_mask(size, scale=.3, center=pos)
     cs = Image.composite(cm1, cm2, mask1)
 
-    mask2 = util.radial_gradient_mask(size, length=.3, scale=.6, position=pos)
+    mask2 = util.radial_gradient_mask(size, length=.3, scale=.6, center=pos)
     cs = Image.composite(cs, cm3, mask2)
     cr = Image.blend(cb, cs, .4)
 

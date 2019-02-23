@@ -164,16 +164,16 @@ def _prepared_radial_gradient_mask(size, scale=1):
     return mask.resize(size, box=box)
 
 
-def radial_gradient_mask(size, length=0, scale=1, position=(.5, .5)):
+def radial_gradient_mask(size, length=0, scale=1, center=(.5, .5)):
     """Creates mask image for radial gradient image.
 
     Arguments:
         size: A tuple/list of 2 integers. The size of mask image.
         length: An optional integer/float. The percentage of inner color stop.
             Defaults to 0.
-        scale: An optional integer/float. The percentage of ending size.
+        scale: An optional integer/float. The percentage of ending shape.
             Defaults to 1.
-        position: An optional tuple/list of two floats.
+        center: An optional tuple/list of two floats.
             The percentage of center position for the circle.
             Defaults to the center (0.5, 0.5).
 
@@ -188,28 +188,26 @@ def radial_gradient_mask(size, length=0, scale=1, position=(.5, .5)):
         return Image.new('L', size, 0)
 
     w, h = size
+    cx, cy = center
 
     # use faster method if possible
-    if length == 0 and scale >= 1 and w == h and position == (.5, .5):
+    if length == 0 and scale >= 1 and w == h and center == (.5, .5):
         return _prepared_radial_gradient_mask(size, scale)
 
-    y, x = np.ogrid[:h, :w]
-    cx = (w - 1) * position[0]
-    cy = (h - 1) * position[1]
+    rw_left = w * cx
+    rw_right = w * (1 - cx)
+    rh_top = h * cy
+    rh_bottom = h * (1 - cy)
 
-    # rw (or rh) is a width (height) from cx (cy) to farthest side
-    rw_factor = max(position[0], 1 - position[0])
-    rh_factor = max(position[1], 1 - position[1])
-    rw = (w - 1) * rw_factor
-    rh = (h - 1) * rh_factor
-    r = math.sqrt(rw ** 2 + rh ** 2)
+    x = np.linspace(-rw_left, rw_right, w)
+    y = np.linspace(-rh_top, rh_bottom, h)[:, None]
 
-    def adjust_length(x):
-        base = max(scale - length, 0.001)  # avoid a division by zero
-        return (x - length) / base
+    # r is a radius to the farthest-corner
+    r = math.sqrt(max(rw_left, rw_right) ** 2 + max(rh_top, rh_bottom) ** 2)
+    base = max(scale - length, 0.001)  # avoid a division by zero
 
-    mask = np.sqrt((x - cx) ** 2 + (y - cy) ** 2) / r  # distance from center
-    mask = np.apply_along_axis(adjust_length, 0, mask)
+    mask = np.sqrt(x ** 2 + y ** 2) / r  # distance from center
+    mask = (mask - length) / base  # adjust ending shape
     mask = 1 - mask  # invert: distance to center
     mask *= 255
     mask = mask.clip(0, 255)
@@ -218,29 +216,36 @@ def radial_gradient_mask(size, length=0, scale=1, position=(.5, .5)):
 
 
 # TODO: improve reproduction of gradient when multiple color stops
-def radial_gradient(size, *color_stops, **kwargs):
+def radial_gradient(size, colors, positions=None, **kwargs):
     """Creates radial gradient image.
 
     Arguments:
         size: A tuple/list of 2 integers. The size of output image.
-        color_stops: A tuple/list of color stops.
-            The color stop is a pair of RGB color and length.
+        colors: A tuple/list of RGB colors.
+        positions: An optional tuple/list of floats.
+            The position of color stops.
+            If omitted, the positions are equal spacing.
 
     Returns:
         The output image.
 
     Raises:
-        AssertionError: if `size` and/or `color_stop` have invalid size.
+        AssertionError: if `size`, `colors` or `positions` have invalid size.
     """
 
     assert len(size) == 2
-    assert len(color_stops) >= 2
-    for color_stop in color_stops:
-        assert len(color_stop) == 2
-        assert len(color_stop[0]) == 3
+    assert len(colors) >= 2
+    for color in colors:
+        assert len(color) == 3
 
-    scale = color_stops[-1][1]  # use length of the last color stop as scale
-    color_stops = [(fill(size, c), l) for c, l in color_stops]
+    if positions is None:
+        positions = np.linspace(0, 1, len(colors))
+    else:
+        assert len(positions) >= 2
+        assert len(colors) == len(positions)
+
+    scale = positions[-1]  # use length of the last color stop as scale
+    colors = [fill(size, color) for color in colors]
 
     def compose(x, y):
         kwargs_ = kwargs.copy()
@@ -249,4 +254,4 @@ def radial_gradient(size, *color_stops, **kwargs):
         mask = radial_gradient_mask(size, **kwargs_)
         return (Image.composite(x[0], y[0], mask), y[1])
 
-    return reduce(compose, color_stops)[0]
+    return reduce(compose, zip(colors, positions))[0]

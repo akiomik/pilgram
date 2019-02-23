@@ -30,7 +30,7 @@ def toaster(im):
 
     cb = util.or_convert(im, 'RGB')
 
-    cs = util.radial_gradient(cb.size, ([128, 78, 15], 0), ([59, 0, 59], 1))
+    cs = util.radial_gradient(cb.size, [(128, 78, 15), (59, 0, 59)])
     cr = ImageChops.screen(cb, cs)
 
     cr = css.contrast(cr, 1.5)

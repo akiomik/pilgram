@@ -30,8 +30,8 @@ def willow(im):
 
     cs1 = util.radial_gradient(
             cb.size,
-            ([212, 169, 175], .55),
-            ([0, 0, 0], 1.5))
+            [(212, 169, 175), (0, 0, 0)],
+            [.55, 1.5])
     cm1 = css.blending.overlay(cb, cs1)
 
     cs2 = util.fill(cb.size, [216, 205, 203])

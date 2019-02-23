@@ -31,9 +31,8 @@ def earlybird(im):
     # TODO: improve reproduction of gradient when multiple color stops
     cs = util.radial_gradient(
             cb.size,
-            ([208, 186, 142], .2),
-            ([54, 3, 9], .85),
-            ([29, 2, 16], 1))
+            [(208, 186, 142), (54, 3, 9), (29, 2, 16)],
+            [.2, .85, 1])
     cr = css.blending.overlay(cb, cs)
 
     cr = css.contrast(cr, .9)
