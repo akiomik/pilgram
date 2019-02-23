@@ -33,28 +33,28 @@ def or_convert(im, mode):
     return im if im.mode == mode else im.convert(mode)
 
 
-def fill(shape, color):
+def fill(size, color):
     """Fills new image with the color.
 
     Arguments:
-        shape: A tuple/list of 2 integers. The shape of output image.
+        size: A tuple/list of 2 integers. The size of output image.
         color: A tuple/list of 3 or 4 integers. The fill color.
 
     Returns:
         The output image.
 
     Raises:
-        AssertionError: if `shape` and/or `color` have invalid size.
+        AssertionError: if `size` and/or `color` have invalid size.
     """
 
-    assert len(shape) == 2
+    assert len(size) == 2
     assert len(color) in [3, 4]
 
     if len(color) == 4:
         color[3] = round(color[3] * 255)  # alpha
 
     uniqued = list(set(color))
-    cmap = {c: Image.new('L', shape, c) for c in uniqued}
+    cmap = {c: Image.new('L', size, c) for c in uniqued}
 
     if len(color) == 3:
         r, g, b = color
@@ -64,14 +64,14 @@ def fill(shape, color):
         return Image.merge('RGBA', (cmap[r], cmap[g], cmap[b], cmap[a]))
 
 
-def _prepared_linear_gradient_mask(shape, start, end, is_horizontal=True):
+def _prepared_linear_gradient_mask(size, start, end, is_horizontal=True):
     """Returns prepared linear gradient mask."""
     assert end >= 1
 
     mask = ImageChops.invert(Image.linear_gradient('L'))
     w, h = mask.size
     box = (0, round(h * start), w, round(h / end))
-    resized_mask = mask.resize(shape, box=box)
+    resized_mask = mask.resize(size, box=box)
 
     if is_horizontal:
         return resized_mask.rotate(90)
@@ -79,11 +79,11 @@ def _prepared_linear_gradient_mask(shape, start, end, is_horizontal=True):
         return resized_mask
 
 
-def linear_gradient_mask(shape, start=0, end=1, is_horizontal=True):
+def linear_gradient_mask(size, start=0, end=1, is_horizontal=True):
     """Creates mask image for linear gradient image.
 
     Arguments:
-        shape: A tuple/list of 2 integers. The shape of output image.
+        size: A tuple/list of 2 integers. The size of output image.
         start: An optional integer/float. The starting point start.
             The point is left-side when `is_horizontal` is True, top otherwise.
             Defaults to 0.
@@ -97,16 +97,16 @@ def linear_gradient_mask(shape, start=0, end=1, is_horizontal=True):
         The mask image.
 
     Raises:
-        AssertionError: if `shape`, `start` and/or `end` have invalid size.
+        AssertionError: if `size`, `start` and/or `end` have invalid size.
     """
 
-    assert len(shape) == 2
+    assert len(size) == 2
 
     if end >= 1:
         return _prepared_linear_gradient_mask(
-                shape, start, end, is_horizontal)
+                size, start, end, is_horizontal)
 
-    w, h = shape
+    w, h = size
 
     if is_horizontal:
         row = np.linspace(start, end, w)
@@ -121,11 +121,11 @@ def linear_gradient_mask(shape, start=0, end=1, is_horizontal=True):
     return Image.fromarray(np.uint8(mask.round()))
 
 
-def linear_gradient(shape, start, end, is_horizontal=True):
+def linear_gradient(size, start, end, is_horizontal=True):
     """Creates linear gradient image.
 
     Arguments:
-        shape: A tuple/list of 2 integers. The shape of output image.
+        size: A tuple/list of 2 integers. The size of output image.
         start: A tuple/list of 3 integers. The starting point color.
             The point is left-side when `is_horizontal` is True, top otherwise.
         end: A tuple/list of 3 integers. The ending point color.
@@ -138,21 +138,21 @@ def linear_gradient(shape, start, end, is_horizontal=True):
         The output image.
 
     Raises:
-        AssertionError: if `shape`, `start` and/or `end` have invalid size.
+        AssertionError: if `size`, `start` and/or `end` have invalid size.
     """
 
-    assert len(shape) == 2
+    assert len(size) == 2
     assert len(start) == 3
     assert len(end) == 3
 
-    im_start = fill(shape, start)
-    im_end = fill(shape, end)
-    mask = linear_gradient_mask(shape, is_horizontal=is_horizontal)
+    im_start = fill(size, start)
+    im_end = fill(size, end)
+    mask = linear_gradient_mask(size, is_horizontal=is_horizontal)
 
     return Image.composite(im_start, im_end, mask)
 
 
-def _prepared_radial_gradient_mask(shape, scale=1):
+def _prepared_radial_gradient_mask(size, scale=1):
     """Returns prepared radial gradient mask"""
 
     mask = ImageChops.invert(Image.radial_gradient('L'))
@@ -162,17 +162,17 @@ def _prepared_radial_gradient_mask(shape, scale=1):
     yoffset = round((h - h / scale) / 2)
     box = (xoffset, yoffset, w - xoffset, h - yoffset)
 
-    return mask.resize(shape, box=box)
+    return mask.resize(size, box=box)
 
 
-def radial_gradient_mask(shape, length=0, scale=1, position=(.5, .5)):
+def radial_gradient_mask(size, length=0, scale=1, position=(.5, .5)):
     """Creates mask image for radial gradient image.
 
     Arguments:
-        shape: A tuple/list of 2 integers. The shape of mask image.
+        size: A tuple/list of 2 integers. The size of mask image.
         length: An optional integer/float. The percentage of inner color stop.
             Defaults to 0.
-        scale: An optional integer/float. The percentage of ending shape.
+        scale: An optional integer/float. The percentage of ending size.
             Defaults to 1.
         position: An optional tuple/list of two floats.
             The percentage of center position for the circle.
@@ -183,16 +183,16 @@ def radial_gradient_mask(shape, length=0, scale=1, position=(.5, .5)):
     """
 
     if length >= 1:
-        return Image.new('L', shape, 255)
+        return Image.new('L', size, 255)
 
     if scale <= 0:
-        return Image.new('L', shape, 0)
+        return Image.new('L', size, 0)
 
-    w, h = shape
+    w, h = size
 
     # use faster method if possible
     if length == 0 and scale >= 1 and w == h and position == (.5, .5):
-        return _prepared_radial_gradient_mask(shape, scale)
+        return _prepared_radial_gradient_mask(size, scale)
 
     y, x = np.ogrid[:h, :w]
     cx = (w - 1) * position[0]
@@ -219,11 +219,11 @@ def radial_gradient_mask(shape, length=0, scale=1, position=(.5, .5)):
 
 
 # TODO: improve reproduction of gradient when multiple color stops
-def radial_gradient(shape, *color_stops, **kwargs):
+def radial_gradient(size, *color_stops, **kwargs):
     """Creates radial gradient image.
 
     Arguments:
-        shape: A tuple/list of 2 integers. The shape of output image.
+        size: A tuple/list of 2 integers. The size of output image.
         color_stops: A tuple/list of color stops.
             The color stop is a pair of RGB color and length.
 
@@ -231,23 +231,23 @@ def radial_gradient(shape, *color_stops, **kwargs):
         The output image.
 
     Raises:
-        AssertionError: if `shape` and/or `color_stop` have invalid size.
+        AssertionError: if `size` and/or `color_stop` have invalid size.
     """
 
-    assert len(shape) == 2
+    assert len(size) == 2
     assert len(color_stops) >= 2
     for color_stop in color_stops:
         assert len(color_stop) == 2
         assert len(color_stop[0]) == 3
 
     scale = color_stops[-1][1]  # use length of the last color stop as scale
-    color_stops = [(fill(shape, c), l) for c, l in color_stops]
+    color_stops = [(fill(size, c), l) for c, l in color_stops]
 
     def compose(x, y):
         kwargs_ = kwargs.copy()
         kwargs_['length'] = x[1]
         kwargs_['scale'] = scale
-        mask = radial_gradient_mask(shape, **kwargs_)
+        mask = radial_gradient_mask(size, **kwargs_)
         return (Image.composite(x[0], y[0], mask), y[1])
 
     return reduce(compose, color_stops)[0]
