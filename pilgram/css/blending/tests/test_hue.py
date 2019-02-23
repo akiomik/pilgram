@@ -33,7 +33,7 @@ def test_hue1():
         (0, 128, 255), (103, 179, 255),
         (144, 200, 255), (0, 82, 164),
     ]
-    expected = [pytest.approx(c, 1) for c in expected]
+    expected = [pytest.approx(c, abs=1) for c in expected]
 
     assert list(hue.getdata()) == expected  # almost eq
 
@@ -51,6 +51,6 @@ def test_hue2():
         (0, 128, 255), (0, 161, 81),
         (70, 140, 0), (153, 50, 255),
     ]
-    expected = [pytest.approx(c, 1) for c in expected]
+    expected = [pytest.approx(c, abs=1) for c in expected]
 
     assert list(hue.getdata()) == expected  # almost eq

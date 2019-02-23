@@ -33,6 +33,6 @@ def test_soft_light():
         (0, 64, 255), (0, 128, 255),
         (0, 128, 255), (0, 181, 255),
     ]
-    expected = [pytest.approx(c, 1) for c in expected]
+    expected = [pytest.approx(c, abs=1) for c in expected]
 
     assert list(soft_light.getdata()) == expected  # almost eq

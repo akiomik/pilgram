@@ -33,6 +33,6 @@ def test_color():
         (0, 0, 0), (39, 148, 255),
         (41, 148, 255), (255, 255, 255),
     ]
-    expected = [pytest.approx(c, 1) for c in expected]
+    expected = [pytest.approx(c, abs=1) for c in expected]
 
     assert list(color.getdata()) == expected  # almost eq

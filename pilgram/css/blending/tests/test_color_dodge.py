@@ -33,6 +33,6 @@ def test_color_dodge():
         (0, 128, 255), (127, 255, 255),
         (0, 255, 255), (0, 255, 255),
     ]
-    expected = [pytest.approx(c, 1) for c in expected]
+    expected = [pytest.approx(c, abs=1) for c in expected]
 
     assert list(color_dodge.getdata()) == expected  # almost eq

@@ -33,6 +33,6 @@ def test_exclusion():
         (0, 128, 255), (127, 128, 128),
         (128, 127, 127), (255, 127, 0),
     ]
-    expected = [pytest.approx(c, 1) for c in expected]
+    expected = [pytest.approx(c, abs=1) for c in expected]
 
     assert list(exclusion.getdata()) == expected  # almost eq
