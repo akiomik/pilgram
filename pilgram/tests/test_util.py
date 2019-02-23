@@ -75,7 +75,7 @@ def test_linear_gradient_mask_start_end():
     end = 200 / 255
     mask = util.linear_gradient_mask((w, h), start=start, end=end)
 
-    assert list(mask.getdata()) == [100, 133, 167, 200] * h
+    assert list(mask.getdata()) == [100, 133, 166, 200] * h
     assert mask.size == (w, h)
     assert mask.mode == 'L'
 
@@ -87,7 +87,7 @@ def test_linear_gradient_mask_start_end_vertical():
     mask = util.linear_gradient_mask(
             (w, h), start=start, end=end, is_horizontal=False)
 
-    expected = [100] * w + [133] * w + [167] * w + [200] * w
+    expected = [100] * w + [133] * w + [166] * w + [200] * w
 
     assert list(mask.getdata()) == expected
     assert mask.size == (w, h)

@@ -107,18 +107,17 @@ def linear_gradient_mask(size, start=0, end=1, is_horizontal=True):
                 size, start, end, is_horizontal)
 
     w, h = size
+    start *= 255
+    end *= 255
 
     if is_horizontal:
-        row = np.linspace(start, end, w)
+        row = np.linspace(start, end, num=w, dtype=np.uint8)
         mask = np.tile(row, (h, 1))
     else:
-        row = np.linspace(start, end, h)
+        row = np.linspace(start, end, num=h, dtype=np.uint8)
         mask = np.tile(row, (w, 1)).T
 
-    mask *= 255
-    mask = np.clip(mask, 0, 255)
-
-    return Image.fromarray(np.uint8(mask.round()))
+    return Image.fromarray(mask)
 
 
 def linear_gradient(size, start, end, is_horizontal=True):
