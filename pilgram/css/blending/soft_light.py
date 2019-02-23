@@ -22,23 +22,14 @@ from PIL.ImageMath import imagemath_float as _float
 def _soft_light(cb, cs, d_cb):
     """Returns ImageMath operands for soft light"""
 
-    cb = [_float(c) / 255 for c in cb]
-    cs = [_float(c) / 255 for c in cs]
-    d_cb = [_float(c) / 255 for c in d_cb]
+    cb = _float(cb) / 255
+    cs = _float(cs) / 255
+    d_cb = _float(d_cb) / 255
 
-    rb, gb, bb = cb
-    rs, gs, bs = cs
-    d_rd, d_gd, d_bd = d_cb
+    c1 = (cs <= .5) * (cb - (1 - 2 * cs) * cb * (1 - cb))
+    c2 = (cs > .5) * (cb + (2 * cs - 1) * d_cb)
 
-    r1 = (rs <= .5) * (rb - (1 - 2 * rs) * rb * (1 - rb))
-    g1 = (gs <= .5) * (gb - (1 - 2 * gs) * gb * (1 - gb))
-    b1 = (bs <= .5) * (bb - (1 - 2 * bs) * bb * (1 - bb))
-
-    r2 = (rs > .5) * (rb + (2 * rs - 1) * d_rd)
-    g2 = (gs > .5) * (gb + (2 * gs - 1) * d_gd)
-    b2 = (bs > .5) * (bb + (2 * bs - 1) * d_bd)
-
-    return (r1 + r2, g1 + g2, b1 + b2)
+    return _convert((c1 + c2) * 255, 'L')
 
 
 def _d_cb(cb):
@@ -82,14 +73,14 @@ def soft_light(im1, im2):
         The output image.
     """
 
-    r1, g1, b1 = im1.split()  # Cb
-    r2, g2, b2 = im2.split()  # Cs
-    d_rd, d_gd, d_bd = im1.point(_d_cb).split()  # D(Cb) - Cb
+    inputs = zip(
+        im1.split(),               # Cb
+        im2.split(),               # Cs
+        im1.point(_d_cb).split(),  # D(Cb) - Cb
+    )
 
-    bands = ImageMath.eval(
-            'f((r1, g1, b1), (r2, g2, b2), (d_rd, d_gd, d_bd))',
-            f=_soft_light, r1=r1, g1=g1, b1=b1, r2=r2, g2=g2, b2=b2,
-            d_rd=d_rd, d_gd=d_gd, d_bd=d_bd)
-    bands = [_convert(band * 255, 'L').im for band in bands]
-
-    return Image.merge('RGB', bands)
+    return Image.merge('RGB', [
+        ImageMath.eval(
+            'f(cb, cs, d_cb)', f=_soft_light, cb=cb, cs=cs, d_cb=d_cb)
+        for cb, cs, d_cb in inputs
+    ])
