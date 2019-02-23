@@ -13,6 +13,16 @@
 # limitations under the License.
 
 from PIL import Image, ImageMath, ImageChops
+from PIL.ImageMath import imagemath_convert as _convert
+from PIL.ImageMath import imagemath_float as _float
+
+
+def _color_dodge(cb, cs_inv):
+    cb = _float(cb)
+    cs_inv = _float(cs_inv)
+
+    cm = ((cb != 0) * (cs_inv == 0) + (cb / cs_inv)) * 255
+    return _convert(cm, 'L')
 
 
 def color_dodge(im1, im2):
@@ -38,11 +48,7 @@ def color_dodge(im1, im2):
         The output image.
     """
 
-    cs_inverted = ImageChops.invert(im2)
-    bands = [
-        ImageMath.eval(
-            '(cb / cs_inv) * 255', cb=cb, cs_inv=cs_inv).convert('L')
-        for cb, cs_inv in zip(im1.split(), cs_inverted.split())
-    ]
-
-    return Image.merge('RGB', bands)
+    return Image.merge('RGB', [
+        ImageMath.eval('f(cb, cs_inv)', f=_color_dodge, cb=cb, cs_inv=cs_inv)
+        for cb, cs_inv in zip(im1.split(), ImageChops.invert(im2).split())
+    ])
