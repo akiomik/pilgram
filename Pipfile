@@ -8,6 +8,7 @@ pilgram = {editable = true,path = "."}
 pytest = "*"
 pytest-cov = "*"
 flake8 = "*"
+pillow = "*"
 
 [requires]
 python_version = "3.7"

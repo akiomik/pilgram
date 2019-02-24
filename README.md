@@ -9,7 +9,7 @@ Filter implementations are inspired by [CSSgram](https://una.im/CSSgram/).
 ## Requirements
 
 - Python 3
-- [Pillow](https://pillow.readthedocs.io/en/stable/)
+- [Pillow](https://pillow.readthedocs.io/en/stable/) or [pillow-simd](https://github.com/uploadcare/pillow-simd)
 
 ## Usage
 
@@ -23,6 +23,7 @@ im = Image.open('sample.jpg')
 pilgram.aden(im).save('sample-aden.jpg')
 ```
 
+Similarly, pilgram provides css filters as as by-product.
 Available css filters on `pilgram.css`: `contrast`, `grayscale`, `hue_rotate`, `saturate`, `sepia`
 
 ```python
