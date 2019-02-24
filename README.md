@@ -38,6 +38,5 @@ pilgram.css.sepia(im).save('sample-sepia.jpg')
 
 ```sh
 pipenv install --dev
-pipenv run pytest
-pipenv run flake8 pilgram  # lint
+make test
 ```

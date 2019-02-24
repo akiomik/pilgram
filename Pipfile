@@ -9,6 +9,8 @@ pytest = "*"
 pytest-cov = "*"
 flake8 = "*"
 pillow = "*"
+twine = "*"
+wheel = "*"
 
 [requires]
 python_version = "3.7"
