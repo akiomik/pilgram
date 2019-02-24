@@ -1,5 +1,7 @@
 # pilgram
 
+[![CircleCI](https://circleci.com/gh/akiomik/pilgram.svg?style=svg)](https://circleci.com/gh/akiomik/pilgram)
+
 A python library for instagram filters.
 
 ![screenshot](screenshot.png)
