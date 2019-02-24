@@ -2,7 +2,7 @@
 
 A python library for instagram filters.
 
-![screenshot](https://github.com/akiomik/pilgram/blob/master/screenshot.png?raw=true)
+![screenshot](screenshot.png)
 
 Filter implementations are inspired by [CSSgram](https://una.im/CSSgram/).
 
