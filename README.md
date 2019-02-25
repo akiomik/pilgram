@@ -7,7 +7,7 @@ A python library for instagram filters.
 
 ![screenshot](screenshot.png)
 
-Filter implementations are inspired by [CSSgram](https://una.im/CSSgram/).
+The filter implementations are inspired by [CSSgram](https://una.im/CSSgram/).
 
 ## Requirements
 
@@ -33,7 +33,7 @@ im = Image.open('sample.jpg')
 pilgram.aden(im).save('sample-aden.jpg')
 ```
 
-Similarly, pilgram provides css filters as as by-product.
+Similarly, pilgram provides css filters as a by-product.
 Available css filters on `pilgram.css`: `contrast`, `grayscale`, `hue_rotate`, `saturate`, `sepia`
 
 ```python
