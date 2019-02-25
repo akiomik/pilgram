@@ -2,6 +2,7 @@
 
 [![PyPI version](https://badge.fury.io/py/pilgram.svg)](https://badge.fury.io/py/pilgram)
 [![CircleCI](https://circleci.com/gh/akiomik/pilgram.svg?style=svg)](https://circleci.com/gh/akiomik/pilgram)
+[![codecov](https://codecov.io/gh/akiomik/pilgram/branch/master/graph/badge.svg)](https://codecov.io/gh/akiomik/pilgram)
 
 A python library for instagram filters.
 
