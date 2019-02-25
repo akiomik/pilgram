@@ -26,6 +26,7 @@ jobs:
           command: |
             sudo pip install pipenv
             pipenv install -d
+            pipenv install -d codecov
 
       - save_cache:
           paths:
@@ -37,3 +38,8 @@ jobs:
           name: run tests
           command: |
             make test
+
+      - run:
+          name: send coverage
+          command: |
+            pipenv run codecov
