@@ -1,5 +1,6 @@
 # pilgram
 
+[![PyPI version](https://badge.fury.io/py/pilgram.svg)](https://badge.fury.io/py/pilgram)
 [![CircleCI](https://circleci.com/gh/akiomik/pilgram.svg?style=svg)](https://circleci.com/gh/akiomik/pilgram)
 
 A python library for instagram filters.
@@ -12,6 +13,13 @@ Filter implementations are inspired by [CSSgram](https://una.im/CSSgram/).
 
 - Python 3
 - [Pillow](https://pillow.readthedocs.io/en/stable/) or [pillow-simd](https://github.com/uploadcare/pillow-simd)
+
+## Install
+
+```sh
+pip install pillow # or pip install pillow-simd
+pip install pilgram
+```
 
 ## Usage
 
