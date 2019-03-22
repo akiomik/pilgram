@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from pilgram import css
+from pilgram.css.blending import hard_light
 
 
 def overlay(im1, im2):
@@ -33,4 +33,4 @@ def overlay(im1, im2):
         The output image.
     """
 
-    return css.blending.hard_light(im2, im1)
+    return hard_light(im2, im1)
