@@ -45,6 +45,12 @@ im = Image.open('sample.jpg')
 pilgram.css.sepia(im).save('sample-sepia.jpg')
 ```
 
+## Demo
+
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/akiomik/pilgram/blob/master/examples/example.ipynb)
+
+- [examples/example.ipynb](examples/example.ipynb) 
+
 ## Test
 
 ```sh
