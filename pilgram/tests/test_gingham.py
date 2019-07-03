@@ -12,6 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from PIL import Image
+
 from pilgram import gingham
 from pilgram import util
 
@@ -19,3 +21,8 @@ from pilgram import util
 def test_gingham():
     im = util.fill((32, 32), [255] * 3)
     gingham(im)
+
+
+def test_gingham_benchmark(benchmark):
+    im = Image.open('examples/mtjimba.jpg')
+    benchmark(gingham, im)

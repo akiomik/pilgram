@@ -5,6 +5,9 @@ all: test clean build;
 test:
 	pipenv run pytest && pipenv run flake8 ${SRC_DIR}
 
+benchmark:
+	pipenv run pytest --benchmark-only --benchmark-max-time=5 --benchmark-columns="mean,stddev,min,max"
+
 clean:
 	rm -rf dist build *.egg-info
 
@@ -17,4 +20,4 @@ test-upload: clean build
 upload: clean build
 	pipenv run twine upload -s -r pypi dist/*
 
-.PHONY: all clean test build test-upload upload
+.PHONY: all test benchmark clean build test-upload upload

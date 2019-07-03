@@ -12,6 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from PIL import Image
+
 from pilgram import xpro2
 from pilgram import util
 
@@ -19,3 +21,8 @@ from pilgram import util
 def test_xpro2():
     im = util.fill((32, 32), [255] * 3)
     xpro2(im)
+
+
+def test_xpro2_benchmark(benchmark):
+    im = Image.open('examples/mtjimba.jpg')
+    benchmark(xpro2, im)

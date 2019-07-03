@@ -12,6 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from PIL import Image
+
 from pilgram import brooklyn
 from pilgram import util
 
@@ -19,3 +21,8 @@ from pilgram import util
 def test_brooklyn():
     im = util.fill((32, 32), [255] * 3)
     brooklyn(im)
+
+
+def test_brooklyn_benchmark(benchmark):
+    im = Image.open('examples/mtjimba.jpg')
+    benchmark(brooklyn, im)

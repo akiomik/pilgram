@@ -12,6 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from PIL import Image
+
 from pilgram import _1977
 from pilgram import util
 
@@ -19,3 +21,8 @@ from pilgram import util
 def test_1977():
     im = util.fill((32, 32), [255] * 3)
     _1977(im)
+
+
+def test_1977_benchmark(benchmark):
+    im = Image.open('examples/mtjimba.jpg')
+    benchmark(_1977, im)

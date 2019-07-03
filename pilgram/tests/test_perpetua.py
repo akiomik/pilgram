@@ -12,6 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from PIL import Image
+
 from pilgram import perpetua
 from pilgram import util
 
@@ -19,3 +21,8 @@ from pilgram import util
 def test_perpetua():
     im = util.fill((32, 32), [255] * 3)
     perpetua(im)
+
+
+def test_perpetua_benchmark(benchmark):
+    im = Image.open('examples/mtjimba.jpg')
+    benchmark(perpetua, im)

@@ -12,6 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from PIL import Image
+
 from pilgram import mayfair
 from pilgram import util
 
@@ -19,3 +21,8 @@ from pilgram import util
 def test_mayfair():
     im = util.fill((32, 32), [255] * 3)
     mayfair(im)
+
+
+def test_mayfair_benchmark(benchmark):
+    im = Image.open('examples/mtjimba.jpg')
+    benchmark(mayfair, im)
