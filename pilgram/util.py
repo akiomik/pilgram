@@ -51,7 +51,7 @@ def fill(size, color):
     assert len(color) in [3, 4]
 
     if len(color) == 4:
-        color[3] = round(color[3] * 255)  # alpha
+        color[3] = int(round(color[3] * 255))  # alpha
 
     uniqued = list(set(color))
     cmap = {c: Image.new('L', size, c) for c in uniqued}

@@ -12,8 +12,6 @@ pillow = "*"
 twine = "*"
 wheel = "*"
 pytest-benchmark = "*"
-
-[requires]
-python_version = "3.7"
+tox = "*"
 
 [packages]

@@ -35,7 +35,7 @@ def _soft_light(cb, cs, d_cb):
 def _d_cb(cb):
     """Returns D(Cb) - Cb"""
 
-    cb /= 255
+    cb = float(cb) / 255
 
     if cb <= .25:
         d = ((16 * cb - 12) * cb + 4) * cb

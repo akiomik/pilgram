@@ -1,6 +1,7 @@
 # pilgram
 
-[![PyPI version](https://badge.fury.io/py/pilgram.svg)](https://badge.fury.io/py/pilgram)
+[![PyPI](https://img.shields.io/pypi/v/pilgram.svg)](https://python.org/pypi/pipenv)
+[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/pilgram.svg)](https://python.org/pypi/pipenv)
 [![Build Status](https://travis-ci.org/akiomik/pilgram.svg?branch=master)](https://travis-ci.org/akiomik/pilgram)
 [![codecov](https://codecov.io/gh/akiomik/pilgram/branch/master/graph/badge.svg)](https://codecov.io/gh/akiomik/pilgram)
 
@@ -12,7 +13,7 @@ The filter implementations are inspired by [CSSgram](https://una.im/CSSgram/).
 
 ## Requirements
 
-- Python 3
+- Python 2 or 3
 - [Pillow](https://pillow.readthedocs.io/en/stable/) or [pillow-simd](https://github.com/uploadcare/pillow-simd)
 
 ## Install
@@ -55,5 +56,6 @@ pilgram.css.sepia(im).save('sample-sepia.jpg')
 
 ```sh
 pipenv install --dev
-make test
+make test     # python 3
+make test-tox # python 2 and 3
 ```
