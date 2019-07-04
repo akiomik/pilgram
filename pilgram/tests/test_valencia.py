@@ -23,6 +23,6 @@ def test_valencia():
     valencia(im)
 
 
-def test_1977_benchmark(benchmark):
+def test_valencia_benchmark(benchmark):
     im = Image.open('examples/mtjimba.jpg')
     benchmark(valencia, im)
