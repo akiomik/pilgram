@@ -17,7 +17,8 @@ from PIL.ImageMath import imagemath_convert as _convert
 
 
 def _color_burn(cb, cs):
-    cm = (cs > 0) * (255 - ((255 - cb) * 255 / cs))
+    cm = (cb == 255) * 255 + \
+        (cb < 255) * (cs > 0) * (255 - ((255 - cb) * 255 / cs))
     return _convert(cm, 'L')
 
 

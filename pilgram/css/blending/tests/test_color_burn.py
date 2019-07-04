@@ -30,7 +30,7 @@ def test_color_burn():
     color_burn = css.blending.color_burn(cb, cs)
 
     expected = [
-        (0, 0, 0), (0, 0, 255),
+        (0, 0, 255), (0, 0, 255),
         (0, 2, 255), (0, 128, 255),
     ]
     expected = [pytest.approx(c, abs=1) for c in expected]
