@@ -45,15 +45,15 @@ def hue_rotate(im, deg=0):
 
     Arguments:
         im: An input image.
-        amount: An optional integer/float. The hue rotate value (degrees).
+        deg: An optional integer/float. The hue rotate value (degrees).
             Defaults to 0.
 
     Returns:
         The output image.
     """
 
-    cos_hue = math.cos(deg * math.pi / 180)
-    sin_hue = math.sin(deg * math.pi / 180)
+    cos_hue = math.cos(math.radians(deg))
+    sin_hue = math.sin(math.radians(deg))
 
     matrix = [
         .213 + cos_hue * .787 - sin_hue * .213,
