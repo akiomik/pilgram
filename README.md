@@ -1,7 +1,7 @@
 # pilgram
 
-[![PyPI](https://img.shields.io/pypi/v/pilgram.svg)](https://python.org/pypi/pipenv)
-[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/pilgram.svg)](https://python.org/pypi/pipenv)
+[![PyPI](https://img.shields.io/pypi/v/pilgram.svg)](https://python.org/pypi/pilgram)
+[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/pilgram.svg)](https://python.org/pypi/pilgram)
 [![Build Status](https://travis-ci.org/akiomik/pilgram.svg?branch=master)](https://travis-ci.org/akiomik/pilgram)
 [![codecov](https://codecov.io/gh/akiomik/pilgram/branch/master/graph/badge.svg)](https://codecov.io/gh/akiomik/pilgram)
 
