@@ -35,7 +35,8 @@ im = Image.open('sample.jpg')
 pilgram.aden(im).save('sample-aden.jpg')
 ```
 
-Similarly, pilgram provides css filters as a by-product.
+Similarly, pilgram provides css filters and blend modes as a by-product.
+
 Available css filters on `pilgram.css`: `contrast`, `grayscale`, `hue_rotate`, `saturate`, `sepia`
 
 ```python
@@ -44,6 +45,17 @@ import pilgram.css
 
 im = Image.open('sample.jpg')
 pilgram.css.sepia(im).save('sample-sepia.jpg')
+```
+
+Available blend modes on `pilgram.css.blending`: `color`, `color_burn`, `color_dodge`, `exclusion`, `hard_light`, `hue`, `overlay`, `soft_light`
+
+```python
+from PIL import Image
+import pilgram.css.blending
+
+backdrop = Image.open('backdrop.jpg')
+source = Image.open('source.jpg')
+pilgram.css.blending.color(backdrop, source).save('blending.jpg')
 ```
 
 ## Demo
