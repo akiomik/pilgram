@@ -24,5 +24,5 @@ def test_lark():
 
 
 def test_lark_benchmark(benchmark):
-    im = Image.open('examples/mtjimba.jpg')
-    benchmark(lark, im)
+    with Image.open('examples/mtjimba.jpg') as im:
+        benchmark(lark, im)

@@ -24,5 +24,5 @@ def test_nashville():
 
 
 def test_nashville_benchmark(benchmark):
-    im = Image.open('examples/mtjimba.jpg')
-    benchmark(nashville, im)
+    with Image.open('examples/mtjimba.jpg') as im:
+        benchmark(nashville, im)

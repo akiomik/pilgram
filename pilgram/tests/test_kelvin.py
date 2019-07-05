@@ -24,5 +24,5 @@ def test_kelvin():
 
 
 def test_kelvin_benchmark(benchmark):
-    im = Image.open('examples/mtjimba.jpg')
-    benchmark(kelvin, im)
+    with Image.open('examples/mtjimba.jpg') as im:
+        benchmark(kelvin, im)

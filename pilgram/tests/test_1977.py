@@ -24,5 +24,5 @@ def test_1977():
 
 
 def test_1977_benchmark(benchmark):
-    im = Image.open('examples/mtjimba.jpg')
-    benchmark(_1977, im)
+    with Image.open('examples/mtjimba.jpg') as im:
+        benchmark(_1977, im)

@@ -24,5 +24,5 @@ def test_aden():
 
 
 def test_aden_benchmark(benchmark):
-    im = Image.open('examples/mtjimba.jpg')
-    benchmark(aden, im)
+    with Image.open('examples/mtjimba.jpg') as im:
+        benchmark(aden, im)

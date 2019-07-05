@@ -24,5 +24,5 @@ def test_reyes():
 
 
 def test_reyes_benchmark(benchmark):
-    im = Image.open('examples/mtjimba.jpg')
-    benchmark(reyes, im)
+    with Image.open('examples/mtjimba.jpg') as im:
+        benchmark(reyes, im)

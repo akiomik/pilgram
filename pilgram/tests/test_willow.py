@@ -24,5 +24,5 @@ def test_willow():
 
 
 def test_willow_benchmark(benchmark):
-    im = Image.open('examples/mtjimba.jpg')
-    benchmark(willow, im)
+    with Image.open('examples/mtjimba.jpg') as im:
+        benchmark(willow, im)

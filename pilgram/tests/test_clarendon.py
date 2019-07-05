@@ -24,5 +24,5 @@ def test_clarendon():
 
 
 def test_clarendon_benchmark(benchmark):
-    im = Image.open('examples/mtjimba.jpg')
-    benchmark(clarendon, im)
+    with Image.open('examples/mtjimba.jpg') as im:
+        benchmark(clarendon, im)

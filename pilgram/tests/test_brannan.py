@@ -24,5 +24,5 @@ def test_brannan():
 
 
 def test_brannan_benchmark(benchmark):
-    im = Image.open('examples/mtjimba.jpg')
-    benchmark(brannan, im)
+    with Image.open('examples/mtjimba.jpg') as im:
+        benchmark(brannan, im)

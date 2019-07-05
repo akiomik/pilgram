@@ -24,5 +24,5 @@ def test_hudson():
 
 
 def test_hudson_benchmark(benchmark):
-    im = Image.open('examples/mtjimba.jpg')
-    benchmark(hudson, im)
+    with Image.open('examples/mtjimba.jpg') as im:
+        benchmark(hudson, im)

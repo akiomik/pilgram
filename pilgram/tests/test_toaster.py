@@ -24,5 +24,5 @@ def test_toaster():
 
 
 def test_toaster_benchmark(benchmark):
-    im = Image.open('examples/mtjimba.jpg')
-    benchmark(toaster, im)
+    with Image.open('examples/mtjimba.jpg') as im:
+        benchmark(toaster, im)

@@ -24,5 +24,5 @@ def test_rise():
 
 
 def test_rise_benchmark(benchmark):
-    im = Image.open('examples/mtjimba.jpg')
-    benchmark(rise, im)
+    with Image.open('examples/mtjimba.jpg') as im:
+        benchmark(rise, im)

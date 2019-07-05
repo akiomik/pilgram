@@ -24,5 +24,5 @@ def test_inkwell():
 
 
 def test_inkwell_benchmark(benchmark):
-    im = Image.open('examples/mtjimba.jpg')
-    benchmark(inkwell, im)
+    with Image.open('examples/mtjimba.jpg') as im:
+        benchmark(inkwell, im)

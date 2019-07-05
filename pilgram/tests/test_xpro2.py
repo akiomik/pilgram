@@ -24,5 +24,5 @@ def test_xpro2():
 
 
 def test_xpro2_benchmark(benchmark):
-    im = Image.open('examples/mtjimba.jpg')
-    benchmark(xpro2, im)
+    with Image.open('examples/mtjimba.jpg') as im:
+        benchmark(xpro2, im)
