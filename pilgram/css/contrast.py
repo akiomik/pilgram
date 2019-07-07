@@ -41,4 +41,4 @@ def contrast(im, amount=1):
 
     assert amount >= 0
 
-    return im.point(lambda x: round(x * amount + 255 * (-0.5 * amount + 0.5)))
+    return im.point(lambda x: round(x * amount + -127.5 * amount + 127.5))
