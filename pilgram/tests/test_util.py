@@ -12,6 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from __future__ import division
+
 from pilgram import util
 
 
@@ -71,8 +73,8 @@ def test_linear_gradient_mask_vertical():
 
 def test_linear_gradient_mask_start_end():
     w, h = (4, 4)
-    start = 100.0 / 255
-    end = 200.0 / 255
+    start = 100 / 255
+    end = 200 / 255
     mask = util.linear_gradient_mask((w, h), start=start, end=end)
 
     assert list(mask.getdata()) == [100, 133, 166, 200] * h
@@ -82,8 +84,8 @@ def test_linear_gradient_mask_start_end():
 
 def test_linear_gradient_mask_start_end_vertical():
     w, h = (4, 4)
-    start = 100.0 / 255
-    end = 200.0 / 255
+    start = 100 / 255
+    end = 200 / 255
     mask = util.linear_gradient_mask(
             (w, h), start=start, end=end, is_horizontal=False)
 
