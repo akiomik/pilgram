@@ -28,7 +28,6 @@ def earlybird(im):
 
     cb = util.or_convert(im, 'RGB')
 
-    # TODO: improve reproduction of gradient when multiple color stops
     cs = util.radial_gradient(
             cb.size,
             [(208, 186, 142), (54, 3, 9), (29, 2, 16)],

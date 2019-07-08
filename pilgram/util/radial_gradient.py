@@ -85,7 +85,6 @@ def radial_gradient_mask(size, length=0, scale=1, center=(.5, .5)):
     return Image.fromarray(np.uint8(mask.round()))
 
 
-# TODO: improve reproduction of gradient when multiple color stops
 def radial_gradient(size, colors, positions=None, **kwargs):
     """Creates radial gradient image.
 
@@ -114,13 +113,12 @@ def radial_gradient(size, colors, positions=None, **kwargs):
         assert len(positions) >= 2
         assert len(colors) == len(positions)
 
-    scale = positions[-1]  # use length of the last color stop as scale
     colors = [fill(size, color) for color in colors]
 
     def compose(x, y):
         kwargs_ = kwargs.copy()
         kwargs_['length'] = x[1]
-        kwargs_['scale'] = scale
+        kwargs_['scale'] = y[1]
         mask = radial_gradient_mask(size, **kwargs_)
         return (Image.composite(x[0], y[0], mask), y[1])
 
