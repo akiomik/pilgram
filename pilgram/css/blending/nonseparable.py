@@ -230,9 +230,10 @@ def set_sat(c, s):
     cmid = r + g + b - cmax - cmin
     new_cmid = ((cmid - cmin) * s) / (cmax - cmin)
 
-    cmid_r = (cmax > cmin) * (cmid == r) * new_cmid
-    cmid_g = (cmax > cmin) * (cmid == g) * new_cmid
-    cmid_b = (cmax > cmin) * (cmid == b) * new_cmid
+    # NOTE: use cmax if cmax == cmid
+    cmid_r = (cmax > cmin) * (cmax > cmid) * (cmid == r) * new_cmid
+    cmid_g = (cmax > cmin) * (cmax > cmid) * (cmid == g) * new_cmid
+    cmid_b = (cmax > cmin) * (cmax > cmid) * (cmid == b) * new_cmid
 
     cmax_r = (cmax > cmin) * (cmax == r) * s
     cmax_g = (cmax > cmin) * (cmax == g) * s

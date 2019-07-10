@@ -22,7 +22,7 @@ from pilgram import util
 from pilgram.css.blending.nonseparable import _min3, _max3
 from pilgram.css.blending.nonseparable import _clip_color
 from pilgram.css.blending.nonseparable import lum, lum_im, set_lum
-from pilgram.css.blending.nonseparable import sat
+from pilgram.css.blending.nonseparable import sat, set_sat
 
 
 def test_min3():
@@ -110,5 +110,50 @@ def test_sat():
     assert list(im_sat.getdata()) == [120]
 
 
-def test_set_sat():
-    pass  # TODO
+def test_set_sat_cmax_gt_cmin():
+    im1 = util.fill((1, 1), [0, 128, 255])
+    im2 = util.fill((1, 1), [64, 96, 128])  # sat = 64
+    r1, g1, b1 = im1.split()
+    r2, g2, b2 = im2.split()
+    bands = ImageMath.eval(
+            'set_sat((r1, g1, b1), sat((r2, g2, b2)))',
+            set_sat=set_sat, sat=sat,
+            r1=r1, g1=g1, b1=b1,
+            r2=r2, g2=g2, b2=b2)
+
+    expected = [
+        [0],
+        [pytest.approx(32.12549019607843, abs=1)],
+        [64],
+    ]
+    assert [list(band.im.getdata()) for band in bands] == expected
+
+
+def test_set_sat_cmax_eq_cmid_gt_cmin():
+    im1 = util.fill((1, 1), [0, 128, 128])
+    im2 = util.fill((1, 1), [64, 96, 128])  # sat = 64
+    r1, g1, b1 = im1.split()
+    r2, g2, b2 = im2.split()
+    bands = ImageMath.eval(
+            'set_sat((r1, g1, b1), sat((r2, g2, b2)))',
+            set_sat=set_sat, sat=sat,
+            r1=r1, g1=g1, b1=b1,
+            r2=r2, g2=g2, b2=b2)
+
+    expected = [[0], [64], [64]]
+    assert [list(band.im.getdata()) for band in bands] == expected
+
+
+def test_set_sat_cmax_eq_cmin():
+    im1 = util.fill((1, 1), [128, 128, 128])
+    im2 = util.fill((1, 1), [64, 96, 128])  # sat = 64
+    r1, g1, b1 = im1.split()
+    r2, g2, b2 = im2.split()
+    bands = ImageMath.eval(
+            'set_sat((r1, g1, b1), sat((r2, g2, b2)))',
+            set_sat=set_sat, sat=sat,
+            r1=r1, g1=g1, b1=b1,
+            r2=r2, g2=g2, b2=b2)
+
+    expected = [[0], [0], [0]]
+    assert [list(band.im.getdata()) for band in bands] == expected
