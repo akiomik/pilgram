@@ -20,6 +20,7 @@ import pytest
 
 from pilgram import util
 from pilgram.css.blending.nonseparable import _min3, _max3
+from pilgram.css.blending.nonseparable import _clip_color
 from pilgram.css.blending.nonseparable import lum, lum_im, set_lum
 from pilgram.css.blending.nonseparable import sat
 
@@ -43,7 +44,18 @@ def test_max3():
 
 
 def test_clip_color():
-    pass  # TODO
+    im = util.fill((1, 1), [0, 128, 255])
+    r, g, b = im.split()
+    bands = ImageMath.eval(
+            'clip_color((float(r - 64), float(g), float(b + 64)))',
+            clip_color=_clip_color, r=r, g=g, b=b)
+
+    expected = [
+        [pytest.approx(25.70517158047366, 1e-6)],
+        [pytest.approx(106.8796587856024, 1e-6)],
+        [pytest.approx(187.63136220320442, 1e-6)],
+    ]
+    assert [list(band.im.getdata()) for band in bands] == expected
 
 
 def test_lum():
