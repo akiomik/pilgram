@@ -60,9 +60,9 @@ pilgram.css.blending.color(backdrop, source).save('blending.jpg')
 
 ## Demo
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/akiomik/pilgram/blob/master/examples/example.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/akiomik/pilgram/blob/master/notebooks/example.ipynb)
 
-- [examples/example.ipynb](examples/example.ipynb) 
+- [notebooks/example.ipynb](notebooks/example.ipynb) 
 
 ## Test
 
