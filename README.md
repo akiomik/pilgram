@@ -62,7 +62,15 @@ pilgram.css.blending.color(backdrop, source).save('blending.jpg')
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/akiomik/pilgram/blob/master/notebooks/example.ipynb)
 
-- [notebooks/example.ipynb](notebooks/example.ipynb) 
+- [notebooks/example.ipynb](notebooks/example.ipynb)
+
+## Filter performance comparison with [instagram-filters](https://github.com/acoomans/instagram-filters)
+
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/akiomik/pilgram/blob/master/notebooks/filter-performance-comparison.ipynb)
+
+- [notebooks/filter-performance-comparison.ipynb](notebooks/filter-performance-comparison.ipynb)
+
+![filter performance comparison](filter-performance-comparison.png)
 
 ## Test
 
