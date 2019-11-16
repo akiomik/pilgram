@@ -15,11 +15,31 @@
 from PIL import Image, ImageMath
 from PIL.ImageMath import imagemath_convert as _convert
 
+from pilgram.css.blending.alpha import alpha_blend
 
-def _color_burn(cb, cs):
+
+def _color_burn_image_math(cb, cs):
+    """Returns ImageMath operands for color burn blend mode"""
     cm = (cb == 255) * 255 + \
         (cb < 255) * (cs > 0) * (255 - ((255 - cb) * 255 / cs))
     return _convert(cm, 'L')
+
+
+def _color_burn(im1, im2):
+    """The color burn blend mode.
+
+    Arguments:
+        im1: A backdrop image (RGB).
+        im2: A source image (RGB).
+
+    Returns:
+        The output image.
+    """
+
+    return Image.merge('RGB', [
+        ImageMath.eval('f(cb, cs)', f=_color_burn_image_math, cb=cb, cs=cs)
+        for cb, cs in zip(im1.split(), im2.split())
+    ])
 
 
 def color_burn(im1, im2):
@@ -38,14 +58,11 @@ def color_burn(im1, im2):
     https://www.w3.org/TR/compositing-1/#blendingcolorburn
 
     Arguments:
-        im1: A backdrop image.
-        im2: A source image.
+        im1: A backdrop image (RGB or RGBA).
+        im2: A source image (RGB or RGBA).
 
     Returns:
         The output image.
     """
 
-    return Image.merge('RGB', [
-        ImageMath.eval('f(cb, cs)', f=_color_burn, cb=cb, cs=cs)
-        for cb, cs in zip(im1.split(), im2.split())
-    ])
+    return alpha_blend(im1, im2, _color_burn)

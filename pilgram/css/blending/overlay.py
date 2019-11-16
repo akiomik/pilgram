@@ -26,8 +26,8 @@ def overlay(im1, im2):
     https://www.w3.org/TR/compositing-1/#blendingoverlay
 
     Arguments:
-        im1: A backdrop image.
-        im2: A source image.
+        im1: A backdrop image (RGB or RGBA).
+        im2: A source image (RGB or RGBA).
 
     Returns:
         The output image.

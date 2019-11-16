@@ -18,8 +18,10 @@ from PIL import Image, ImageMath
 from PIL.ImageMath import imagemath_convert as _convert
 from PIL.ImageMath import imagemath_float as _float
 
+from pilgram.css.blending.alpha import alpha_blend
 
-def _soft_light(cb, cs, d_cb):
+
+def _soft_light_image_math(cb, cs, d_cb):
     """Returns ImageMath operands for soft light"""
 
     cb = _float(cb) / 255
@@ -45,6 +47,31 @@ def _d_cb(cb):
     return round((d - cb) * 255)
 
 
+def _soft_light(im1, im2):
+    """The soft light blend mode.
+
+    Arguments:
+        im1: A backdrop image (RGB).
+        im2: A source image (RGB).
+
+    Returns:
+        The output image.
+    """
+
+    inputs = zip(
+        im1.split(),               # Cb
+        im2.split(),               # Cs
+        im1.point(_d_cb).split(),  # D(Cb) - Cb
+    )
+
+    return Image.merge('RGB', [
+        ImageMath.eval(
+            'f(cb, cs, d_cb)', f=_soft_light_image_math,
+            cb=cb, cs=cs, d_cb=d_cb)
+        for cb, cs, d_cb in inputs
+    ])
+
+
 def soft_light(im1, im2):
     """Darkens or lightens the colors, depending on the source color value.
 
@@ -66,21 +93,11 @@ def soft_light(im1, im2):
     https://www.w3.org/TR/compositing-1/#blendingsoftlight
 
     Arguments:
-        im1: A backdrop image.
-        im2: A source image.
+        im1: A backdrop image (RGB or RGBA).
+        im2: A source image (RGB or RGBA).
 
     Returns:
         The output image.
     """
 
-    inputs = zip(
-        im1.split(),               # Cb
-        im2.split(),               # Cs
-        im1.point(_d_cb).split(),  # D(Cb) - Cb
-    )
-
-    return Image.merge('RGB', [
-        ImageMath.eval(
-            'f(cb, cs, d_cb)', f=_soft_light, cb=cb, cs=cs, d_cb=d_cb)
-        for cb, cs, d_cb in inputs
-    ])
+    return alpha_blend(im1, im2, _soft_light)

@@ -18,6 +18,7 @@ import pytest
 
 from pilgram import css
 from pilgram import util
+from pilgram.css.blending.tests.helpers import assert_alpha_support
 
 
 def test_color():
@@ -36,3 +37,7 @@ def test_color():
     expected = [pytest.approx(c, abs=1) for c in expected]
 
     assert list(color.getdata()) == expected  # almost eq
+
+
+def test_color_alpha_support(mocker):
+    assert_alpha_support(css.blending.color)

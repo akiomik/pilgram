@@ -12,15 +12,20 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from pilgram.util.fill import fill
-from pilgram.util.invert import invert
-from pilgram.util.or_convert import or_convert
-from pilgram.util.linear_gradient import linear_gradient, linear_gradient_mask
-from pilgram.util.radial_gradient import radial_gradient, radial_gradient_mask
+from PIL import ImageChops
+
+from pilgram.util import fill, invert
 
 
-__all__ = [
-    'fill', 'invert', 'or_convert',
-    'linear_gradient', 'linear_gradient_mask',
-    'radial_gradient', 'radial_gradient_mask',
-]
+def test_invert():
+    w, h = (4, 4)
+    actual = invert(fill((w, h), [0, 127, 255]))
+    expected = fill((w, h), [255, 128, 0])
+    assert actual == expected
+
+
+def test_invert2():
+    w, h = (4, 4)
+    actual = invert(fill((w, h), [0, 127, 255]))
+    expected = ImageChops.invert(fill((w, h), [0, 127, 255]))
+    assert actual == expected

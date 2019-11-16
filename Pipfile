@@ -13,5 +13,6 @@ twine = "*"
 wheel = "*"
 pytest-benchmark = "*"
 tox = "*"
+pytest-mock = "*"
 
 [packages]
