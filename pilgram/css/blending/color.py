@@ -17,15 +17,39 @@ from PIL.ImageMath import imagemath_convert as _convert
 from PIL.ImageMath import imagemath_float as _float
 
 from pilgram.css.blending.nonseparable import set_lum_im, lum_im
+from pilgram.css.blending.alpha import alpha_blend
 
 
-def _color(cs, lum_cb, lum_cs):
+def _color_image_math(cs, lum_cb, lum_cs):
     """Returns ImageMath operands for color blend mode"""
     cs = [_float(c) for c in cs]
     lum_cb = _float(lum_cb)
     lum_cs = _float(lum_cs)
 
     return set_lum_im(cs, lum_cb, lum_cs)
+
+
+def _color(im1, im2):
+    """The color blend mode.
+
+    Arguments:
+        im1: A backdrop image (RGB).
+        im2: A source image (RGB).
+
+    Returns:
+        The output image.
+    """
+
+    r, g, b = im2.split()  # Cs
+    lum_cb = lum_im(im1)   # Lum(Cb)
+    lum_cs = lum_im(im2)   # Lum(C) in SetLum
+
+    bands = ImageMath.eval(
+        'f((r, g, b), lum_cb, lum_cs)',
+        f=_color_image_math, r=r, g=g, b=b, lum_cb=lum_cb, lum_cs=lum_cs)
+    bands = [_convert(band, 'L').im for band in bands]
+
+    return Image.merge('RGB', bands)
 
 
 def color(im1, im2):
@@ -40,20 +64,11 @@ def color(im1, im2):
     https://www.w3.org/TR/compositing-1/#blendingcolor
 
     Arguments:
-        im1: A backdrop image.
-        im2: A source image.
+        im1: A backdrop image (RGB or RGBA).
+        im2: A source image (RGB or RGBA).
 
     Returns:
         The output image.
     """
 
-    r, g, b = im2.split()  # Cs
-    lum_cb = lum_im(im1)   # Lum(Cb)
-    lum_cs = lum_im(im2)   # Lum(C) in SetLum
-
-    bands = ImageMath.eval(
-            'f((r, g, b), lum_cb, lum_cs)',
-            f=_color, r=r, g=g, b=b, lum_cb=lum_cb, lum_cs=lum_cs)
-    bands = [_convert(band, 'L').im for band in bands]
-
-    return Image.merge('RGB', bands)
+    return alpha_blend(im1, im2, _color)

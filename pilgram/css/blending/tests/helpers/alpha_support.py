@@ -12,15 +12,23 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from pilgram.util.fill import fill
-from pilgram.util.invert import invert
-from pilgram.util.or_convert import or_convert
-from pilgram.util.linear_gradient import linear_gradient, linear_gradient_mask
-from pilgram.util.radial_gradient import radial_gradient, radial_gradient_mask
+from pilgram import util
 
 
-__all__ = [
-    'fill', 'invert', 'or_convert',
-    'linear_gradient', 'linear_gradient_mask',
-    'radial_gradient', 'radial_gradient_mask',
-]
+def _assert_alpha_backdrop_support(blending):
+    cb = util.fill((2, 2), [0, 128, 255, 0])
+    cs = util.fill((2, 2), [255, 128, 0])
+    cr = blending(cb, cs)
+    assert cr == cs
+
+
+def _assert_alpha_source_support(blending):
+    cb = util.fill((2, 2), [0, 128, 255])
+    cs = util.fill((2, 2), [255, 128, 0, 0])
+    cr = blending(cb, cs)
+    assert cr == cb
+
+
+def assert_alpha_support(blending):
+    _assert_alpha_backdrop_support(blending)
+    _assert_alpha_source_support(blending)

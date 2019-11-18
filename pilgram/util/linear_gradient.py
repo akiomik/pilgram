@@ -13,16 +13,16 @@
 # limitations under the License.
 
 import numpy as np
-from PIL import Image, ImageChops
+from PIL import Image
 
-from pilgram.util import fill
+from pilgram.util import fill, invert
 
 
 def _prepared_linear_gradient_mask(size, start, end, is_horizontal=True):
     """Returns prepared linear gradient mask."""
     assert end >= 1
 
-    mask = ImageChops.invert(Image.linear_gradient('L'))
+    mask = invert(Image.linear_gradient('L'))
     w, h = mask.size
     box = (0, round(h * start), w, round(h / end))
     resized_mask = mask.resize(size, box=box)

@@ -15,6 +15,25 @@
 from PIL import Image, ImageChops
 import numpy as np
 
+from pilgram.css.blending.alpha import alpha_blend
+
+
+def _exclusion(im1, im2):
+    """The exclusion blend mode.
+
+    Arguments:
+        im1: A backdrop image (RGB).
+        im2: A source image (RGB).
+
+    Returns:
+        The output image.
+    """
+
+    screen = np.asarray(ImageChops.screen(im1, im2))
+    multiply = np.asarray(ImageChops.multiply(im1, im2))
+
+    return Image.fromarray(screen - multiply)
+
 
 def exclusion(im1, im2):
     """Produces an effect like Difference but lower in contrast.
@@ -27,14 +46,11 @@ def exclusion(im1, im2):
     https://www.w3.org/TR/compositing-1/#blendingexclusion
 
     Arguments:
-        im1: A backdrop image.
-        im2: A source image.
+        im1: A backdrop image (RGB or RGBA).
+        im2: A source image (RGB or RGBA).
 
     Returns:
         The output image.
     """
 
-    screen = np.asarray(ImageChops.screen(im1, im2))
-    multiply = np.asarray(ImageChops.multiply(im1, im2))
-
-    return Image.fromarray(screen - multiply)
+    return alpha_blend(im1, im2, _exclusion)

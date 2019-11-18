@@ -16,15 +16,15 @@ import math
 from functools import reduce
 
 import numpy as np
-from PIL import Image, ImageChops
+from PIL import Image
 
-from pilgram.util import fill
+from pilgram.util import fill, invert
 
 
 def _prepared_radial_gradient_mask(size, scale=1):
     """Returns prepared radial gradient mask"""
 
-    mask = ImageChops.invert(Image.radial_gradient('L'))
+    mask = invert(Image.radial_gradient('L'))
 
     w, h = mask.size
     xoffset = round((w - w / scale) / 2)

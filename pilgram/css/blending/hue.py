@@ -17,15 +17,39 @@ from PIL.ImageMath import imagemath_convert as _convert
 from PIL.ImageMath import imagemath_float as _float
 
 from pilgram.css.blending.nonseparable import set_lum, set_sat, sat, lum_im
+from pilgram.css.blending.alpha import alpha_blend
 
 
-def _hue(cb, cs, lum_cb):
+def _hue_image_math(cb, cs, lum_cb):
     """Returns ImageMath operands for hue blend mode"""
     cb = [_float(c) for c in cb]
     cs = [_float(c) for c in cs]
     lum_cb = _float(lum_cb)
 
     return set_lum(set_sat(cs, sat(cb)), lum_cb)
+
+
+def _hue(im1, im2):
+    """The hue blend mode.
+
+    Arguments:
+        im1: A backdrop image (RGB).
+        im2: A source image (RGB).
+
+    Returns:
+        The output image.
+    """
+
+    r1, g1, b1 = im1.split()  # Cb
+    r2, g2, b2 = im2.split()  # Cs
+    lum_cb = lum_im(im1)      # Lum(Cb)
+
+    bands = ImageMath.eval(
+        'f((r1, g1, b1), (r2, g2, b2), lum_cb)', f=_hue_image_math,
+        r1=r1, g1=g1, b1=b1, r2=r2, g2=g2, b2=b2, lum_cb=lum_cb)
+    bands = [_convert(band, 'L').im for band in bands]
+
+    return Image.merge('RGB', bands)
 
 
 def hue(im1, im2):
@@ -40,20 +64,11 @@ def hue(im1, im2):
     https://www.w3.org/TR/compositing-1/#blendinghue
 
     Arguments:
-        im1: A backdrop image.
-        im2: A source image.
+        im1: A backdrop image (RGB or RGBA).
+        im2: A source image (RGB or RGBA).
 
     Returns:
         The output image.
     """
 
-    r1, g1, b1 = im1.split()  # Cb
-    r2, g2, b2 = im2.split()  # Cs
-    lum_cb = lum_im(im1)      # Lum(Cb)
-
-    bands = ImageMath.eval(
-            'f((r1, g1, b1), (r2, g2, b2), lum_cb)',
-            f=_hue, r1=r1, g1=g1, b1=b1, r2=r2, g2=g2, b2=b2, lum_cb=lum_cb)
-    bands = [_convert(band, 'L').im for band in bands]
-
-    return Image.merge('RGB', bands)
+    return alpha_blend(im1, im2, _hue)

@@ -18,6 +18,7 @@ import pytest
 
 from pilgram import css
 from pilgram import util
+from pilgram.css.blending.tests.helpers import assert_alpha_support
 
 
 def test_hue1():
@@ -54,3 +55,7 @@ def test_hue2():
     expected = [pytest.approx(c, abs=1) for c in expected]
 
     assert list(hue.getdata()) == expected  # almost eq
+
+
+def test_hue_alpha_support(mocker):
+    assert_alpha_support(css.blending.hue)

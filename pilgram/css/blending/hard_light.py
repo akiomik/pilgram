@@ -15,6 +15,8 @@
 import numpy as np
 from PIL import Image, ImageChops
 
+from pilgram.css.blending.alpha import alpha_blend
+
 
 def _clip(a, a_min=0, a_max=255):
     """Clips value
@@ -31,6 +33,27 @@ def _clip(a, a_min=0, a_max=255):
     return min(max(a, a_min), a_max)
 
 
+def _hard_light(im1, im2):
+    """The hard light blend mode.
+
+    Arguments:
+        im1: A backdrop image (RGB).
+        im2: A source image (RGB).
+
+    Returns:
+        The output image.
+    """
+
+    im2_multiply = im2.point(lambda x: _clip(2 * x))
+    multiply = np.asarray(ImageChops.multiply(im1, im2_multiply))
+
+    im2_screen = im2.point(lambda x: _clip(2 * x - 255))
+    screen = np.asarray(ImageChops.screen(im1, im2_screen))
+
+    cm = np.where(np.asarray(im2) < 128, multiply, screen)
+    return Image.fromarray(cm)
+
+
 def hard_light(im1, im2):
     """Multiplies or screens the colors, depending on the source color value
 
@@ -45,18 +68,11 @@ def hard_light(im1, im2):
     https://www.w3.org/TR/compositing-1/#blendinghardlight
 
     Arguments:
-        im1: A backdrop image.
-        im2: A source image.
+        im1: A backdrop image (RGB or RGBA).
+        im2: A source image (RGB or RGBA).
 
     Returns:
         The output image.
     """
 
-    im2_multiply = im2.point(lambda x: _clip(2 * x))
-    multiply = np.asarray(ImageChops.multiply(im1, im2_multiply))
-
-    im2_screen = im2.point(lambda x: _clip(2 * x - 255))
-    screen = np.asarray(ImageChops.screen(im1, im2_screen))
-
-    cm = np.where(np.asarray(im2) < 128, multiply, screen)
-    return Image.fromarray(cm)
+    return alpha_blend(im1, im2, _hard_light)

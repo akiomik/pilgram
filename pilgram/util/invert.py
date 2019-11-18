@@ -12,15 +12,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from pilgram.util.fill import fill
-from pilgram.util.invert import invert
-from pilgram.util.or_convert import or_convert
-from pilgram.util.linear_gradient import linear_gradient, linear_gradient_mask
-from pilgram.util.radial_gradient import radial_gradient, radial_gradient_mask
+LUT = [255 - i for i in range(256)]
 
 
-__all__ = [
-    'fill', 'invert', 'or_convert',
-    'linear_gradient', 'linear_gradient_mask',
-    'radial_gradient', 'radial_gradient_mask',
-]
+def invert(im):
+    """Inverts an image.
+
+    Arguments:
+        im: An image.
+
+    Returns:
+        The output image.
+    """
+
+    # NOTE: `ImageChops.invert` is slower than `im.point` with LUT
+    return im.point(LUT * len(im.getbands()))
