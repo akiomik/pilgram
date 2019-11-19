@@ -97,11 +97,11 @@ def alpha_blend(im1, im2, blending):
     im_blended = blending(im1, im2)
 
     if a1 is not None and a2 is not None:
-        im_hard_light_alpha = ImageChops.multiply(a1_rgb, a2_rgb)
+        im_blended_alpha = ImageChops.multiply(a1_rgb, a2_rgb)
         im1_alpha = ImageChops.multiply(a1_rgb, a2_invert_rgb)
         im2_alpha = ImageChops.multiply(a2_rgb, a1_invert_rgb)
         im_blended = ImageChops.add(
-            ImageChops.multiply(im_hard_light_alpha, im_blended),
+            ImageChops.multiply(im_blended_alpha, im_blended),
             ImageChops.add(
                 ImageChops.multiply(im1_alpha, im1),
                 ImageChops.multiply(im2_alpha, im2)))
