@@ -12,33 +12,39 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from PIL import Image
-
-from pilgram import css
-from pilgram import util
+from pilgram.css.blending.alpha import alpha_blend
 
 
-def hudson(im):
-    """Applies Hudson filter.
+def _normal(im1, im2):
+    """The normal blend mode.
 
     Arguments:
-        im: An input image.
+        im1: A backdrop image (RGB).
+        im2: A source image (RGB).
 
     Returns:
         The output image.
     """
 
-    cb = util.or_convert(im, 'RGB')
+    return im2
 
-    cs = util.radial_gradient(
-            cb.size,
-            [(166, 177, 255), (52, 33, 52)],
-            [.5, 1])
-    cs = css.blending.multiply(cb, cs)
-    cr = Image.blend(cb, cs, .5)  # opacity
 
-    cr = css.brightness(cr, 1.2)
-    cr = css.contrast(cr, .9)
-    cr = css.saturate(cr, 1.1)
+def normal(im1, im2):
+    """The blending formula simply selects the source color.
 
-    return cr
+    The normal formula is defined as:
+
+        B(Cb, Cs) = Cs
+
+    See the W3C document:
+    https://www.w3.org/TR/compositing-1/#blendingnormal
+
+    Arguments:
+        im1: A backdrop image (RGB or RGBA).
+        im2: A source image (RGB or RGBA).
+
+    Returns:
+        The output image.
+    """
+
+    return alpha_blend(im1, im2, _normal)

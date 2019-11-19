@@ -12,8 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from PIL import Image, ImageChops
-
 from pilgram import css
 from pilgram import util
 
@@ -30,9 +28,8 @@ def slumber(im):
 
     cb = util.or_convert(im, 'RGB')
 
-    cs1 = util.fill(cb.size, [69, 41, 12])
-    cm = ImageChops.lighter(cb, cs1)
-    cm = Image.blend(cb, cm, .4)
+    cs1 = util.fill(cb.size, [69, 41, 12, .4])
+    cm = css.blending.lighten(cb, cs1)
 
     cs2 = util.fill(cb.size, [125, 105, 24, .5])
     cr = css.blending.soft_light(cm, cs2)

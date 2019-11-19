@@ -12,8 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from PIL import Image, ImageChops
-
 from pilgram import css
 from pilgram import util
 
@@ -29,10 +27,8 @@ def brannan(im):
     """
 
     cb = util.or_convert(im, 'RGB')
-
-    cs = util.fill(cb.size, [161, 44, 199])
-    cs = ImageChops.lighter(cb, cs)
-    cr = Image.blend(cb, cs, .31)
+    cs = util.fill(cb.size, [161, 44, 199, .31])
+    cr = css.blending.lighten(cb, cs)
 
     cr = css.sepia(cr, .5)
     cr = css.contrast(cr, 1.4)

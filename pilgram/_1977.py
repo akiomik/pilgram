@@ -12,8 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from PIL import Image, ImageChops
-
 from pilgram import css
 from pilgram import util
 
@@ -30,9 +28,8 @@ def _1977(im):
 
     cb = util.or_convert(im, 'RGB')
 
-    cs = util.fill(cb.size, [243, 106, 188])
-    cs = ImageChops.screen(cb, cs)
-    cr = Image.blend(cb, cs, .3)
+    cs = util.fill(cb.size, [243, 106, 188, .3])
+    cr = css.blending.screen(cb, cs)
 
     cr = css.contrast(cr, 1.1)
     cr = css.brightness(cr, 1.1)

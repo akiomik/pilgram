@@ -12,33 +12,21 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from PIL import Image
+from PIL import ImageChops
 
 from pilgram import css
 from pilgram import util
+from pilgram.css.blending.tests.helpers import assert_alpha_support
 
 
-def hudson(im):
-    """Applies Hudson filter.
+def test_darken():
+    cb = util.fill((2, 2), [255, 128, 0])
+    cs = util.fill((2, 2), [0, 128, 255])
 
-    Arguments:
-        im: An input image.
+    actual = css.blending.darken(cb, cs)
+    expected = ImageChops.darker(cb, cs)
+    assert actual == expected
 
-    Returns:
-        The output image.
-    """
 
-    cb = util.or_convert(im, 'RGB')
-
-    cs = util.radial_gradient(
-            cb.size,
-            [(166, 177, 255), (52, 33, 52)],
-            [.5, 1])
-    cs = css.blending.multiply(cb, cs)
-    cr = Image.blend(cb, cs, .5)  # opacity
-
-    cr = css.brightness(cr, 1.2)
-    cr = css.contrast(cr, .9)
-    cr = css.saturate(cr, 1.1)
-
-    return cr
+def test_overlay_alpha_support(mocker):
+    assert_alpha_support(css.blending.darken)

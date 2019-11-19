@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from PIL import Image, ImageChops
+from PIL import Image
 
 from pilgram import util
 from pilgram import css
@@ -31,7 +31,7 @@ def lofi(im):
     cb = util.or_convert(im, 'RGB')
 
     cs = util.fill(cb.size, [34, 34, 34])
-    cs = ImageChops.multiply(cb, cs)
+    cs = css.blending.multiply(cb, cs)
 
     mask = util.radial_gradient_mask(cb.size, length=.7, scale=1.5)
     cr = Image.composite(cb, cs, mask)

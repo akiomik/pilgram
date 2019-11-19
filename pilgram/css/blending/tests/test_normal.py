@@ -14,40 +14,34 @@
 
 import numpy as np
 from PIL import Image
-import pytest
 
 from pilgram import css
 from pilgram import util
+from pilgram.css.blending.alpha import split_alpha
 from pilgram.css.blending.tests.helpers import assert_alpha_support
 
 
-def test_overlay():
-    cb_array = np.array([
-        [[0] * 3, [127] * 3],
-        [[128] * 3, [255] * 3],
-    ], dtype=np.uint8)
-
-    cb = Image.fromarray(cb_array)
+def test_normal():
+    cb = util.fill((2, 2), [255, 128, 0])
     cs = util.fill((2, 2), [0, 128, 255])
-    overlay = css.blending.overlay(cb, cs)
 
-    expected = [
-        (0, 0, 0), (0, 127, 254),        # multiply
-        (1, 128, 255), (255, 255, 255),  # screen
-    ]
-    expected = [pytest.approx(c, abs=1) for c in expected]
-
-    assert list(overlay.getdata()) == expected  # almost eq
+    actual = css.blending.normal(cb, cs)
+    expected = cs
+    assert actual == expected
 
 
-def test_overlay2():
-    cb = util.fill((2, 2), [0, 128, 255])
-    cs = util.fill((2, 2), [255, 128, 0])
+def test_normal2():
+    cb = util.fill((2, 2), [255, 128, 0, 1.])
+    cs_array = np.array([
+        [[0, 128, 255, .25], [0, 255, 128, .5]],
+        [[128, 255, 0, .75], [128, 0, 255, .1]],
+    ], dtype=np.uint8)
+    cs = Image.fromarray(cs_array)
 
-    actual = css.blending.overlay(cb, cs)
-    expected = css.blending.hard_light(cs, cb)
+    actual = css.blending.normal(cb, cs)
+    expected, _ = split_alpha(Image.alpha_composite(cb, cs))
     assert actual == expected
 
 
 def test_overlay_alpha_support(mocker):
-    assert_alpha_support(css.blending.overlay)
+    assert_alpha_support(css.blending.normal)

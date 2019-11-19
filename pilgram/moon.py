@@ -12,8 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from PIL import ImageChops
-
 from pilgram import css
 from pilgram import util
 
@@ -34,7 +32,7 @@ def moon(im):
     cs = css.blending.soft_light(cb, cs1)
 
     cs2 = util.fill(cb.size, [56, 56, 56])
-    cr = ImageChops.lighter(cs, cs2)
+    cr = css.blending.lighten(cs, cs2)
 
     cr = css.grayscale(cr)
     cr = css.contrast(cr, 1.1)

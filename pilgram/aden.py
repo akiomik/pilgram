@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from PIL import Image, ImageChops
+from PIL import Image
 
 from pilgram import css
 from pilgram import util
@@ -31,7 +31,7 @@ def aden(im):
     cb = util.or_convert(im, 'RGB')
 
     cs = util.fill(cb.size, [66, 10, 14])
-    cs = ImageChops.darker(cb, cs)
+    cs = css.blending.darken(cb, cs)
 
     alpha_mask = util.linear_gradient_mask(cb.size, start=.8)
     cr = Image.composite(cs, cb, alpha_mask)

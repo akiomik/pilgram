@@ -15,19 +15,31 @@
 from pilgram.css.blending.color import color
 from pilgram.css.blending.color_burn import color_burn
 from pilgram.css.blending.color_dodge import color_dodge
+from pilgram.css.blending.darken import darken
+from pilgram.css.blending.difference import difference
 from pilgram.css.blending.exclusion import exclusion
 from pilgram.css.blending.hard_light import hard_light
 from pilgram.css.blending.hue import hue
+from pilgram.css.blending.lighten import lighten
+from pilgram.css.blending.multiply import multiply
+from pilgram.css.blending.normal import normal
 from pilgram.css.blending.overlay import overlay
+from pilgram.css.blending.screen import screen
 from pilgram.css.blending.soft_light import soft_light
 
 __all__ = [
     'color',
     'color_burn',
     'color_dodge',
+    'darken',
+    'difference',
     'exclusion',
     'hard_light',
     'hue',
+    'lighten',
+    'multiply',
+    'normal',
     'overlay',
+    'screen',
     'soft_light',
 ]

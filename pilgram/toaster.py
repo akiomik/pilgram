@@ -12,8 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from PIL import ImageChops
-
 from pilgram import css
 from pilgram import util
 
@@ -31,7 +29,7 @@ def toaster(im):
     cb = util.or_convert(im, 'RGB')
 
     cs = util.radial_gradient(cb.size, [(128, 78, 15), (59, 0, 59)])
-    cr = ImageChops.screen(cb, cs)
+    cr = css.blending.screen(cb, cs)
 
     cr = css.contrast(cr, 1.5)
     cr = css.brightness(cr, .9)

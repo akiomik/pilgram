@@ -47,7 +47,7 @@ def mayfair(im):
 
     mask2 = util.radial_gradient_mask(size, length=.3, scale=.6, center=pos)
     cs = Image.composite(cs, cm3, mask2)
-    cr = Image.blend(cb, cs, .4)
+    cr = Image.blend(cb, cs, .4)  # opacity
 
     cr = css.contrast(cr, 1.1)
     cr = css.saturate(cr, 1.1)

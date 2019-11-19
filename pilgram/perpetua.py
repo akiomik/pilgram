@@ -32,6 +32,6 @@ def perpetua(im):
 
     cs = util.linear_gradient(cb.size, [0, 91, 154], [230, 193, 61], False)
     cs = css.blending.soft_light(cb, cs)
-    cr = Image.blend(cb, cs, .5)
+    cr = Image.blend(cb, cs, .5)  # opacity
 
     return cr

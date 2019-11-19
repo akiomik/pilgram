@@ -12,8 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from PIL import Image, ImageChops
-
 from pilgram import css
 from pilgram import util
 
@@ -30,13 +28,11 @@ def nashville(im):
 
     cb = util.or_convert(im, 'RGB')
 
-    cs1 = util.fill(cb.size, [247, 176, 153])
-    cm1 = ImageChops.darker(cb, cs1)
-    cm1 = Image.blend(cb, cm1, .56)
+    cs1 = util.fill(cb.size, [247, 176, 153, .56])
+    cm1 = css.blending.darken(cb, cs1)
 
-    cs2 = util.fill(cb.size, [0, 70, 150])
-    cm2 = ImageChops.lighter(cm1, cs2)
-    cr = Image.blend(cm1, cm2, .4)
+    cs2 = util.fill(cb.size, [0, 70, 150, .4])
+    cr = css.blending.lighten(cm1, cs2)
 
     cr = css.sepia(cr, .2)
     cr = css.contrast(cr, 1.2)

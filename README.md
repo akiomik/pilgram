@@ -25,7 +25,33 @@ pip install pilgram
 
 ## Usage
 
-Available instagram filters on `pilgram`: `_1977`, `aden`, `brannan`, `brooklyn`, `clarendon`, `earlybird`, `gingham`, `hudson`, `inkwell`, `kelvin`, `lark`, `lofi`, `maven`, `mayfair`, `moon`, `nashville`, `perpetua`, `reyes`, `rise`, `slumber`, `stinson`, `toaster`, `valencia`, `walden`, `willow`, `xpro2`
+Available instagram filters on `pilgram`:
+- `_1977`
+- `aden`
+- `brannan`
+- `brooklyn`
+- `clarendon`
+- `earlybird`
+- `gingham`
+- `hudson`
+- `inkwell`
+- `kelvin`
+- `lark`
+- `lofi`
+- `maven`
+- `mayfair`
+- `moon`
+- `nashville`
+- `perpetua`
+- `reyes`
+- `rise`
+- `slumber`
+- `stinson`
+- `toaster`
+- `valencia`
+- `walden`
+- `willow`
+- `xpro2`
 
 ```python
 from PIL import Image
@@ -37,7 +63,12 @@ pilgram.aden(im).save('sample-aden.jpg')
 
 Similarly, pilgram provides css filters and blend modes as a by-product.
 
-Available css filters on `pilgram.css`: `contrast`, `grayscale`, `hue_rotate`, `saturate`, `sepia`
+Available css filters on `pilgram.css`:
+- `contrast`
+- `grayscale`
+- `hue_rotate`
+- `saturate`
+- `sepia`
 
 ```python
 from PIL import Image
@@ -47,7 +78,21 @@ im = Image.open('sample.jpg')
 pilgram.css.sepia(im).save('sample-sepia.jpg')
 ```
 
-Available blend modes on `pilgram.css.blending`: `color`, `color_burn`, `color_dodge`, `exclusion`, `hard_light`, `hue`, `overlay`, `soft_light`
+Available blend modes on `pilgram.css.blending`:
+- `color`
+- `color_burn`
+- `color_dodge`
+- `darken`
+- `difference`
+- `exclusion`
+- `hard_light`
+- `hue`
+- `lighten`
+- `multiply`
+- `normal`
+- `overlay`
+- `screen`
+- `soft_light`
 
 ```python
 from PIL import Image

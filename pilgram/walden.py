@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from PIL import Image, ImageChops
+from PIL import Image
 
 from pilgram import css
 from pilgram import util
@@ -31,8 +31,8 @@ def walden(im):
     cb = util.or_convert(im, 'RGB')
 
     cs = util.fill(cb.size, [0, 68, 204])
-    cs = ImageChops.screen(cb, cs)
-    cr = Image.blend(cb, cs, .3)
+    cs = css.blending.screen(cb, cs)
+    cr = Image.blend(cb, cs, .3)  # opacity
 
     cr = css.brightness(cr, 1.1)
     cr = css.hue_rotate(cr, -10)
