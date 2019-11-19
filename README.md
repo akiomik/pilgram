@@ -19,7 +19,7 @@ The filter implementations are inspired by [CSSgram](https://una.im/CSSgram/).
 ## Install
 
 ```sh
-pip install pillow # or pip install pillow-simd
+pip install pillow>=4.1.0 # or pip install pillow-simd
 pip install pilgram
 ```
 
