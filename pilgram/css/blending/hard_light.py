@@ -34,10 +34,10 @@ def _hard_light(im1, im2):
         The output image.
     """
 
-    im2_multiply = im2.point(LUT_2x * len(im2.getbands()))
+    im2_multiply = util.apply_lut(im2, LUT_2x)
     multiply = np.asarray(ImageChops.multiply(im1, im2_multiply))
 
-    im2_screen = im2.point(LUT_2x_1 * len(im2.getbands()))
+    im2_screen = util.apply_lut(im2, LUT_2x_1)
     screen = np.asarray(ImageChops.screen(im1, im2_screen))
 
     cm = np.where(np.asarray(im2) < 128, multiply, screen)

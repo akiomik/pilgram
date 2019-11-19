@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from pilgram.util.apply_lut import apply_lut
 from pilgram.util.clip import clip
 from pilgram.util.fill import fill
 from pilgram.util.invert import invert
@@ -21,7 +22,7 @@ from pilgram.util.radial_gradient import radial_gradient, radial_gradient_mask
 
 
 __all__ = [
-    'clip', 'fill', 'invert', 'or_convert',
+    'apply_lut', 'clip', 'fill', 'invert', 'or_convert',
     'linear_gradient', 'linear_gradient_mask',
     'radial_gradient', 'radial_gradient_mask',
 ]

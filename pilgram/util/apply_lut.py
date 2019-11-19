@@ -12,20 +12,22 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from .apply_lut import apply_lut
 
-LUT = [255 - i for i in range(256)]
-
-
-def invert(im):
-    """Inverts an image.
+def apply_lut(im, lut):
+    """Apply LUT to an image.
 
     Arguments:
         im: An image.
+        lut: A LUT (LookUp Table). The size must be 256.
 
     Returns:
         The output image.
+
+    Raises:
+        ValueError: if `lut` has invalid size.
     """
 
-    # NOTE: `ImageChops.invert` is slower than `im.point` with LUT
-    return apply_lut(im, LUT)
+    if len(lut) != 256:
+        raise ValueError('A size of LUT must be 256: {}'.format(len(lut)))
+
+    return im.point(lut * len(im.getbands()))

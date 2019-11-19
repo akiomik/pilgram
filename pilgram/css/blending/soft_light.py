@@ -51,12 +51,12 @@ def _soft_light(im1, im2):
         The output image.
     """
 
-    _1_2_x_cs = im2.point(LUT_1_2_x_cs * len(im2.getbands()))
-    cb_x_1_cb = im1.point(LUT_cb_x_1_cb * len(im1.getbands()))
+    _1_2_x_cs = util.apply_lut(im2, LUT_1_2_x_cs)
+    cb_x_1_cb = util.apply_lut(im1, LUT_cb_x_1_cb)
     c1 = ImageChops.subtract(im1, ImageChops.multiply(_1_2_x_cs, cb_x_1_cb))
 
-    _2_x_cs_1 = im2.point(LUT_2_x_cs_1 * len(im2.getbands()))
-    d_cb = im1.point(LUT_d_cb * len(im1.getbands()))
+    _2_x_cs_1 = util.apply_lut(im2, LUT_2_x_cs_1)
+    d_cb = util.apply_lut(im1, LUT_d_cb)
     c2 = ImageChops.add(im1, ImageChops.multiply(_2_x_cs_1, d_cb))
 
     cm = np.where(np.asarray(im2) <= 128, np.asarray(c1), np.asarray(c2))
