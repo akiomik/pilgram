@@ -16,21 +16,11 @@ import numpy as np
 from PIL import Image, ImageChops
 
 from pilgram.css.blending.alpha import alpha_blend
+from pilgram import util
 
 
-def _clip(a, a_min=0, a_max=255):
-    """Clips value
-
-    Arguments:
-        a: An integer/float. The input value to clip.
-        a_min: An optional integer/float. The minimum value. Defaults to 0.
-        a_max: An optional integer/float. The maximum value. Defaults to 255.
-
-    Returns:
-        The clipped value.
-    """
-
-    return min(max(a, a_min), a_max)
+LUT_2x = [util.clip(2 * i) for i in range(256)]
+LUT_2x_1 = [util.clip(2 * i - 255) for i in range(256)]
 
 
 def _hard_light(im1, im2):
@@ -44,10 +34,10 @@ def _hard_light(im1, im2):
         The output image.
     """
 
-    im2_multiply = im2.point(lambda x: _clip(2 * x))
+    im2_multiply = im2.point(LUT_2x * len(im2.getbands()))
     multiply = np.asarray(ImageChops.multiply(im1, im2_multiply))
 
-    im2_screen = im2.point(lambda x: _clip(2 * x - 255))
+    im2_screen = im2.point(LUT_2x_1 * len(im2.getbands()))
     screen = np.asarray(ImageChops.screen(im1, im2_screen))
 
     cm = np.where(np.asarray(im2) < 128, multiply, screen)
