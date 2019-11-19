@@ -14,24 +14,11 @@
 
 import math
 
-from PIL import Image, ImageMath
-from PIL.ImageMath import imagemath_convert as _convert
-from PIL.ImageMath import imagemath_float as _float
+import numpy as np
+from PIL import Image, ImageChops
 
 from pilgram.css.blending.alpha import alpha_blend
-
-
-def _soft_light_image_math(cb, cs, d_cb):
-    """Returns ImageMath operands for soft light"""
-
-    cb = _float(cb) / 255
-    cs = _float(cs) / 255
-    d_cb = _float(d_cb) / 255
-
-    c1 = (cs <= .5) * (cb - (1 - 2 * cs) * cb * (1 - cb))
-    c2 = (cs > .5) * (cb + (2 * cs - 1) * d_cb)
-
-    return _convert((c1 + c2) * 255, 'L')
+from pilgram import util
 
 
 def _d_cb(cb):
@@ -47,6 +34,12 @@ def _d_cb(cb):
     return round((d - cb) * 255)
 
 
+LUT_1_2_x_cs = [util.clip(255 - 2 * i) for i in range(256)]
+LUT_cb_x_1_cb = [util.clip(i * (1 - i / 255)) for i in range(256)]
+LUT_2_x_cs_1 = [util.clip(2 * i - 255) for i in range(256)]
+LUT_d_cb = [_d_cb(i) for i in range(256)]
+
+
 def _soft_light(im1, im2):
     """The soft light blend mode.
 
@@ -58,18 +51,16 @@ def _soft_light(im1, im2):
         The output image.
     """
 
-    inputs = zip(
-        im1.split(),               # Cb
-        im2.split(),               # Cs
-        im1.point(_d_cb).split(),  # D(Cb) - Cb
-    )
+    _1_2_x_cs = im2.point(LUT_1_2_x_cs * len(im2.getbands()))
+    cb_x_1_cb = im1.point(LUT_cb_x_1_cb * len(im1.getbands()))
+    c1 = ImageChops.subtract(im1, ImageChops.multiply(_1_2_x_cs, cb_x_1_cb))
 
-    return Image.merge('RGB', [
-        ImageMath.eval(
-            'f(cb, cs, d_cb)', f=_soft_light_image_math,
-            cb=cb, cs=cs, d_cb=d_cb)
-        for cb, cs, d_cb in inputs
-    ])
+    _2_x_cs_1 = im2.point(LUT_2_x_cs_1 * len(im2.getbands()))
+    d_cb = im1.point(LUT_d_cb * len(im1.getbands()))
+    c2 = ImageChops.add(im1, ImageChops.multiply(_2_x_cs_1, d_cb))
+
+    cm = np.where(np.asarray(im2) <= 128, np.asarray(c1), np.asarray(c2))
+    return Image.fromarray(cm)
 
 
 def soft_light(im1, im2):
