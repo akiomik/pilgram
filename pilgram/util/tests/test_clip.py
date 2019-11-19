@@ -12,16 +12,30 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from pilgram.util.clip import clip
-from pilgram.util.fill import fill
-from pilgram.util.invert import invert
-from pilgram.util.or_convert import or_convert
-from pilgram.util.linear_gradient import linear_gradient, linear_gradient_mask
-from pilgram.util.radial_gradient import radial_gradient, radial_gradient_mask
+from pilgram import util
 
 
-__all__ = [
-    'clip', 'fill', 'invert', 'or_convert',
-    'linear_gradient', 'linear_gradient_mask',
-    'radial_gradient', 'radial_gradient_mask',
-]
+def test_clip_minus_1():
+    assert util.clip(-1) == 0
+
+
+def test_clip_0():
+    assert util.clip(0) == 0
+
+
+def test_clip_255():
+    assert util.clip(255) == 255
+
+
+def test_clip_256():
+    assert util.clip(256) == 255
+
+
+def test_clip_min_minus_1000():
+    assert util.clip(-1000, a_min=-1000) == -1000
+    assert util.clip(-1001, a_min=-1000) == -1000
+
+
+def test_clip_max_1000():
+    assert util.clip(1000, a_max=1000) == 1000
+    assert util.clip(1001, a_max=1000) == 1000
