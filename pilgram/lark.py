@@ -37,4 +37,6 @@ def lark(im):
     cm2 = ImageChops.darker(cm1, cs2)
     cr = Image.blend(cm1, cm2, .8)
 
+    cr = css.contrast(cr, .9)
+
     return cr
