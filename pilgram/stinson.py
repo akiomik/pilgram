@@ -12,8 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from PIL import Image
-
 from pilgram import css
 from pilgram import util
 
@@ -30,9 +28,8 @@ def stinson(im):
 
     cb = util.or_convert(im, 'RGB')
 
-    cs = util.fill(cb.size, [240, 149, 128])
-    cm = css.blending.soft_light(cb, cs)
-    cr = Image.blend(cb, cm, .2)
+    cs = util.fill(cb.size, [240, 149, 128, .2])
+    cr = css.blending.soft_light(cb, cs)
 
     cr = css.contrast(cr, .75)
     cr = css.saturate(cr, .85)

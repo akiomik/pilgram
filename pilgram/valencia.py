@@ -12,8 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from PIL import Image
-
 from pilgram import css
 from pilgram import util
 
@@ -30,9 +28,8 @@ def valencia(im):
 
     cb = util.or_convert(im, 'RGB')
 
-    cs = util.fill(cb.size, [58, 3, 57])
-    cs = css.blending.exclusion(cb, cs)
-    cr = Image.blend(cb, cs, .5)
+    cs = util.fill(cb.size, [58, 3, 57, .5])
+    cr = css.blending.exclusion(cb, cs)
 
     cr = css.contrast(cr, 1.08)
     cr = css.brightness(cr, 1.08)

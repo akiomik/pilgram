@@ -41,9 +41,8 @@ def rise(im):
     gradient_mask1 = util.radial_gradient_mask(cb.size, length=.55)
     cm = Image.composite(cm1, cm2, gradient_mask1)
 
-    cs3 = util.fill(cb.size, [232, 197, 152])
+    cs3 = util.fill(cb.size, [232, 197, 152, .8])
     cm3 = css.blending.overlay(cm, cs3)
-    cm3 = Image.blend(cm, cm3, .8)
 
     gradient_mask2 = util.radial_gradient_mask(cb.size, scale=.9)
     cm_ = Image.composite(cm3, cm, gradient_mask2)

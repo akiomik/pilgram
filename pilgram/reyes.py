@@ -12,8 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from PIL import Image
-
 from pilgram import css
 from pilgram import util
 
@@ -30,9 +28,8 @@ def reyes(im):
 
     cb = util.or_convert(im, 'RGB')
 
-    cs = util.fill(cb.size, [239, 205, 173])
-    cs = css.blending.soft_light(cb, cs)
-    cr = Image.blend(cb, cs, .5)
+    cs = util.fill(cb.size, [239, 205, 173, .5])
+    cr = css.blending.soft_light(cb, cs)
 
     cr = css.sepia(cr, .22)
     cr = css.brightness(cr, 1.1)

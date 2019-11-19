@@ -12,8 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from PIL import Image
-
 from pilgram import css
 from pilgram import util
 
@@ -30,9 +28,8 @@ def clarendon(im):
 
     cb = util.or_convert(im, 'RGB')
 
-    cs = util.fill(cb.size, [127, 187, 227])
-    cm = css.blending.overlay(cb, cs)
-    cr = Image.blend(cb, cm, .2)
+    cs = util.fill(cb.size, [127, 187, 227, .2])
+    cr = css.blending.overlay(cb, cs)
 
     cr = css.contrast(cr, 1.2)
     cr = css.saturate(cr, 1.35)

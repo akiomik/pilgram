@@ -34,9 +34,8 @@ def slumber(im):
     cm = ImageChops.lighter(cb, cs1)
     cm = Image.blend(cb, cm, .4)
 
-    cs2 = util.fill(cb.size, [125, 105, 24])
+    cs2 = util.fill(cb.size, [125, 105, 24, .5])
     cr = css.blending.soft_light(cm, cs2)
-    cr = Image.blend(cm, cr, .5)
 
     cr = css.saturate(cr, .66)
     cr = css.brightness(cr, 1.05)
