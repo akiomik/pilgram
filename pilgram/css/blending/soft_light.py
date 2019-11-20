@@ -55,11 +55,11 @@ def _soft_light(im1, im2):
 
     _1_2_x_cs = util.apply_lut(im2, LUT_1_2_x_cs)
     cb_x_1_cb = util.apply_lut(im1, LUT_cb_x_1_cb)
-    c1 = ImageChops.subtract(im1, ImageChops.multiply(_1_2_x_cs, cb_x_1_cb))
+    c1 = util.subtract(im1, ImageChops.multiply(_1_2_x_cs, cb_x_1_cb))
 
     _2_x_cs_1 = util.apply_lut(im2, LUT_2_x_cs_1)
     d_cb = util.apply_lut(im1, LUT_d_cb)
-    c2 = ImageChops.add(im1, ImageChops.multiply(_2_x_cs_1, d_cb))
+    c2 = util.add(im1, ImageChops.multiply(_2_x_cs_1, d_cb))
 
     cm = np.where(np.asarray(im2) <= 128, np.asarray(c1), np.asarray(c2))
     return Image.fromarray(cm)

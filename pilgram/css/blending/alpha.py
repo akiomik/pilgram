@@ -16,7 +16,7 @@
 
 from PIL import ImageChops
 
-from pilgram.util import invert
+from pilgram import util
 
 
 def split_alpha(im):
@@ -87,12 +87,12 @@ def alpha_blend(im1, im2, blending):
     im1, a1 = split_alpha(im1)
     if a1 is not None:
         a1_rgb = alpha_to_rgb(a1)
-        a1_invert_rgb = alpha_to_rgb(invert(a1))
+        a1_invert_rgb = alpha_to_rgb(util.invert(a1))
 
     im2, a2 = split_alpha(im2)
     if a2 is not None:
         a2_rgb = alpha_to_rgb(a2)
-        a2_invert_rgb = alpha_to_rgb(invert(a2))
+        a2_invert_rgb = alpha_to_rgb(util.invert(a2))
 
     im_blended = blending(im1, im2)
 
@@ -100,17 +100,17 @@ def alpha_blend(im1, im2, blending):
         im_blended_alpha = ImageChops.multiply(a1_rgb, a2_rgb)
         im1_alpha = ImageChops.multiply(a1_rgb, a2_invert_rgb)
         im2_alpha = ImageChops.multiply(a2_rgb, a1_invert_rgb)
-        im_blended = ImageChops.add(
+        im_blended = util.add(
             ImageChops.multiply(im_blended_alpha, im_blended),
-            ImageChops.add(
+            util.add(
                 ImageChops.multiply(im1_alpha, im1),
                 ImageChops.multiply(im2_alpha, im2)))
     elif a1 is not None:
-        im_blended = ImageChops.add(
+        im_blended = util.add(
             ImageChops.multiply(a1_rgb, im_blended),
             ImageChops.multiply(a1_invert_rgb, im2))
     elif a2 is not None:
-        im_blended = ImageChops.add(
+        im_blended = util.add(
             ImageChops.multiply(a2_rgb, im_blended),
             ImageChops.multiply(a2_invert_rgb, im1))
 
