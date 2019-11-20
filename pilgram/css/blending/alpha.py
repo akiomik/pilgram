@@ -14,9 +14,19 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from PIL import ImageChops
+import numpy as np
+from PIL import Image, ImageChops
 
-from pilgram import util
+from pilgram.util import add, invert, subtract
+
+
+def add3(im1, im2, im3):
+    im1 = np.asarray(im1, dtype=np.int16)
+    im2 = np.asarray(im2)
+    im3 = np.asarray(im3)
+    im = im1 + im2 + im3
+    im = im.clip(0, 255).astype(np.uint8)
+    return Image.fromarray(im)
 
 
 def split_alpha(im):
@@ -85,32 +95,27 @@ def alpha_blend(im1, im2, blending):
     """
 
     im1, a1 = split_alpha(im1)
-    if a1 is not None:
-        a1_rgb = alpha_to_rgb(a1)
-        a1_invert_rgb = alpha_to_rgb(util.invert(a1))
-
     im2, a2 = split_alpha(im2)
-    if a2 is not None:
-        a2_rgb = alpha_to_rgb(a2)
-        a2_invert_rgb = alpha_to_rgb(util.invert(a2))
-
     im_blended = blending(im1, im2)
 
     if a1 is not None and a2 is not None:
-        im_blended_alpha = ImageChops.multiply(a1_rgb, a2_rgb)
-        im1_alpha = ImageChops.multiply(a1_rgb, a2_invert_rgb)
-        im2_alpha = ImageChops.multiply(a2_rgb, a1_invert_rgb)
-        im_blended = util.add(
-            ImageChops.multiply(im_blended_alpha, im_blended),
-            util.add(
-                ImageChops.multiply(im1_alpha, im1),
-                ImageChops.multiply(im2_alpha, im2)))
+        im_blended_alpha = ImageChops.multiply(a1, a2)
+        im1_alpha = subtract(a1, im_blended_alpha)
+        im2_alpha = subtract(a2, im_blended_alpha)
+        c1 = ImageChops.multiply(alpha_to_rgb(im2_alpha), im2)
+        c2 = ImageChops.multiply(alpha_to_rgb(im_blended_alpha), im_blended)
+        c3 = ImageChops.multiply(alpha_to_rgb(im1_alpha), im1)
+        im_blended = add3(c1, c2, c3)
     elif a1 is not None:
-        im_blended = util.add(
+        a1_rgb = alpha_to_rgb(a1)
+        a1_invert_rgb = alpha_to_rgb(invert(a1))
+        im_blended = add(
             ImageChops.multiply(a1_rgb, im_blended),
             ImageChops.multiply(a1_invert_rgb, im2))
     elif a2 is not None:
-        im_blended = util.add(
+        a2_rgb = alpha_to_rgb(a2)
+        a2_invert_rgb = alpha_to_rgb(invert(a2))
+        im_blended = add(
             ImageChops.multiply(a2_rgb, im_blended),
             ImageChops.multiply(a2_invert_rgb, im1))
 
