@@ -12,9 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from .apply_lut import apply_lut
-
-LUT = [255 - i for i in range(256)]
+import numpy as np
+from PIL import Image
 
 
 def invert(im):
@@ -27,5 +26,5 @@ def invert(im):
         The output image.
     """
 
-    # NOTE: `ImageChops.invert` is slower than `im.point` with LUT
-    return apply_lut(im, LUT)
+    # NOTE: `ImageChops.invert` and `im.point` are slower than numpy
+    return Image.fromarray(255 - np.asarray(im))
