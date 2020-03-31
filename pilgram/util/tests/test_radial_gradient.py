@@ -17,16 +17,16 @@ from __future__ import division
 from pilgram import util
 
 
-def test_radial_gradient_mask():
+def test_radial_gradient_mask_prepared():
     w, h = (5, 5)
     mask = util.radial_gradient_mask((w, h))
 
     expected_data = [
-        49,  92,  110, 93,  50,
-        92,  151, 182, 152, 94,
-        110, 182, 255, 183, 111,
-        93,  152, 183, 153, 94,
-        50,  94,  111, 94,  51,
+        52,  93,  111, 94,  53,
+        93,  150, 182, 151, 94,
+        111, 182, 231, 183, 113,
+        94,  151, 183, 152, 95,
+        53,  94,  113, 95,  54,
     ]
 
     # TODO: test rectangle
@@ -52,16 +52,16 @@ def test_radial_gradient_mask_length():
     assert mask.mode == 'L'
 
 
-def test_radial_gradient_mask_scale():
+def test_radial_gradient_mask_prepared_scale():
     w, h = (5, 5)
     mask = util.radial_gradient_mask((w, h), scale=1.5)
 
     expected_data = [
-        119, 148, 159, 148, 119,
-        148, 187, 207, 187, 148,
-        159, 207, 255, 207, 159,
-        148, 187, 207, 187, 148,
-        119, 148, 159, 148, 119,
+        118, 147, 158, 148, 119,
+        147, 187, 207, 188, 148,
+        158, 207, 239, 209, 160,
+        148, 188, 209, 189, 149,
+        119, 148, 160, 149, 120,
     ]
 
     assert list(mask.getdata()) == expected_data

@@ -17,20 +17,20 @@ from __future__ import division
 from pilgram import util
 
 
-def test_linear_gradient_mask_horizontal():
+def test_linear_gradient_mask_prepared_horizontal():
     w, h = (4, 4)
     mask = util.linear_gradient_mask((w, h))
 
-    assert list(mask.getdata()) == [223, 159, 95, 31] * h
+    assert list(mask.getdata()) == [222, 161, 94, 33] * h
     assert mask.size == (w, h)
     assert mask.mode == 'L'
 
 
-def test_linear_gradient_mask_vertical():
+def test_linear_gradient_mask_prepared_vertical():
     w, h = (4, 4)
     mask = util.linear_gradient_mask((w, h), is_horizontal=False)
 
-    assert list(mask.getdata()) == [223] * w + [159] * w + [95] * w + [31] * w
+    assert list(mask.getdata()) == [222] * w + [161] * w + [94] * w + [33] * w
     assert mask.size == (w, h)
     assert mask.mode == 'L'
 
@@ -60,12 +60,12 @@ def test_linear_gradient_mask_start_end_vertical():
     assert mask.mode == 'L'
 
 
-def test_linear_gradient():
+def test_linear_gradient_prepared():
     w, h = (4, 4)
     white = [255] * 3
     black = [0] * 3
     gradient = util.linear_gradient((w, h), white, black)
-    expected_data = [(c,) * 3 for c in [223, 159, 95, 31]] * h
+    expected_data = [(c,) * 3 for c in [222, 161, 94, 33]] * h
 
     assert list(gradient.getdata()) == expected_data
     assert gradient.size == (w, h)
