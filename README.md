@@ -13,7 +13,7 @@ The filter implementations are inspired by [CSSgram](https://una.im/CSSgram/).
 
 ## Requirements
 
-- Python 2 or 3
+- Python >= 3.4
 - [Pillow](https://pillow.readthedocs.io/en/stable/) or [pillow-simd](https://github.com/uploadcare/pillow-simd)
 
 ## Install
@@ -121,6 +121,6 @@ pilgram.css.blending.color(backdrop, source).save('blending.jpg')
 
 ```sh
 pipenv install --dev
-make test     # python 3
-make test-tox # python 2 and 3
+make test     # pytest
+make test-tox # pytest with tox
 ```

@@ -2,10 +2,10 @@ dist: xenial
 language: python
 matrix:
   include:
-    - python: 2.7
-      env: TOXENV=py27
     - python: 3.7
       env: TOXENV=py37
+    - python: 3.8
+      env: TOXENV=py38
 env:
   global:
     - PIPENV_VERBOSITY=-1
