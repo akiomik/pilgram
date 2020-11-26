@@ -37,7 +37,7 @@ def _d_cb(cb):
 
 
 LUT_1_2_x_cs = [util.clip(255 - 2 * i) for i in range(256)]
-LUT_cb_x_1_cb = [util.clip(i * (1 - i / 255)) for i in range(256)]
+LUT_cb_x_1_cb = [round(util.clip(i * (1 - i / 255))) for i in range(256)]
 LUT_2_x_cs_1 = [util.clip(2 * i - 255) for i in range(256)]
 LUT_d_cb = [_d_cb(i) for i in range(256)]
 
