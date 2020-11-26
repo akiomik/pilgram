@@ -2,7 +2,7 @@
 
 [![PyPI](https://img.shields.io/pypi/v/pilgram.svg)](https://python.org/pypi/pilgram)
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/pilgram.svg)](https://python.org/pypi/pilgram)
-[![Build Status](https://travis-ci.org/akiomik/pilgram.svg?branch=master)](https://travis-ci.org/akiomik/pilgram)
+[![Python CI](https://github.com/akiomik/pilgram/workflows/Python%20CI/badge.svg)](https://github.com/akiomik/pilgram/actions?query=workflow%3A%22Python+CI%22)
 [![codecov](https://codecov.io/gh/akiomik/pilgram/branch/master/graph/badge.svg)](https://codecov.io/gh/akiomik/pilgram)
 
 A python library for instagram filters.
