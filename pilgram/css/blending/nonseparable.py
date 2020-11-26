@@ -119,7 +119,7 @@ def lum_im(im):
     return im.convert('L')
 
 
-def set_lum(c, l):
+def set_lum(c, l1):
     """Set luminosity to the color.
 
     The formula is defined as:
@@ -135,7 +135,7 @@ def set_lum(c, l):
 
     Arguments:
         c: A tuple/list of 3 ImageMath operands. The color.
-        l: An ImageMath operands. The luminosity to set.
+        l1: An ImageMath operands. The luminosity to set.
 
     Returns:
         A tuple/list of 3 ImageMath oerands.
@@ -143,7 +143,7 @@ def set_lum(c, l):
 
     r, g, b = c
 
-    d = l - lum(c)
+    d = l1 - lum(c)
     r += d
     g += d
     b += d
