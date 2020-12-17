@@ -15,5 +15,12 @@ pytest-benchmark = "*"
 tox = "*"
 pytest-mock = "*"
 importlib_metadata = {version = ">=0.12", markers="python_version >= '3.4' and python_version < '3.8'"}
+typing_extensions = {markers="python_version >= '3.4' and python_version < '3.8'"}
+zipp = {markers="python_version >= '3.4' and python_version < '3.8'"}
+cffi = {markers="python_version >= '3.4' and python_version < '3.8'"}
+cryptography = {markers="python_version >= '3.4' and python_version < '3.8'"}
+jeepney = {markers="python_version >= '3.4' and python_version < '3.8' and sys_platform == 'linux'"}
+pycparser = {markers="python_version >= '3.4' and python_version < '3.8'"}
+secretstorage = {markers="python_version >= '3.4' and python_version < '3.8' and sys_platform == 'linux'"}
 
 [packages]
