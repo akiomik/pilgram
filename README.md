@@ -7,7 +7,7 @@
 
 A python library for instagram filters.
 
-![screenshot](screenshot.png)
+![screenshot](screenshots/screenshot.png)
 
 The filter implementations are inspired by [CSSgram](https://una.im/CSSgram/).
 
@@ -115,7 +115,7 @@ pilgram.css.blending.color(backdrop, source).save('blending.jpg')
 
 - [notebooks/filter-performance-comparison.ipynb](notebooks/filter-performance-comparison.ipynb)
 
-![filter performance comparison](filter-performance-comparison.png)
+![filter performance comparison](screenshots/filter-performance-comparison.png)
 
 ## Test
 
