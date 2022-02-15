@@ -1,5 +1,6 @@
 # pilgram
 
+[![DOI](https://zenodo.org/badge/169348812.svg)](https://zenodo.org/badge/latestdoi/169348812)
 [![PyPI](https://img.shields.io/pypi/v/pilgram.svg)](https://python.org/pypi/pilgram)
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/pilgram.svg)](https://python.org/pypi/pilgram)
 [![Python CI](https://github.com/akiomik/pilgram/workflows/Python%20CI/badge.svg)](https://github.com/akiomik/pilgram/actions?query=workflow%3A%22Python+CI%22)
