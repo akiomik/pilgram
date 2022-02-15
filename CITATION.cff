@@ -1,0 +1,25 @@
+cff-version: 1.2.0
+message: If you use pilgram in your work, please cite it as below
+title: pilgram
+abstract: This library is a python library for instagram filters
+authors:
+- family-names: Kamakura
+  given-names: Akiomi
+  orcid: https://orcid.org/0000-0002-2042-712X
+keywords:
+- python
+- instagram
+- instagram filters
+- css filters
+- image blending
+- blend modes
+- image processing
+- data augmentation
+- image augmentation
+version: 1.2.1
+doi: 10.5281/zenodo.6086991
+date-released: 2022-02-15
+license: Apache-2.0
+repository-artifact: https://pypi.org/project/pilgram/
+repository-code: https://github.com/akiomik/pilgram
+url: https://github.com/akiomik/pilgram
