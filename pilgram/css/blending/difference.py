@@ -32,7 +32,8 @@ def _difference(im1, im2):
 
 
 def difference(im1, im2):
-    """Subtracts the darker of the two constituent colors from the lighter color.
+    """Subtracts the darker of the two constituent colors
+    from the lighter color.
 
     The difference formula is defined as:
 
