@@ -14,5 +14,6 @@ wheel = "*"
 pytest-benchmark = "*"
 tox = "*"
 pytest-mock = "*"
+exceptiongroup = "*"
 
 [packages]
