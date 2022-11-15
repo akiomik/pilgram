@@ -14,8 +14,7 @@
 
 from PIL import Image
 
-from pilgram import walden
-from pilgram import util
+from pilgram import util, walden
 
 
 def test_walden():

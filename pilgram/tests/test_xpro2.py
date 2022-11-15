@@ -14,8 +14,7 @@
 
 from PIL import Image
 
-from pilgram import xpro2
-from pilgram import util
+from pilgram import util, xpro2
 
 
 def test_xpro2():

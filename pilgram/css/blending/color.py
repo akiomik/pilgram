@@ -16,8 +16,8 @@ from PIL import Image, ImageMath
 from PIL.ImageMath import imagemath_convert as _convert
 from PIL.ImageMath import imagemath_float as _float
 
-from pilgram.css.blending.nonseparable import set_lum_im, lum_im
 from pilgram.css.blending.alpha import alpha_blend
+from pilgram.css.blending.nonseparable import lum_im, set_lum_im
 
 
 def _color_image_math(cs, lum_cb, lum_cs):

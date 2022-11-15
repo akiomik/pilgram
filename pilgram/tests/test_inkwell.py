@@ -14,8 +14,7 @@
 
 from PIL import Image
 
-from pilgram import inkwell
-from pilgram import util
+from pilgram import inkwell, util
 
 
 def test_inkwell():

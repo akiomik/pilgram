@@ -14,8 +14,7 @@
 
 from PIL import ImageChops
 
-from pilgram import css
-from pilgram import util
+from pilgram import css, util
 from pilgram.css.blending.tests.helpers import assert_alpha_support
 
 

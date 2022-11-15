@@ -22,7 +22,6 @@ from pilgram.util.or_convert import or_convert
 from pilgram.util.radial_gradient import radial_gradient, radial_gradient_mask
 from pilgram.util.subtract import subtract
 
-
 __all__ = [
     "add",
     "apply_lut",

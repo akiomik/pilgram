@@ -14,8 +14,7 @@
 
 from PIL import Image
 
-from pilgram import nashville
-from pilgram import util
+from pilgram import nashville, util
 
 
 def test_nashville():

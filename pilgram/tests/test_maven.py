@@ -14,8 +14,7 @@
 
 from PIL import Image
 
-from pilgram import maven
-from pilgram import util
+from pilgram import maven, util
 
 
 def test_maven():

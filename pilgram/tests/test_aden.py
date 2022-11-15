@@ -14,8 +14,7 @@
 
 from PIL import Image
 
-from pilgram import aden
-from pilgram import util
+from pilgram import aden, util
 
 
 def test_aden():

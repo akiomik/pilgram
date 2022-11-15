@@ -14,8 +14,7 @@
 
 from PIL import Image
 
-from pilgram import kelvin
-from pilgram import util
+from pilgram import kelvin, util
 
 
 def test_kelvin():

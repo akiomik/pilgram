@@ -14,8 +14,7 @@
 
 from PIL import Image
 
-from pilgram import moon
-from pilgram import util
+from pilgram import moon, util
 
 
 def test_moon():

@@ -14,8 +14,7 @@
 
 from PIL import Image
 
-from pilgram import slumber
-from pilgram import util
+from pilgram import slumber, util
 
 
 def test_slumber():

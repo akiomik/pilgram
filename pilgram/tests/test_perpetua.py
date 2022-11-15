@@ -14,8 +14,7 @@
 
 from PIL import Image
 
-from pilgram import perpetua
-from pilgram import util
+from pilgram import perpetua, util
 
 
 def test_perpetua():

@@ -12,8 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from PIL import ImageChops
 import pytest
+from PIL import ImageChops
 
 from pilgram import util
 

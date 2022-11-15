@@ -6,10 +6,10 @@ lint:
 	poetry run flake8 ${SRC_DIR}
 
 format:
-	poetry run black ${SRC_DIR}
+	poetry run black ${SRC_DIR} && poetry run isort ${SRC_DIR}
 
 format-check:
-	poetry run black --check ${SRC_DIR}
+	poetry run black --check ${SRC_DIR} && poetry run isort -c ${SRC_DIR}
 
 test: lint format-check
 	poetry run pytest

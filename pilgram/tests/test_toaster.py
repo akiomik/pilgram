@@ -14,8 +14,7 @@
 
 from PIL import Image
 
-from pilgram import toaster
-from pilgram import util
+from pilgram import toaster, util
 
 
 def test_toaster():

@@ -15,9 +15,8 @@
 import numpy as np
 from PIL import Image, ImageChops
 
-from pilgram.css.blending.alpha import alpha_blend
 from pilgram import util
-
+from pilgram.css.blending.alpha import alpha_blend
 
 LUT_2x = [util.clip(2 * i) for i in range(256)]
 LUT_2x_1 = [util.clip(2 * i - 255) for i in range(256)]

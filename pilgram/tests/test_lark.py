@@ -14,8 +14,7 @@
 
 from PIL import Image
 
-from pilgram import lark
-from pilgram import util
+from pilgram import lark, util
 
 
 def test_lark():

@@ -13,11 +13,10 @@
 # limitations under the License.
 
 import numpy as np
-from PIL import Image
 import pytest
+from PIL import Image
 
-from pilgram import css
-from pilgram import util
+from pilgram import css, util
 from pilgram.css.blending.tests.helpers import assert_alpha_support
 
 

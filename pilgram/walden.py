@@ -14,8 +14,7 @@
 
 from PIL import Image
 
-from pilgram import css
-from pilgram import util
+from pilgram import css, util
 
 
 def walden(im):

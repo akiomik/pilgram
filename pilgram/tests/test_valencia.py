@@ -14,8 +14,7 @@
 
 from PIL import Image
 
-from pilgram import valencia
-from pilgram import util
+from pilgram import util, valencia
 
 
 def test_valencia():
