@@ -24,5 +24,5 @@ def test_stinson():
 
 
 def test_stinson_benchmark(benchmark):
-    with Image.open('examples/mtjimba.jpg') as im:
+    with Image.open("examples/mtjimba.jpg") as im:
         benchmark(stinson, im)

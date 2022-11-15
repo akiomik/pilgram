@@ -26,7 +26,7 @@ def moon(im):
         The output image.
     """
 
-    cb = util.or_convert(im, 'RGB')
+    cb = util.or_convert(im, "RGB")
 
     cs1 = util.fill(cb.size, [160, 160, 160])
     cs = css.blending.soft_light(cb, cs1)

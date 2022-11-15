@@ -56,19 +56,19 @@ def hue_rotate(im, deg=0):
     sin_hue = math.sin(math.radians(deg))
 
     matrix = [
-        .213 + cos_hue * .787 - sin_hue * .213,
-        .715 - cos_hue * .715 - sin_hue * .715,
-        .072 - cos_hue * .072 + sin_hue * .928,
+        0.213 + cos_hue * 0.787 - sin_hue * 0.213,
+        0.715 - cos_hue * 0.715 - sin_hue * 0.715,
+        0.072 - cos_hue * 0.072 + sin_hue * 0.928,
         0,
-        .213 - cos_hue * .213 + sin_hue * .143,
-        .715 + cos_hue * .285 + sin_hue * .140,
-        .072 - cos_hue * .072 - sin_hue * .283,
+        0.213 - cos_hue * 0.213 + sin_hue * 0.143,
+        0.715 + cos_hue * 0.285 + sin_hue * 0.140,
+        0.072 - cos_hue * 0.072 - sin_hue * 0.283,
         0,
-        .213 - cos_hue * .213 - sin_hue * .787,
-        .715 - cos_hue * .715 + sin_hue * .715,
-        .072 + cos_hue * .928 + sin_hue * .072,
+        0.213 - cos_hue * 0.213 - sin_hue * 0.787,
+        0.715 - cos_hue * 0.715 + sin_hue * 0.715,
+        0.072 + cos_hue * 0.928 + sin_hue * 0.072,
         0,
     ]
 
-    rotated = util.or_convert(im, 'RGB').convert('RGB', matrix)
+    rotated = util.or_convert(im, "RGB").convert("RGB", matrix)
     return util.or_convert(rotated, im.mode)

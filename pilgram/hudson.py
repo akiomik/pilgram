@@ -28,17 +28,14 @@ def hudson(im):
         The output image.
     """
 
-    cb = util.or_convert(im, 'RGB')
+    cb = util.or_convert(im, "RGB")
 
-    cs = util.radial_gradient(
-            cb.size,
-            [(166, 177, 255), (52, 33, 52)],
-            [.5, 1])
+    cs = util.radial_gradient(cb.size, [(166, 177, 255), (52, 33, 52)], [0.5, 1])
     cs = css.blending.multiply(cb, cs)
-    cr = Image.blend(cb, cs, .5)  # opacity
+    cr = Image.blend(cb, cs, 0.5)  # opacity
 
     cr = css.brightness(cr, 1.2)
-    cr = css.contrast(cr, .9)
+    cr = css.contrast(cr, 0.9)
     cr = css.saturate(cr, 1.1)
 
     return cr

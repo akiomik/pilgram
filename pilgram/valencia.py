@@ -28,14 +28,14 @@ def valencia(im):
         The output image.
     """
 
-    cb = util.or_convert(im, 'RGB')
+    cb = util.or_convert(im, "RGB")
 
     cs = util.fill(cb.size, [58, 3, 57])
     cs = css.blending.exclusion(cb, cs)
-    cr = Image.blend(cb, cs, .5)  # opacity
+    cr = Image.blend(cb, cs, 0.5)  # opacity
 
     cr = css.contrast(cr, 1.08)
     cr = css.brightness(cr, 1.08)
-    cr = css.sepia(cr, .08)
+    cr = css.sepia(cr, 0.08)
 
     return cr

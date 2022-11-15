@@ -2,8 +2,17 @@ SRC_DIR = pilgram
 
 all: test clean build;
 
-test:
-	poetry run pytest && poetry run flake8 ${SRC_DIR}
+lint:
+	poetry run flake8 ${SRC_DIR}
+
+format:
+	poetry run black ${SRC_DIR}
+
+format-check:
+	poetry run black --check ${SRC_DIR}
+
+test: lint format-check
+	poetry run pytest
 
 test-benchmark:
 	poetry run pytest --benchmark-only --benchmark-max-time=5 --benchmark-columns="mean,stddev,min,max"
@@ -21,4 +30,4 @@ test-upload: clean build
 upload: clean build
 	poetry run twine upload -s -r pypi dist/*
 
-.PHONY: all test test-benchmark benchmark clean build test-upload upload
+.PHONY: all lint format format-check test test-benchmark benchmark clean build test-upload upload

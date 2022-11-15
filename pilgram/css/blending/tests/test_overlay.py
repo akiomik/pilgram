@@ -22,18 +22,23 @@ from pilgram.css.blending.tests.helpers import assert_alpha_support
 
 
 def test_overlay():
-    cb_array = np.array([
-        [[0] * 3, [127] * 3],
-        [[128] * 3, [255] * 3],
-    ], dtype=np.uint8)
+    cb_array = np.array(
+        [
+            [[0] * 3, [127] * 3],
+            [[128] * 3, [255] * 3],
+        ],
+        dtype=np.uint8,
+    )
 
     cb = Image.fromarray(cb_array)
     cs = util.fill((2, 2), [0, 128, 255])
     overlay = css.blending.overlay(cb, cs)
 
     expected = [
-        (0, 0, 0), (0, 127, 254),        # multiply
-        (1, 128, 255), (255, 255, 255),  # screen
+        (0, 0, 0),
+        (0, 127, 254),  # multiply
+        (1, 128, 255),
+        (255, 255, 255),  # screen
     ]
     expected = [pytest.approx(c, abs=1) for c in expected]
 

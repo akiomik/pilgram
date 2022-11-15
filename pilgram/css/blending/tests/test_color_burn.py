@@ -23,16 +23,21 @@ from pilgram.css.blending.tests.helpers import assert_alpha_support
 
 def test_color_burn():
     cb = util.fill((2, 2), [0, 128, 255])
-    cs_array = np.array([
-        [[0] * 3, [127] * 3],
-        [[128] * 3, [255] * 3],
-    ], dtype=np.uint8)
+    cs_array = np.array(
+        [
+            [[0] * 3, [127] * 3],
+            [[128] * 3, [255] * 3],
+        ],
+        dtype=np.uint8,
+    )
     cs = Image.fromarray(cs_array)
     color_burn = css.blending.color_burn(cb, cs)
 
     expected = [
-        (0, 0, 255), (0, 0, 255),
-        (0, 2, 255), (0, 128, 255),
+        (0, 0, 255),
+        (0, 0, 255),
+        (0, 2, 255),
+        (0, 128, 255),
     ]
     expected = [pytest.approx(c, abs=1) for c in expected]
 

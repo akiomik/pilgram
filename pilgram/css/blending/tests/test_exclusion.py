@@ -23,16 +23,21 @@ from pilgram.css.blending.tests.helpers import assert_alpha_support
 
 def test_exclusion():
     cb = util.fill((2, 2), [0, 128, 255])
-    cs_array = np.array([
-        [[0] * 3, [127] * 3],
-        [[128] * 3, [255] * 3],
-    ], dtype=np.uint8)
+    cs_array = np.array(
+        [
+            [[0] * 3, [127] * 3],
+            [[128] * 3, [255] * 3],
+        ],
+        dtype=np.uint8,
+    )
     cs = Image.fromarray(cs_array)
     exclusion = css.blending.exclusion(cb, cs)
 
     expected = [
-        (0, 128, 255), (127, 128, 128),
-        (128, 127, 127), (255, 127, 0),
+        (0, 128, 255),
+        (127, 128, 128),
+        (128, 127, 127),
+        (255, 127, 0),
     ]
     expected = [pytest.approx(c, abs=1) for c in expected]
 

@@ -26,7 +26,7 @@ def gingham(im):
         The output image.
     """
 
-    cb = util.or_convert(im, 'RGB')
+    cb = util.or_convert(im, "RGB")
 
     cs = util.fill(cb.size, [230, 230, 250])
     cr = css.blending.soft_light(cb, cs)

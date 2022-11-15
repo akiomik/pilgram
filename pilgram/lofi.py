@@ -28,12 +28,12 @@ def lofi(im):
         The output image.
     """
 
-    cb = util.or_convert(im, 'RGB')
+    cb = util.or_convert(im, "RGB")
 
     cs = util.fill(cb.size, [34, 34, 34])
     cs = css.blending.multiply(cb, cs)
 
-    mask = util.radial_gradient_mask(cb.size, length=.7, scale=1.5)
+    mask = util.radial_gradient_mask(cb.size, length=0.7, scale=1.5)
     cr = Image.composite(cb, cs, mask)
 
     cr = css.saturate(cr, 1.1)

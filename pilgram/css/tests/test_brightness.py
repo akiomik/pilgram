@@ -65,10 +65,10 @@ def test_brightness_less_than_0():
 
 def test_brightness_hsv():
     im = util.fill((4, 4), [174, 56, 3])
-    im2 = im.convert('HSV')
+    im2 = im.convert("HSV")
     im_b = css.brightness(im)
     im_b2 = css.brightness(im2)
-    im_b2_rgb = im_b2.convert('RGB')
+    im_b2_rgb = im_b2.convert("RGB")
 
     assert list(im_b.getdata()) == list(im_b2_rgb.getdata())
     assert im_b2.size == im2.size

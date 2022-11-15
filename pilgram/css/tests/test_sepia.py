@@ -63,10 +63,10 @@ def test_sepia_less_than_0():
 
 def test_sepia_hsv():
     im = util.fill((4, 4), [174, 56, 3])
-    im2 = im.convert('HSV')
+    im2 = im.convert("HSV")
     sepiaed_im = css.sepia(im)
     sepiaed_im2 = css.sepia(im2)
-    sepiaed_im2_rgb = sepiaed_im2.convert('RGB')
+    sepiaed_im2_rgb = sepiaed_im2.convert("RGB")
 
     assert list(sepiaed_im.getdata()) == list(sepiaed_im2_rgb.getdata())
     assert sepiaed_im2.size == im2.size

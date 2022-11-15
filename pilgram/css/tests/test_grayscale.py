@@ -63,10 +63,10 @@ def test_grayscale_less_than_0():
 
 def test_grayscale_hsv():
     im = util.fill((4, 4), [174, 56, 3])
-    im2 = im.convert('HSV')
+    im2 = im.convert("HSV")
     grayscaled_im = css.grayscale(im)
     grayscaled_im2 = css.grayscale(im2)
-    grayscaled_im2_rgb = grayscaled_im2.convert('RGB')
+    grayscaled_im2_rgb = grayscaled_im2.convert("RGB")
 
     assert list(grayscaled_im.getdata()) == list(grayscaled_im2_rgb.getdata())
     assert grayscaled_im2.size == im2.size

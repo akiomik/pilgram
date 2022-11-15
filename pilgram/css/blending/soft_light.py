@@ -28,7 +28,7 @@ def _d_cb(cb):
 
     cb = float(cb) / 255
 
-    if cb <= .25:
+    if cb <= 0.25:
         d = ((16 * cb - 12) * cb + 4) * cb
     else:
         d = math.sqrt(cb)

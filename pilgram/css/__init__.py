@@ -21,6 +21,4 @@ from pilgram.css.sepia import sepia
 
 from pilgram.css import blending  # noqa
 
-__all__ = [
-    'brightness', 'contrast', 'grayscale', 'hue_rotate', 'saturate', 'sepia'
-]
+__all__ = ["brightness", "contrast", "grayscale", "hue_rotate", "saturate", "sepia"]

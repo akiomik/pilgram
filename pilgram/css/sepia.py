@@ -45,10 +45,19 @@ def sepia(im, amount=1):
 
     amount = 1 - min(amount, 1)
     matrix = [
-        .393 + .607 * amount, .769 - .769 * amount, .189 - .189 * amount, 0,
-        .349 - .349 * amount, .686 + .314 * amount, .168 - .168 * amount, 0,
-        .272 - .272 * amount, .534 - .534 * amount, .131 + .869 * amount, 0,
+        0.393 + 0.607 * amount,
+        0.769 - 0.769 * amount,
+        0.189 - 0.189 * amount,
+        0,
+        0.349 - 0.349 * amount,
+        0.686 + 0.314 * amount,
+        0.168 - 0.168 * amount,
+        0,
+        0.272 - 0.272 * amount,
+        0.534 - 0.534 * amount,
+        0.131 + 0.869 * amount,
+        0,
     ]
 
-    sepia_toned = util.or_convert(im, 'RGB').convert('RGB', matrix)
+    sepia_toned = util.or_convert(im, "RGB").convert("RGB", matrix)
     return util.or_convert(sepia_toned, im.mode)

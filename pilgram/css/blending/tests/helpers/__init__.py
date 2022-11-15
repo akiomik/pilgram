@@ -12,9 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from pilgram.css.blending.tests.helpers.alpha_support \
-    import assert_alpha_support
+from pilgram.css.blending.tests.helpers.alpha_support import assert_alpha_support
 
-__all__ = [
-    'assert_alpha_support'
-]
+__all__ = ["assert_alpha_support"]

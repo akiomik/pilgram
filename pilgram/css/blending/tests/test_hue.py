@@ -22,18 +22,18 @@ from pilgram.css.blending.tests.helpers import assert_alpha_support
 
 
 def test_hue1():
-    cb_array = np.array([
-        [[0, 128, 255], [0, 255, 128]],
-        [[128, 255, 0], [128, 0, 255]],
-    ], dtype=np.uint8)
+    cb_array = np.array(
+        [
+            [[0, 128, 255], [0, 255, 128]],
+            [[128, 255, 0], [128, 0, 255]],
+        ],
+        dtype=np.uint8,
+    )
     cb = Image.fromarray(cb_array)
     cs = util.fill((2, 2), [0, 128, 255])
     hue = css.blending.hue(cb, cs)
 
-    expected = [
-        (0, 128, 255), (102, 179, 255),
-        (143, 199, 255), (0, 82, 163)
-    ]
+    expected = [(0, 128, 255), (102, 179, 255), (143, 199, 255), (0, 82, 163)]
     expected = [pytest.approx(c, abs=3) for c in expected]  # TODO
 
     assert list(hue.getdata()) == expected  # almost eq
@@ -41,17 +41,17 @@ def test_hue1():
 
 def test_hue2():
     cb = util.fill((2, 2), [0, 128, 255])
-    cs_array = np.array([
-        [[0, 128, 255], [0, 255, 128]],
-        [[128, 255, 0], [128, 0, 255]],
-    ], dtype=np.uint8)
+    cs_array = np.array(
+        [
+            [[0, 128, 255], [0, 255, 128]],
+            [[128, 255, 0], [128, 0, 255]],
+        ],
+        dtype=np.uint8,
+    )
     cs = Image.fromarray(cs_array)
     hue = css.blending.hue(cb, cs)
 
-    expected = [
-        (0, 128, 255), (0, 160, 80),
-        (70, 139, 0), (153, 50, 255)
-    ]
+    expected = [(0, 128, 255), (0, 160, 80), (70, 139, 0), (153, 50, 255)]
     expected = [pytest.approx(c, abs=1) for c in expected]
 
     assert list(hue.getdata()) == expected  # almost eq

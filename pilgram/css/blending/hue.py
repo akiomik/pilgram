@@ -42,14 +42,22 @@ def _hue(im1, im2):
 
     r1, g1, b1 = im1.split()  # Cb
     r2, g2, b2 = im2.split()  # Cs
-    lum_cb = lum_im(im1)      # Lum(Cb)
+    lum_cb = lum_im(im1)  # Lum(Cb)
 
     bands = ImageMath.eval(
-        'f((r1, g1, b1), (r2, g2, b2), lum_cb)', f=_hue_image_math,
-        r1=r1, g1=g1, b1=b1, r2=r2, g2=g2, b2=b2, lum_cb=lum_cb)
-    bands = [_convert(band, 'L').im for band in bands]
+        "f((r1, g1, b1), (r2, g2, b2), lum_cb)",
+        f=_hue_image_math,
+        r1=r1,
+        g1=g1,
+        b1=b1,
+        r2=r2,
+        g2=g2,
+        b2=b2,
+        lum_cb=lum_cb,
+    )
+    bands = [_convert(band, "L").im for band in bands]
 
-    return Image.merge('RGB', bands)
+    return Image.merge("RGB", bands)
 
 
 def hue(im1, im2):

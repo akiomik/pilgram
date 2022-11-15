@@ -67,12 +67,10 @@ def _clip_color(c):
         #   = (L^2 - nL + CL - L^2) / (L - n)
         #   = (CL - nL) / (L - n)
         #   = (L * (C - n)) / (L - n)
-        return (n < 0) * ((L * (c - n)) / (L - n)) \
-                + (n >= 0) * c
+        return (n < 0) * ((L * (c - n)) / (L - n)) + (n >= 0) * c
 
     def fx(c):
-        return (x > 255) * (L + ((c - L) * (255 - L)) / (x - L)) \
-                + (x <= 255) * c
+        return (x > 255) * (L + ((c - L) * (255 - L)) / (x - L)) + (x <= 255) * c
 
     r = fx(fn(r))
     g = fx(fn(g))
@@ -98,7 +96,7 @@ def lum(c):
     """
 
     r, g, b = c
-    return r * .3 + g * .59 + b * .11
+    return r * 0.3 + g * 0.59 + b * 0.11
 
 
 def lum_im(im):
@@ -116,7 +114,7 @@ def lum_im(im):
     Returns:
         The luminosity image.
     """
-    return im.convert('L')
+    return im.convert("L")
 
 
 def set_lum(c, l1):

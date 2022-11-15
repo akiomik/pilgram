@@ -26,7 +26,7 @@ def kelvin(im):
         The output image.
     """
 
-    cb = util.or_convert(im, 'RGB')
+    cb = util.or_convert(im, "RGB")
 
     cs1 = util.fill(cb.size, [56, 44, 52])
     cs = css.blending.color_dodge(cb, cs1)

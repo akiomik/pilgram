@@ -24,5 +24,5 @@ def test_gingham():
 
 
 def test_gingham_benchmark(benchmark):
-    with Image.open('examples/mtjimba.jpg') as im:
+    with Image.open("examples/mtjimba.jpg") as im:
         benchmark(gingham, im)

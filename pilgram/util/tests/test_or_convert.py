@@ -18,16 +18,16 @@ from pilgram import util
 def test_or_convert_same_mode():
     w, h = (4, 4)
     im = util.fill((w, h), [0, 127, 255])  # RGB
-    converted = util.or_convert(im, 'RGB')
+    converted = util.or_convert(im, "RGB")
 
     assert converted == im  # should be the same instance
-    assert converted.mode == 'RGB'
+    assert converted.mode == "RGB"
 
 
 def test_or_convert_different_mode():
     w, h = (4, 4)
-    im = util.fill((w, h), [0, 127, 255, .5])  # RGBA
-    converted = util.or_convert(im, 'RGB')
+    im = util.fill((w, h), [0, 127, 255, 0.5])  # RGBA
+    converted = util.or_convert(im, "RGB")
 
     assert converted != im
-    assert converted.mode == 'RGB'
+    assert converted.mode == "RGB"

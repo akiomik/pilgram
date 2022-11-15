@@ -26,9 +26,9 @@ def inkwell(im):
         The output image.
     """
 
-    cb = util.or_convert(im, 'RGB')
+    cb = util.or_convert(im, "RGB")
 
-    cr = css.sepia(cb, .3)
+    cr = css.sepia(cb, 0.3)
     cr = css.contrast(cr, 1.1)
     cr = css.brightness(cr, 1.1)
     cr = css.grayscale(cr)

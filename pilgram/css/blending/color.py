@@ -41,15 +41,21 @@ def _color(im1, im2):
     """
 
     r, g, b = im2.split()  # Cs
-    lum_cb = lum_im(im1)   # Lum(Cb)
-    lum_cs = lum_im(im2)   # Lum(C) in SetLum
+    lum_cb = lum_im(im1)  # Lum(Cb)
+    lum_cs = lum_im(im2)  # Lum(C) in SetLum
 
     bands = ImageMath.eval(
-        'f((r, g, b), lum_cb, lum_cs)',
-        f=_color_image_math, r=r, g=g, b=b, lum_cb=lum_cb, lum_cs=lum_cs)
-    bands = [_convert(band, 'L').im for band in bands]
+        "f((r, g, b), lum_cb, lum_cs)",
+        f=_color_image_math,
+        r=r,
+        g=g,
+        b=b,
+        lum_cb=lum_cb,
+        lum_cs=lum_cs,
+    )
+    bands = [_convert(band, "L").im for band in bands]
 
-    return Image.merge('RGB', bands)
+    return Image.merge("RGB", bands)
 
 
 def color(im1, im2):
