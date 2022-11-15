@@ -24,5 +24,5 @@ def test_slumber():
 
 
 def test_slumber_benchmark(benchmark):
-    with Image.open('examples/mtjimba.jpg') as im:
+    with Image.open("examples/mtjimba.jpg") as im:
         benchmark(slumber, im)

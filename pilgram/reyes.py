@@ -28,15 +28,15 @@ def reyes(im):
         The output image.
     """
 
-    cb = util.or_convert(im, 'RGB')
+    cb = util.or_convert(im, "RGB")
 
     cs = util.fill(cb.size, [239, 205, 173])
     cs = css.blending.soft_light(cb, cs)
-    cr = Image.blend(cb, cs, .5)  # opacity
+    cr = Image.blend(cb, cs, 0.5)  # opacity
 
-    cr = css.sepia(cr, .22)
+    cr = css.sepia(cr, 0.22)
     cr = css.brightness(cr, 1.1)
-    cr = css.contrast(cr, .85)
-    cr = css.saturate(cr, .75)
+    cr = css.contrast(cr, 0.85)
+    cr = css.saturate(cr, 0.75)
 
     return cr

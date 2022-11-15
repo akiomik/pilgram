@@ -24,5 +24,5 @@ def test_valencia():
 
 
 def test_valencia_benchmark(benchmark):
-    with Image.open('examples/mtjimba.jpg') as im:
+    with Image.open("examples/mtjimba.jpg") as im:
         benchmark(valencia, im)

@@ -64,10 +64,10 @@ def test_saturate_less_than_0():
 
 def test_saturate_hsv():
     im = util.fill((4, 4), [174, 56, 3])
-    im2 = im.convert('HSV')
+    im2 = im.convert("HSV")
     saturated_im = css.saturate(im)
     saturated_im2 = css.saturate(im2)
-    saturated_im2_rgb = saturated_im2.convert('RGB')
+    saturated_im2_rgb = saturated_im2.convert("RGB")
 
     assert list(saturated_im.getdata()) == list(saturated_im2_rgb.getdata())
     assert saturated_im2.size == im2.size

@@ -24,5 +24,5 @@ def test_earlybird():
 
 
 def test_earlybird_benchmark(benchmark):
-    with Image.open('examples/mtjimba.jpg') as im:
+    with Image.open("examples/mtjimba.jpg") as im:
         benchmark(earlybird, im)

@@ -28,21 +28,21 @@ def xpro2(im):
         The output image.
     """
 
-    cb = util.or_convert(im, 'RGB')
+    cb = util.or_convert(im, "RGB")
 
     cs1 = util.fill(cb.size, [230, 231, 224])
     cs2 = util.fill(cb.size, [43, 42, 161])
-    cs2 = Image.blend(cb, cs2, .6)
+    cs2 = Image.blend(cb, cs2, 0.6)
 
-    gradient_mask = util.radial_gradient_mask(cb.size, length=.4, scale=1.1)
+    gradient_mask = util.radial_gradient_mask(cb.size, length=0.4, scale=1.1)
     cs = Image.composite(cs1, cs2, gradient_mask)
 
     # TODO: improve alpha blending
     cm1 = css.blending.color_burn(cb, cs)
     cm2 = cm1.copy()
-    cm2 = Image.blend(cb, cm2, .6)
+    cm2 = Image.blend(cb, cm2, 0.6)
     cr = Image.composite(cm1, cm2, gradient_mask)
 
-    cr = css.sepia(cr, .3)
+    cr = css.sepia(cr, 0.3)
 
     return cr

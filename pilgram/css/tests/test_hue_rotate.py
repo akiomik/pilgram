@@ -67,10 +67,10 @@ def test_hue_rotate_less_than_0():
 
 def test_hue_rotate_hsv():
     im = util.fill((4, 4), [174, 56, 3])
-    im2 = im.convert('HSV')
+    im2 = im.convert("HSV")
     hue_rotated_im = css.hue_rotate(im)
     hue_rotated_im2 = css.hue_rotate(im2)
-    hue_rotated_im2_rgb = hue_rotated_im2.convert('RGB')
+    hue_rotated_im2_rgb = hue_rotated_im2.convert("RGB")
 
     hue_rotated_im_data = list(hue_rotated_im.getdata())
     hue_rotated_im2_rgb_data = list(hue_rotated_im2_rgb.getdata())

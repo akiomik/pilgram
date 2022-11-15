@@ -20,9 +20,8 @@ from pilgram.css.blending.alpha import alpha_blend
 
 def _color_burn_image_math(cb, cs):
     """Returns ImageMath operands for color burn blend mode"""
-    cm = (cb == 255) * 255 + \
-        (cb < 255) * (cs > 0) * (255 - ((255 - cb) * 255 / cs))
-    return _convert(cm, 'L')
+    cm = (cb == 255) * 255 + (cb < 255) * (cs > 0) * (255 - ((255 - cb) * 255 / cs))
+    return _convert(cm, "L")
 
 
 def _color_burn(im1, im2):
@@ -36,10 +35,13 @@ def _color_burn(im1, im2):
         The output image.
     """
 
-    return Image.merge('RGB', [
-        ImageMath.eval('f(cb, cs)', f=_color_burn_image_math, cb=cb, cs=cs)
-        for cb, cs in zip(im1.split(), im2.split())
-    ])
+    return Image.merge(
+        "RGB",
+        [
+            ImageMath.eval("f(cb, cs)", f=_color_burn_image_math, cb=cb, cs=cs)
+            for cb, cs in zip(im1.split(), im2.split())
+        ],
+    )
 
 
 def color_burn(im1, im2):

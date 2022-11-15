@@ -44,10 +44,19 @@ def saturate(im, amount=1):
     assert amount >= 0
 
     matrix = [
-        .213 + .787 * amount, .715 - .715 * amount, .072 - .072 * amount, 0,
-        .213 - .213 * amount, .715 + .285 * amount, .072 - .072 * amount, 0,
-        .213 - .213 * amount, .715 - .715 * amount, .072 + .928 * amount, 0,
+        0.213 + 0.787 * amount,
+        0.715 - 0.715 * amount,
+        0.072 - 0.072 * amount,
+        0,
+        0.213 - 0.213 * amount,
+        0.715 + 0.285 * amount,
+        0.072 - 0.072 * amount,
+        0,
+        0.213 - 0.213 * amount,
+        0.715 - 0.715 * amount,
+        0.072 + 0.928 * amount,
+        0,
     ]
 
-    saturated = util.or_convert(im, 'RGB').convert('RGB', matrix)
+    saturated = util.or_convert(im, "RGB").convert("RGB", matrix)
     return util.or_convert(saturated, im.mode)

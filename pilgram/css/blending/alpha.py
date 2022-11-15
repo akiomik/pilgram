@@ -39,15 +39,15 @@ def split_alpha(im):
         A tuple of the RGB and alpha image.
     """
 
-    if im.mode == 'RGBA':
+    if im.mode == "RGBA":
         # NOTE: `merge` is slower than `convert` when using Vanilla Pillow
         a = im.split()[3]
-        im = im.convert('RGB')
+        im = im.convert("RGB")
         return im, a
-    elif im.mode == 'RGB':
+    elif im.mode == "RGB":
         return im, None
     else:
-        raise ValueError('Unsupported mode: ' + im.mode)
+        raise ValueError("Unsupported mode: " + im.mode)
 
 
 def alpha_to_rgb(im):
@@ -59,12 +59,12 @@ def alpha_to_rgb(im):
     Returns:
         A tuple of the RGB and alpha image.
     """
-    if im.mode == 'L':
+    if im.mode == "L":
         # NOTE: `merge` is slower than `convert` when using Vanilla Pillow
-        im = im.convert('RGB')
+        im = im.convert("RGB")
         return im
     else:
-        raise ValueError('Unsupported mode: ' + im.mode)
+        raise ValueError("Unsupported mode: " + im.mode)
 
 
 def alpha_blend(im1, im2, blending):
@@ -111,12 +111,14 @@ def alpha_blend(im1, im2, blending):
         a1_invert_rgb = alpha_to_rgb(invert(a1))
         im_blended = add(
             ImageChops.multiply(a1_rgb, im_blended),
-            ImageChops.multiply(a1_invert_rgb, im2))
+            ImageChops.multiply(a1_invert_rgb, im2),
+        )
     elif a2 is not None:
         a2_rgb = alpha_to_rgb(a2)
         a2_invert_rgb = alpha_to_rgb(invert(a2))
         im_blended = add(
             ImageChops.multiply(a2_rgb, im_blended),
-            ImageChops.multiply(a2_invert_rgb, im1))
+            ImageChops.multiply(a2_invert_rgb, im1),
+        )
 
     return im_blended

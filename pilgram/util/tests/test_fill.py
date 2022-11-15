@@ -21,13 +21,13 @@ def test_fill():
 
     assert list(im.getdata()) == [(0, 127, 255)] * (w * h)
     assert im.size == (w, h)
-    assert im.mode == 'RGB'
+    assert im.mode == "RGB"
 
 
 def test_fill_alpha():
     w, h = (4, 4)
-    im = util.fill((w, h), [0, 127, 255, .5])
+    im = util.fill((w, h), [0, 127, 255, 0.5])
 
     assert list(im.getdata()) == [(0, 127, 255, 128)] * (w * h)
     assert im.size == (w, h)
-    assert im.mode == 'RGBA'
+    assert im.mode == "RGBA"

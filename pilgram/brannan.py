@@ -26,11 +26,11 @@ def brannan(im):
         The output image.
     """
 
-    cb = util.or_convert(im, 'RGB')
-    cs = util.fill(cb.size, [161, 44, 199, .31])
+    cb = util.or_convert(im, "RGB")
+    cs = util.fill(cb.size, [161, 44, 199, 0.31])
     cr = css.blending.lighten(cb, cs)
 
-    cr = css.sepia(cr, .5)
+    cr = css.sepia(cr, 0.5)
     cr = css.contrast(cr, 1.4)
 
     return cr

@@ -26,9 +26,9 @@ def clarendon(im):
         The output image.
     """
 
-    cb = util.or_convert(im, 'RGB')
+    cb = util.or_convert(im, "RGB")
 
-    cs = util.fill(cb.size, [127, 187, 227, .2])
+    cs = util.fill(cb.size, [127, 187, 227, 0.2])
     cr = css.blending.overlay(cb, cs)
 
     cr = css.contrast(cr, 1.2)

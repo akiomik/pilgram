@@ -31,11 +31,14 @@ def test_normal():
 
 
 def test_normal2():
-    cb = util.fill((2, 2), [255, 128, 0, 1.])
-    cs_array = np.array([
-        [[0, 128, 255, .25], [0, 255, 128, .5]],
-        [[128, 255, 0, .75], [128, 0, 255, .1]],
-    ], dtype=np.uint8)
+    cb = util.fill((2, 2), [255, 128, 0, 1.0])
+    cs_array = np.array(
+        [
+            [[0, 128, 255, 0.25], [0, 255, 128, 0.5]],
+            [[128, 255, 0, 0.75], [128, 0, 255, 0.1]],
+        ],
+        dtype=np.uint8,
+    )
     cs = Image.fromarray(cs_array)
 
     actual = css.blending.normal(cb, cs)

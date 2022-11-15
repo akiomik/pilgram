@@ -24,7 +24,7 @@ from pilgram.util import fill, invert
 def _prepared_radial_gradient_mask(size, scale=1):
     """Returns prepared radial gradient mask"""
 
-    mask = invert(Image.radial_gradient('L'))
+    mask = invert(Image.radial_gradient("L"))
 
     w, h = mask.size
     xoffset = round((w - w / scale) / 2)
@@ -34,7 +34,7 @@ def _prepared_radial_gradient_mask(size, scale=1):
     return mask.resize(size, box=box)
 
 
-def radial_gradient_mask(size, length=0, scale=1, center=(.5, .5)):
+def radial_gradient_mask(size, length=0, scale=1, center=(0.5, 0.5)):
     """Creates mask image for radial gradient image.
 
     Arguments:
@@ -52,16 +52,16 @@ def radial_gradient_mask(size, length=0, scale=1, center=(.5, .5)):
     """
 
     if length >= 1:
-        return Image.new('L', size, 255)
+        return Image.new("L", size, 255)
 
     if scale <= 0:
-        return Image.new('L', size, 0)
+        return Image.new("L", size, 0)
 
     w, h = size
     cx, cy = center
 
     # use faster method if possible
-    if length == 0 and scale >= 1 and w == h and center == (.5, .5):
+    if length == 0 and scale >= 1 and w == h and center == (0.5, 0.5):
         return _prepared_radial_gradient_mask(size, scale)
 
     rw_left = w * cx
@@ -76,7 +76,7 @@ def radial_gradient_mask(size, length=0, scale=1, center=(.5, .5)):
     r = math.sqrt(max(rw_left, rw_right) ** 2 + max(rh_top, rh_bottom) ** 2)
     base = max(scale - length, 0.001)  # avoid a division by zero
 
-    mask = np.sqrt(x ** 2 + y ** 2) / r  # distance from center
+    mask = np.sqrt(x**2 + y**2) / r  # distance from center
     mask = (mask - length) / base  # adjust ending shape
     mask = 1 - mask  # invert: distance to center
     mask *= 255
@@ -117,8 +117,8 @@ def radial_gradient(size, colors, positions=None, **kwargs):
 
     def compose(x, y):
         kwargs_ = kwargs.copy()
-        kwargs_['length'] = x[1]
-        kwargs_['scale'] = y[1]
+        kwargs_["length"] = x[1]
+        kwargs_["scale"] = y[1]
         mask = radial_gradient_mask(size, **kwargs_)
         return (Image.composite(x[0], y[0], mask), y[1])
 

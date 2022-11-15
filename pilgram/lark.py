@@ -26,14 +26,14 @@ def lark(im):
         The output image.
     """
 
-    cb = util.or_convert(im, 'RGB')
+    cb = util.or_convert(im, "RGB")
 
     cs1 = util.fill(cb.size, [34, 37, 63])
     cm1 = css.blending.color_dodge(cb, cs1)
 
-    cs2 = util.fill(cb.size, [242, 242, 242, .8])
+    cs2 = util.fill(cb.size, [242, 242, 242, 0.8])
     cr = css.blending.darken(cm1, cs2)
 
-    cr = css.contrast(cr, .9)
+    cr = css.contrast(cr, 0.9)
 
     return cr

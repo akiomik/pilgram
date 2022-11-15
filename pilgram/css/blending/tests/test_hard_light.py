@@ -23,16 +23,21 @@ from pilgram.css.blending.tests.helpers import assert_alpha_support
 
 def test_hard_light():
     cb = util.fill((2, 2), [0, 128, 255])
-    cs_array = np.array([
-        [[0] * 3, [127] * 3],
-        [[128] * 3, [255] * 3],
-    ], dtype=np.uint8)
+    cs_array = np.array(
+        [
+            [[0] * 3, [127] * 3],
+            [[128] * 3, [255] * 3],
+        ],
+        dtype=np.uint8,
+    )
     cs = Image.fromarray(cs_array)
     hard_light = css.blending.hard_light(cb, cs)
 
     expected = [
-        (0, 0, 0), (0, 127, 254),        # multiply
-        (1, 128, 255), (255, 255, 255),  # screen
+        (0, 0, 0),
+        (0, 127, 254),  # multiply
+        (1, 128, 255),
+        (255, 255, 255),  # screen
     ]
     expected = [pytest.approx(c, abs=1) for c in expected]
 

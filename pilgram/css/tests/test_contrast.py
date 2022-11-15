@@ -65,10 +65,10 @@ def test_contrast_less_than_0():
 
 def test_contrast_hsv():
     im = util.fill((4, 4), [174, 56, 3])
-    im2 = im.convert('HSV')
+    im2 = im.convert("HSV")
     contrasted_im = css.contrast(im)
     contrasted_im2 = css.contrast(im2)
-    contrasted_im2_rgb = contrasted_im2.convert('RGB')
+    contrasted_im2_rgb = contrasted_im2.convert("RGB")
 
     assert list(contrasted_im.getdata()) == list(contrasted_im2_rgb.getdata())
     assert contrasted_im2.size == im2.size

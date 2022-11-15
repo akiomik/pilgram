@@ -26,7 +26,7 @@ def _color_dodge_image_math(cb, cs_inv):
     cs_inv = _float(cs_inv)
 
     cm = ((cb != 0) * (cs_inv == 0) + (cb / cs_inv)) * 255
-    return _convert(cm, 'L')
+    return _convert(cm, "L")
 
 
 def _color_dodge(im1, im2):
@@ -40,11 +40,15 @@ def _color_dodge(im1, im2):
         The output image.
     """
 
-    return Image.merge('RGB', [
-        ImageMath.eval(
-            'f(cb, cs_inv)', f=_color_dodge_image_math, cb=cb, cs_inv=cs_inv)
-        for cb, cs_inv in zip(im1.split(), invert(im2).split())
-    ])
+    return Image.merge(
+        "RGB",
+        [
+            ImageMath.eval(
+                "f(cb, cs_inv)", f=_color_dodge_image_math, cb=cb, cs_inv=cs_inv
+            )
+            for cb, cs_inv in zip(im1.split(), invert(im2).split())
+        ],
+    )
 
 
 def color_dodge(im1, im2):

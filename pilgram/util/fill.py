@@ -36,11 +36,11 @@ def fill(size, color):
         color[3] = int(round(color[3] * 255))  # alpha
 
     uniqued = list(set(color))
-    cmap = {c: Image.new('L', size, c) for c in uniqued}
+    cmap = {c: Image.new("L", size, c) for c in uniqued}
 
     if len(color) == 3:
         r, g, b = color
-        return Image.merge('RGB', (cmap[r], cmap[g], cmap[b]))
+        return Image.merge("RGB", (cmap[r], cmap[g], cmap[b]))
     else:
         r, g, b, a = color
-        return Image.merge('RGBA', (cmap[r], cmap[g], cmap[b], cmap[a]))
+        return Image.merge("RGBA", (cmap[r], cmap[g], cmap[b], cmap[a]))

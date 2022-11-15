@@ -26,15 +26,14 @@ def earlybird(im):
         The output image.
     """
 
-    cb = util.or_convert(im, 'RGB')
+    cb = util.or_convert(im, "RGB")
 
     cs = util.radial_gradient(
-            cb.size,
-            [(208, 186, 142), (54, 3, 9), (29, 2, 16)],
-            [.2, .85, 1])
+        cb.size, [(208, 186, 142), (54, 3, 9), (29, 2, 16)], [0.2, 0.85, 1]
+    )
     cr = css.blending.overlay(cb, cs)
 
-    cr = css.contrast(cr, .9)
-    cr = css.sepia(cr, .2)
+    cr = css.contrast(cr, 0.9)
+    cr = css.sepia(cr, 0.2)
 
     return cr

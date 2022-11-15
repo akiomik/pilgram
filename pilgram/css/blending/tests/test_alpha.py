@@ -25,10 +25,10 @@ def _normal(cb, cs):
 
 
 def test_split_alpha_rgba():
-    im = util.fill((2, 2), [0, 128, 255, .5])
+    im = util.fill((2, 2), [0, 128, 255, 0.5])
     rgb, a = split_alpha(im)
     assert rgb == util.fill((2, 2), [0, 128, 255])
-    assert a == Image.new('L', (2, 2), 128)
+    assert a == Image.new("L", (2, 2), 128)
 
 
 def test_split_alpha_rgb():
@@ -39,15 +39,15 @@ def test_split_alpha_rgb():
 
 
 def test_split_alpha_unsupported_mode():
-    im = Image.new('L', (2, 2), 128)
+    im = Image.new("L", (2, 2), 128)
     with pytest.raises(ValueError):
         split_alpha(im)
 
 
 def test_alpha_to_rgb():
-    im = Image.new('L', (2, 2), 128)
+    im = Image.new("L", (2, 2), 128)
     im_rgb = alpha_to_rgb(im)
-    assert im_rgb.mode == 'RGB'
+    assert im_rgb.mode == "RGB"
 
     r, g, b = im_rgb.split()
     assert r == im
