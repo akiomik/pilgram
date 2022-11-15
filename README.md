@@ -16,11 +16,13 @@ The filter implementations are inspired by [CSSgram](https://una.im/CSSgram/).
 
 - Python >= 3.4
 - [Pillow](https://pillow.readthedocs.io/en/stable/) or [pillow-simd](https://github.com/uploadcare/pillow-simd)
+- [NumPy](https://numpy.org)
 
 ## Install
 
 ```sh
 pip install pillow>=4.1.0 # or pip install pillow-simd
+pip install numpy
 pip install pilgram
 ```
 
