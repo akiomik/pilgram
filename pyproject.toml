@@ -1,3 +1,24 @@
+[tool.poetry]
+name = "pilgram"
+version = "1.2.1"
+description = "library for instagram filters"
+authors = ["Akiomi Kamakura <akiomik@gmail.com>"]
+license = "Apache License 2.0"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = ">=3.8"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.2.0"
+pytest-cov = "^4.0.0"
+flake8 = "^5.0.4"
+Pillow = "^9.3.0"
+pytest-benchmark = "^4.0.0"
+tox = "^3.27.1"
+pytest-mock = "^3.10.0"
+numpy = "^1.23.4"
+
 [build-system]
-requires = ["wheel", "setuptools"]
-build-backend = "setuptools.build_meta:__legacy__"
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
