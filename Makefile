@@ -5,9 +5,6 @@ all: test clean build;
 test:
 	poetry run pytest && poetry run flake8 ${SRC_DIR}
 
-test-tox:
-	poetry run tox && poetry run flake8 ${SRC_DIR}
-
 test-benchmark:
 	poetry run pytest --benchmark-only --benchmark-max-time=5 --benchmark-columns="mean,stddev,min,max"
 
@@ -24,4 +21,4 @@ test-upload: clean build
 upload: clean build
 	poetry run twine upload -s -r pypi dist/*
 
-.PHONY: all test test-tox test-benchmark benchmark clean build test-upload upload
+.PHONY: all test test-benchmark benchmark clean build test-upload upload
