@@ -14,8 +14,7 @@
 
 from PIL import Image
 
-from pilgram import reyes
-from pilgram import util
+from pilgram import reyes, util
 
 
 def test_reyes():

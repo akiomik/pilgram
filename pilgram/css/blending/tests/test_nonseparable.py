@@ -14,15 +14,21 @@
 
 from math import floor
 
+import pytest
 from PIL import Image, ImageMath
 from PIL.ImageMath import imagemath_convert as _convert
-import pytest
 
 from pilgram import util
-from pilgram.css.blending.nonseparable import _min3, _max3
-from pilgram.css.blending.nonseparable import _clip_color
-from pilgram.css.blending.nonseparable import lum, lum_im, set_lum
-from pilgram.css.blending.nonseparable import sat, set_sat
+from pilgram.css.blending.nonseparable import (
+    _clip_color,
+    _max3,
+    _min3,
+    lum,
+    lum_im,
+    sat,
+    set_lum,
+    set_sat,
+)
 
 
 def test_min3():

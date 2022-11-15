@@ -14,8 +14,7 @@
 
 from PIL import Image
 
-from pilgram import _1977
-from pilgram import util
+from pilgram import _1977, util
 
 
 def test_1977():

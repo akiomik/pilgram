@@ -12,8 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from PIL.ImageMath import imagemath_min as _min
 from PIL.ImageMath import imagemath_max as _max
+from PIL.ImageMath import imagemath_min as _min
 
 
 def _min3(c):

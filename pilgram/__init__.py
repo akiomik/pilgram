@@ -12,8 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from pilgram._version import __version__
 from pilgram._1977 import _1977
+from pilgram._version import __version__
 from pilgram.aden import aden
 from pilgram.brannan import brannan
 from pilgram.brooklyn import brooklyn
@@ -39,7 +39,6 @@ from pilgram.valencia import valencia
 from pilgram.walden import walden
 from pilgram.willow import willow
 from pilgram.xpro2 import xpro2
-
 
 __all__ = [
     "__version__",

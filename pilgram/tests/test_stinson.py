@@ -14,8 +14,7 @@
 
 from PIL import Image
 
-from pilgram import stinson
-from pilgram import util
+from pilgram import stinson, util
 
 
 def test_stinson():

@@ -14,8 +14,7 @@
 
 import pytest
 
-from pilgram import css
-from pilgram import util
+from pilgram import css, util
 
 
 def test_grayscale():

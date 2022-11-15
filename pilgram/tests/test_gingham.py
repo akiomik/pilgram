@@ -14,8 +14,7 @@
 
 from PIL import Image
 
-from pilgram import gingham
-from pilgram import util
+from pilgram import gingham, util
 
 
 def test_gingham():

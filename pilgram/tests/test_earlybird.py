@@ -14,8 +14,7 @@
 
 from PIL import Image
 
-from pilgram import earlybird
-from pilgram import util
+from pilgram import earlybird, util
 
 
 def test_earlybird():

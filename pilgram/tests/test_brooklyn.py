@@ -14,8 +14,7 @@
 
 from PIL import Image
 
-from pilgram import brooklyn
-from pilgram import util
+from pilgram import brooklyn, util
 
 
 def test_brooklyn():

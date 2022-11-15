@@ -14,8 +14,7 @@
 
 from PIL import Image
 
-from pilgram import rise
-from pilgram import util
+from pilgram import rise, util
 
 
 def test_rise():

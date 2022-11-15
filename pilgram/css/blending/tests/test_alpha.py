@@ -12,11 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from PIL import Image
 import pytest
+from PIL import Image
 
 from pilgram import util
-from pilgram.css.blending.alpha import alpha_blend, split_alpha, alpha_to_rgb
+from pilgram.css.blending.alpha import alpha_blend, alpha_to_rgb, split_alpha
 
 
 def _normal(cb, cs):

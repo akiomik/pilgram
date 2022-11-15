@@ -14,8 +14,7 @@
 
 from PIL import Image
 
-from pilgram import clarendon
-from pilgram import util
+from pilgram import clarendon, util
 
 
 def test_clarendon():

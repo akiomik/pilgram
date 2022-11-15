@@ -14,8 +14,7 @@
 
 from PIL import Image
 
-from pilgram import willow
-from pilgram import util
+from pilgram import util, willow
 
 
 def test_willow():

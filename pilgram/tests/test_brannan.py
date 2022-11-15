@@ -14,8 +14,7 @@
 
 from PIL import Image
 
-from pilgram import brannan
-from pilgram import util
+from pilgram import brannan, util
 
 
 def test_brannan():

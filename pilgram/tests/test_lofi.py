@@ -14,8 +14,7 @@
 
 from PIL import Image
 
-from pilgram import lofi
-from pilgram import util
+from pilgram import lofi, util
 
 
 def test_lofi():

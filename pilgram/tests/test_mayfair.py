@@ -14,8 +14,7 @@
 
 from PIL import Image
 
-from pilgram import mayfair
-from pilgram import util
+from pilgram import mayfair, util
 
 
 def test_mayfair():

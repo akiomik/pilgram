@@ -14,8 +14,7 @@
 
 from PIL import Image
 
-from pilgram import hudson
-from pilgram import util
+from pilgram import hudson, util
 
 
 def test_hudson():
