@@ -18,17 +18,17 @@ from PIL import Image
 from pilgram.util import fill
 
 
-def linear_gradient_mask(size, start=0, end=1, is_horizontal=True):
+def linear_gradient_mask(size, start=1, end=0, is_horizontal=True):
     """Creates mask image for linear gradient image.
 
     Arguments:
         size: A tuple/list of 2 integers. The size of output image.
         start: An optional integer/float. The starting point start.
             The point is left-side when `is_horizontal` is True, top otherwise.
-            Defaults to 0.
+            Defaults to 1.
         end: An optional integer/float. The ending point.
             The point is right-side when `is_horizontal` is True,
-            bottom otherwise. Defaults to 1.
+            bottom otherwise. Defaults to 0.
         is_horizontal: A optional boolean. The direction of gradient line.
             Left to right if True, top to bottom else.
 
