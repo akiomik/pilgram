@@ -23,5 +23,5 @@ def test_moon():
 
 
 def test_moon_benchmark(benchmark):
-    with Image.open("examples/mtjimba.jpg") as im:
+    with Image.open("notebooks/mtjimba.jpg") as im:
         benchmark(moon, im)

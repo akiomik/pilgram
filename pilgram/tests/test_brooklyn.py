@@ -23,5 +23,5 @@ def test_brooklyn():
 
 
 def test_brooklyn_benchmark(benchmark):
-    with Image.open("examples/mtjimba.jpg") as im:
+    with Image.open("notebooks/mtjimba.jpg") as im:
         benchmark(brooklyn, im)

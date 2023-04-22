@@ -23,5 +23,5 @@ def test_walden():
 
 
 def test_walden_benchmark(benchmark):
-    with Image.open("examples/mtjimba.jpg") as im:
+    with Image.open("notebooks/mtjimba.jpg") as im:
         benchmark(walden, im)

@@ -23,5 +23,5 @@ def test_mayfair():
 
 
 def test_mayfair_benchmark(benchmark):
-    with Image.open("examples/mtjimba.jpg") as im:
+    with Image.open("notebooks/mtjimba.jpg") as im:
         benchmark(mayfair, im)
