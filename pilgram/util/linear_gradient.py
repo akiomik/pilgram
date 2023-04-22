@@ -15,22 +15,7 @@
 import numpy as np
 from PIL import Image
 
-from pilgram.util import fill, invert
-
-
-def _prepared_linear_gradient_mask(size, start, end, is_horizontal=True):
-    """Returns prepared linear gradient mask."""
-    assert end >= 1
-
-    mask = invert(Image.linear_gradient("L"))
-    w, h = mask.size
-    box = (0, round(h * start), w, round(h / end))
-    resized_mask = mask.resize(size, box=box)
-
-    if is_horizontal:
-        return resized_mask.rotate(90)
-    else:
-        return resized_mask
+from pilgram.util import fill
 
 
 def linear_gradient_mask(size, start=0, end=1, is_horizontal=True):
@@ -55,9 +40,6 @@ def linear_gradient_mask(size, start=0, end=1, is_horizontal=True):
     """
 
     assert len(size) == 2
-
-    if end >= 1:
-        return _prepared_linear_gradient_mask(size, start, end, is_horizontal)
 
     w, h = size
     start *= 255
