@@ -2,16 +2,16 @@ name: Python CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [ci-update]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   build:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: [ '3.8', '3.9', '3.10' ]
+        python-version: ["3.8", "3.9", "3.10", "3.11"]
     name: Python ${{ matrix.python-version }}
     env:
       PIPENV_VERBOSITY: -1
@@ -24,5 +24,6 @@ jobs:
           cache: poetry
       - run: poetry install
       - run: make test
-      - run: pipx install codecov
-      - run: codecov
+      - uses: codecov/codecov-action@v3
+        with:
+          verbose: true # optional (default = false)
