@@ -25,5 +25,3 @@ jobs:
       - run: poetry install
       - run: make test
       - uses: codecov/codecov-action@v3
-        with:
-          verbose: true # optional (default = false)
