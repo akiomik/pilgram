@@ -105,7 +105,7 @@ def radial_gradient(size, colors, positions=None, **kwargs):
     assert len(size) == 2
     assert len(colors) >= 2
     for color in colors:
-        assert len(color) == 3
+        assert len(color) == 3 or len(color) == 4
 
     if positions is None:
         positions = np.linspace(0, 1, len(colors))
