@@ -12,7 +12,7 @@ format-check:
 	poetry run black --check ${SRC_DIR} && poetry run isort -c ${SRC_DIR}
 
 test: lint format-check
-	poetry run pytest
+	poetry run pytest --cov-report=term --cov-report=xml:coverage.xml
 
 test-benchmark:
 	poetry run pytest --benchmark-only --benchmark-max-time=5 --benchmark-columns="mean,stddev,min,max"
