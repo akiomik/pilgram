@@ -17,24 +17,6 @@ from __future__ import division
 from pilgram import util
 
 
-def test_linear_gradient_mask_prepared_horizontal():
-    w, h = (4, 4)
-    mask = util.linear_gradient_mask((w, h))
-
-    assert list(mask.getdata()) == [222, 161, 94, 33] * h
-    assert mask.size == (w, h)
-    assert mask.mode == "L"
-
-
-def test_linear_gradient_mask_prepared_vertical():
-    w, h = (4, 4)
-    mask = util.linear_gradient_mask((w, h), is_horizontal=False)
-
-    assert list(mask.getdata()) == [222] * w + [161] * w + [94] * w + [33] * w
-    assert mask.size == (w, h)
-    assert mask.mode == "L"
-
-
 def test_linear_gradient_mask_start_end():
     w, h = (4, 4)
     start = 100 / 255
@@ -59,12 +41,58 @@ def test_linear_gradient_mask_start_end_vertical():
     assert mask.mode == "L"
 
 
-def test_linear_gradient_prepared():
+def test_linear_gradient():
     w, h = (4, 4)
-    white = [255] * 3
-    black = [0] * 3
-    gradient = util.linear_gradient((w, h), white, black)
-    expected_data = [(c,) * 3 for c in [222, 161, 94, 33]] * h
+    start = [255, 0, 0]  # red
+    end = [0, 0, 255]  # blue
+    gradient = util.linear_gradient((w, h), start, end)
+    expected_data = [
+        (255, 0, 0),
+        (170, 0, 85),
+        (85, 0, 170),
+        (0, 0, 255),
+        (255, 0, 0),
+        (170, 0, 85),
+        (85, 0, 170),
+        (0, 0, 255),
+        (255, 0, 0),
+        (170, 0, 85),
+        (85, 0, 170),
+        (0, 0, 255),
+        (255, 0, 0),
+        (170, 0, 85),
+        (85, 0, 170),
+        (0, 0, 255),
+    ]
+
+    assert list(gradient.getdata()) == expected_data
+    assert gradient.size == (w, h)
+    assert gradient.mode == "RGB"
+
+
+def test_linear_gradient_vertical():
+    w, h = (4, 4)
+    start = [255, 0, 0]  # red
+    end = [0, 0, 255]  # blue
+    gradient = util.linear_gradient((w, h), start, end, False)
+    expected_data = [
+        (255, 0, 0),
+        (255, 0, 0),
+        (255, 0, 0),
+        (255, 0, 0),
+        (170, 0, 85),
+        (170, 0, 85),
+        (170, 0, 85),
+        (170, 0, 85),
+        (85, 0, 170),
+        (85, 0, 170),
+        (85, 0, 170),
+        (85, 0, 170),
+        (0, 0, 255),
+        (0, 0, 255),
+        (0, 0, 255),
+        (0, 0, 255),
+    ]
 
     assert list(gradient.getdata()) == expected_data
     assert gradient.size == (w, h)

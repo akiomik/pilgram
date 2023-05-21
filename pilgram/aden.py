@@ -32,7 +32,7 @@ def aden(im):
     cs = util.fill(cb.size, [66, 10, 14])
     cs = css.blending.darken(cb, cs)
 
-    alpha_mask = util.linear_gradient_mask(cb.size, start=0.8)
+    alpha_mask = util.linear_gradient_mask(cb.size, start=0.2)
     cr = Image.composite(cs, cb, alpha_mask)
 
     cr = css.hue_rotate(cr, -20)

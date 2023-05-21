@@ -23,5 +23,5 @@ def test_perpetua():
 
 
 def test_perpetua_benchmark(benchmark):
-    with Image.open("examples/mtjimba.jpg") as im:
+    with Image.open("notebooks/mtjimba.jpg") as im:
         benchmark(perpetua, im)

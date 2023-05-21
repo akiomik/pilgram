@@ -15,35 +15,20 @@
 import numpy as np
 from PIL import Image
 
-from pilgram.util import fill, invert
+from pilgram.util import fill
 
 
-def _prepared_linear_gradient_mask(size, start, end, is_horizontal=True):
-    """Returns prepared linear gradient mask."""
-    assert end >= 1
-
-    mask = invert(Image.linear_gradient("L"))
-    w, h = mask.size
-    box = (0, round(h * start), w, round(h / end))
-    resized_mask = mask.resize(size, box=box)
-
-    if is_horizontal:
-        return resized_mask.rotate(90)
-    else:
-        return resized_mask
-
-
-def linear_gradient_mask(size, start=0, end=1, is_horizontal=True):
+def linear_gradient_mask(size, start=1, end=0, is_horizontal=True):
     """Creates mask image for linear gradient image.
 
     Arguments:
         size: A tuple/list of 2 integers. The size of output image.
         start: An optional integer/float. The starting point start.
             The point is left-side when `is_horizontal` is True, top otherwise.
-            Defaults to 0.
+            Defaults to 1.
         end: An optional integer/float. The ending point.
             The point is right-side when `is_horizontal` is True,
-            bottom otherwise. Defaults to 1.
+            bottom otherwise. Defaults to 0.
         is_horizontal: A optional boolean. The direction of gradient line.
             Left to right if True, top to bottom else.
 
@@ -55,9 +40,6 @@ def linear_gradient_mask(size, start=0, end=1, is_horizontal=True):
     """
 
     assert len(size) == 2
-
-    if end >= 1:
-        return _prepared_linear_gradient_mask(size, start, end, is_horizontal)
 
     w, h = size
     start *= 255
