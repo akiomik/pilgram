@@ -10,7 +10,7 @@ A python library for instagram filters.
 
 ![screenshot](screenshots/screenshot.png)
 
-The filter implementations are inspired by [CSSgram](https://una.im/CSSgram/).
+The filter implementations are inspired by [CSSgram](https://una.github.io/CSSgram/).
 
 ## Requirements
 
