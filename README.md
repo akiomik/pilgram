@@ -120,10 +120,30 @@ pilgram.css.blending.color(backdrop, source).save('blending.jpg')
 
 ![filter performance comparison](screenshots/filter-performance-comparison.png)
 
-## Test
+## Development
+
+### Setup development environment
 
 ```sh
-pipenv install --dev
-make test     # pytest
-make test-tox # pytest with tox
+# Install uv (if not already installed)
+curl -LsSf https://astral.sh/uv/install.sh | sh
+
+# Clone the repository
+git clone https://github.com/akiomik/pilgram.git
+cd pilgram
+
+# Install dependencies (including dev dependencies)
+uv sync --all-extras
+
+# Install Pillow or pillow-simd (choose one)
+uv add pillow>=9.3.0  # or uv add pillow-simd
+```
+
+### Run commands
+
+```sh
+make test        # Run all tests
+make lint        # Run ruff linting
+make format      # Format code with ruff
+make test-benchmark  # Run performance benchmarks
 ```

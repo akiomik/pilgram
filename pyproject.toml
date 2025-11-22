@@ -1,26 +1,28 @@
-[tool.poetry]
+[project]
 name = "pilgram"
 version = "1.2.1"
 description = "library for instagram filters"
-authors = ["Akiomi Kamakura <akiomik@gmail.com>"]
-license = "Apache License 2.0"
+authors = [{name = "Akiomi Kamakura", email = "akiomik@gmail.com"}]
+license = {text = "Apache-2.0"}
 readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "numpy>=1.21.0",
+]
 
-[tool.poetry.dependencies]
-python = ">=3.10,<4.0"
-numpy = ">=1.21.0"
-
-[tool.poetry.group.dev.dependencies]
-pytest = ">=7.2,<9.0"
-pytest-cov = ">=4,<6"
-Pillow = ">=9.3,<11.0"
-pytest-benchmark = "^4.0.0"
-pytest-mock = "^3.10.0"
-ruff = "^0.8.0"
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.2,<9.0",
+    "pytest-cov>=4,<6",
+    "Pillow>=9.3,<11.0",
+    "pytest-benchmark>=4.0.0",
+    "pytest-mock>=3.10.0",
+    "ruff>=0.8.0",
+]
 
 [build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
 [tool.ruff]
 target-version = "py310"
