@@ -3,31 +3,31 @@ SRC_DIR = pilgram
 all: test clean build;
 
 lint:
-	poetry run ruff check ${SRC_DIR}
+	uv run ruff check ${SRC_DIR}
 
 format:
-	poetry run ruff format ${SRC_DIR}
+	uv run ruff format ${SRC_DIR}
 
 format-check:
-	poetry run ruff check ${SRC_DIR} && poetry run ruff format --check ${SRC_DIR}
+	uv run ruff check ${SRC_DIR} && uv run ruff format --check ${SRC_DIR}
 
 test: lint format-check
-	poetry run pytest
+	uv run pytest
 
 test-benchmark:
-	poetry run pytest --benchmark-only --benchmark-max-time=5 --benchmark-columns="mean,stddev,min,max"
+	uv run pytest --benchmark-only --benchmark-max-time=5 --benchmark-columns="mean,stddev,min,max"
 
 clean:
 	find . -type f -name "*.pyc" -delete
 	rm -rf dist build *.egg-info
 
 build:
-	poetry run python setup.py sdist bdist_wheel
+	uv build
 
 test-upload: clean build
-	poetry run twine upload -s -r test dist/*
+	uv run twine upload -s -r test dist/*
 
 upload: clean build
-	poetry run twine upload -s -r pypi dist/*
+	uv run twine upload -s -r pypi dist/*
 
 .PHONY: all lint format format-check test test-benchmark benchmark clean build test-upload upload
