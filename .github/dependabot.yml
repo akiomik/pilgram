@@ -5,7 +5,12 @@
 
 version: 2
 updates:
-  - package-ecosystem: "pip" # See documentation for possible values
-    directory: "/" # Location of package manifests
+  - package-ecosystem: "poetry" # Poetry dependencies (pyproject.toml)
+    directory: "/" # Location of pyproject.toml
+    schedule:
+      interval: "weekly"
+
+  - package-ecosystem: "github-actions"
+    directory: "/" # Location of workflow files
     schedule:
       interval: "weekly"
