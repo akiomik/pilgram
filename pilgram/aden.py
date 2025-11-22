@@ -17,7 +17,7 @@ from PIL import Image
 from pilgram import css, util
 
 
-def aden(im):
+def aden(im: Image.Image) -> Image.Image:
     """Applies Aden filter.
 
     Arguments:

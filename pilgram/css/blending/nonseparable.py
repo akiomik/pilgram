@@ -12,24 +12,28 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from PIL import Image
+from PIL.ImageMath import _Operand
 from PIL.ImageMath import imagemath_float as _float
 from PIL.ImageMath import imagemath_max as _max
 from PIL.ImageMath import imagemath_min as _min
 
+from pilgram.types import RGBOperands
 
-def _min3(c):
+
+def _min3(c: tuple[_Operand, _Operand, _Operand]) -> _Operand:
     """Returns minimum value of 3 elements as ImageMath operands."""
     r, g, b = c
     return _min(_min(r, g), b)
 
 
-def _max3(c):
+def _max3(c: tuple[_Operand, _Operand, _Operand]) -> _Operand:
     """Returns maximum value of 3 elements as ImageMath operands."""
     r, g, b = c
     return _max(_max(r, g), b)
 
 
-def _clip_color(c):
+def _clip_color(c: RGBOperands) -> RGBOperands:
     """Returns clipped color as ImageMath operands.
 
     The formula is defined as:
@@ -49,10 +53,10 @@ def _clip_color(c):
     See: https://www.w3.org/TR/compositing-1/#blendingnonseparable
 
     Arguments:
-        c: A tuple/list of 3 ImageMath operands. The color.
+        c: A tuple of 3 ImageMath operands. The color.
 
     Returns:
-        A tuple/list of 3 ImageMath operands. The clipped color.
+        A tuple of 3 ImageMath operands. The clipped color.
     """
 
     r, g, b = c
@@ -61,7 +65,7 @@ def _clip_color(c):
     n = _min3(c)
     x = _max3(c)
 
-    def fn(c):
+    def fn(c: _Operand) -> _Operand:
         # C = L + ((C - L) * L) / (L - n)
         #   = (L * (L - n)) / (L - n) + ((C - L) * L) / (L - n)
         #   = ((L * (L - n)) + ((C - L) * L)) / (L - n)
@@ -70,7 +74,7 @@ def _clip_color(c):
         #   = (L * (C - n)) / (L - n)
         return (n < 0) * ((L * (c - n)) / (L - n)) + (n >= 0) * c
 
-    def fx(c):
+    def fx(c: _Operand) -> _Operand:
         return (x > 255) * (L + ((c - L) * (255 - L)) / (x - L)) + (x <= 255) * c
 
     r = fx(fn(r))
@@ -80,7 +84,7 @@ def _clip_color(c):
     return (r, g, b)
 
 
-def lum(c):
+def lum(c: RGBOperands) -> _Operand:
     """Returns luminosity as ImageMath operands.
 
     The formula is defined as:
@@ -90,16 +94,16 @@ def lum(c):
     See: https://www.w3.org/TR/compositing-1/#blendingnonseparable
 
     Arguments:
-        c: A tuple/list of 3 ImageMath operands. The color.
+        c: A tuple of 3 ImageMath operands. The color.
 
     Returns:
-        A tuple/list of 3 ImageMath operands. The luminosity.
+        An ImageMath operand. The luminosity.
     """
     r, g, b = c
     return _float(r) * 0.3 + _float(g) * 0.59 + _float(b) * 0.11
 
 
-def lum_im(im):
+def lum_im(im: Image.Image) -> Image.Image:
     """Returns luminosity as image.
 
     The formula is defined as:
@@ -117,7 +121,7 @@ def lum_im(im):
     return im.convert("L")
 
 
-def set_lum(c, l1):
+def set_lum(c: RGBOperands, l1: _Operand) -> RGBOperands:
     """Set luminosity to the color.
 
     The formula is defined as:
@@ -132,11 +136,11 @@ def set_lum(c, l1):
     See: https://www.w3.org/TR/compositing-1/#blendingnonseparable
 
     Arguments:
-        c: A tuple/list of 3 ImageMath operands. The color.
-        l1: An ImageMath operands. The luminosity to set.
+        c: A tuple of 3 ImageMath operands. The color.
+        l1: An ImageMath operand. The luminosity to set.
 
     Returns:
-        A tuple/list of 3 ImageMath oerands.
+        A tuple of 3 ImageMath operands.
     """
 
     r, g, b = c
@@ -149,7 +153,7 @@ def set_lum(c, l1):
     return _clip_color((r, g, b))
 
 
-def set_lum_im(c, l1, l2):
+def set_lum_im(c: RGBOperands, l1: _Operand, l2: _Operand) -> RGBOperands:
     """Set luminosity to the color from image.
 
     The formula is defined as:
@@ -164,12 +168,12 @@ def set_lum_im(c, l1, l2):
     See: https://www.w3.org/TR/compositing-1/#blendingnonseparable
 
     Arguments:
-        c: A tuple/list of 3 ImageMath operands. The color.
-        l1: An ImageMath operands. The image of l.
-        l2: An ImageMath operands. The image of Lum(C).
+        c: A tuple of 3 ImageMath operands. The color.
+        l1: An ImageMath operand. The image of l.
+        l2: An ImageMath operand. The image of Lum(C).
 
     Returns:
-        A tuple/list of 3 ImageMath operands.
+        A tuple of 3 ImageMath operands.
     """
 
     r, g, b = c
@@ -178,7 +182,7 @@ def set_lum_im(c, l1, l2):
     return _clip_color((r + d, g + d, b + d))
 
 
-def sat(c):
+def sat(c: RGBOperands) -> _Operand:
     """Returns saturation as ImageMath operands.
 
     The formula is defined as:
@@ -188,16 +192,16 @@ def sat(c):
     See: https://www.w3.org/TR/compositing-1/#blendingnonseparable
 
     Arguments:
-        c: A tuple/list of 3 operands. The color.
+        c: A tuple of 3 operands. The color.
 
     Returns:
-        A tuple/list of 3 operands. The saturation.
+        An ImageMath operand. The saturation.
     """
 
     return _max3(c) - _min3(c)
 
 
-def set_sat(c, s):
+def set_sat(c: RGBOperands, s: _Operand) -> RGBOperands:
     """Set saturation to the color.
 
     The formula is defined as:
@@ -214,11 +218,11 @@ def set_sat(c, s):
     See: https://www.w3.org/TR/compositing-1/#blendingnonseparable
 
     Arguments:
-        c: A tuple/list of 3 ImageMath operands. The color.
+        c: A tuple of 3 ImageMath operands. The color.
         s: An ImageMath operand. The saturation to set.
 
     Returns:
-        A tuple/list of 3 ImageMath operands.
+        A tuple of 3 ImageMath operands.
     """
 
     r, g, b = c

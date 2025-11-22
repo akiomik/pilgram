@@ -18,7 +18,7 @@ from PIL import Image, ImageChops
 from pilgram.css.blending.alpha import alpha_blend
 
 
-def _exclusion(im1, im2):
+def _exclusion(im1: Image.Image, im2: Image.Image) -> Image.Image:
     """The exclusion blend mode.
 
     Arguments:
@@ -35,7 +35,7 @@ def _exclusion(im1, im2):
     return Image.fromarray(screen - multiply)
 
 
-def exclusion(im1, im2):
+def exclusion(im1: Image.Image, im2: Image.Image) -> Image.Image:
     """Produces an effect like Difference but lower in contrast.
 
     The exclusion formula is defined as:

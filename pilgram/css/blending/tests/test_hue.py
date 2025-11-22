@@ -33,9 +33,9 @@ def test_hue1():
     hue = css.blending.hue(cb, cs)
 
     expected = [(0, 128, 255), (102, 179, 255), (143, 199, 255), (0, 82, 163)]
-    expected = [pytest.approx(c, abs=3) for c in expected]  # TODO
+    expected_approx = [pytest.approx(c, abs=3) for c in expected]  # TODO
 
-    assert list(hue.getdata()) == expected  # almost eq
+    assert list(hue.getdata()) == expected_approx  # almost eq
 
 
 def test_hue2():
@@ -51,9 +51,9 @@ def test_hue2():
     hue = css.blending.hue(cb, cs)
 
     expected = [(0, 128, 255), (0, 160, 80), (70, 139, 0), (153, 50, 255)]
-    expected = [pytest.approx(c, abs=1) for c in expected]
+    expected_approx = [pytest.approx(c, abs=1) for c in expected]
 
-    assert list(hue.getdata()) == expected  # almost eq
+    assert list(hue.getdata()) == expected_approx  # almost eq
 
 
 def test_hue_alpha_support(mocker):

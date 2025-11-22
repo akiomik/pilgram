@@ -15,19 +15,20 @@
 import numpy as np
 from PIL import Image, ImageChops
 
+from pilgram.types import BlendingFunction
 from pilgram.util import add, invert, subtract
 
 
-def add3(im1, im2, im3):
-    im1 = np.asarray(im1, dtype=np.int16)
-    im2 = np.asarray(im2)
-    im3 = np.asarray(im3)
-    im = im1 + im2 + im3
-    im = im.clip(0, 255).astype(np.uint8)
-    return Image.fromarray(im)
+def add3(im1: Image.Image, im2: Image.Image, im3: Image.Image) -> Image.Image:
+    im1_array = np.asarray(im1, dtype=np.int16)
+    im2_array = np.asarray(im2)
+    im3_array = np.asarray(im3)
+    im_array = im1_array + im2_array + im3_array
+    im_array = im_array.clip(0, 255).astype(np.uint8)
+    return Image.fromarray(im_array)
 
 
-def split_alpha(im):
+def split_alpha(im: Image.Image) -> tuple[Image.Image, Image.Image | None]:
     """Splits alpha channel
 
     Arguments:
@@ -48,7 +49,7 @@ def split_alpha(im):
         raise ValueError("Unsupported mode: " + im.mode)
 
 
-def alpha_to_rgb(im):
+def alpha_to_rgb(im: Image.Image) -> Image.Image:
     """Converts alpha image to rgb image.
 
     Arguments:
@@ -65,7 +66,11 @@ def alpha_to_rgb(im):
         raise ValueError("Unsupported mode: " + im.mode)
 
 
-def alpha_blend(im1, im2, blending):
+def alpha_blend(
+    im1: Image.Image,
+    im2: Image.Image,
+    blending: BlendingFunction,
+) -> Image.Image:
     """Simple alpha blending
 
     The formula is defined as:

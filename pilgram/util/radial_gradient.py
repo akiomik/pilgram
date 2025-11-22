@@ -13,15 +13,19 @@
 # limitations under the License.
 
 import math
+from collections.abc import Sequence
 from functools import reduce
+from typing import Any
 
 import numpy as np
 from PIL import Image
 
-from pilgram.util import fill, invert
+from pilgram.types import RGBColor, Size
+from pilgram.util.fill import fill
+from pilgram.util.invert import invert
 
 
-def _prepared_radial_gradient_mask(size, scale=1):
+def _prepared_radial_gradient_mask(size: Size, scale: float = 1) -> Image.Image:
     """Returns prepared radial gradient mask"""
 
     mask = invert(Image.radial_gradient("L"))
@@ -34,16 +38,21 @@ def _prepared_radial_gradient_mask(size, scale=1):
     return mask.resize(size, box=box)
 
 
-def radial_gradient_mask(size, length=0, scale=1, center=(0.5, 0.5)):
+def radial_gradient_mask(
+    size: Size,
+    length: float = 0,
+    scale: float = 1,
+    center: tuple[float, float] = (0.5, 0.5),
+) -> Image.Image:
     """Creates mask image for radial gradient image.
 
     Arguments:
-        size: A tuple/list of 2 integers. The size of mask image.
-        length: An optional integer/float. The percentage of inner color stop.
+        size: A tuple of 2 integers. The size of mask image.
+        length: An optional number. The percentage of inner color stop.
             Defaults to 0.
-        scale: An optional integer/float. The percentage of ending shape.
+        scale: An optional number. The percentage of ending shape.
             Defaults to 1.
-        center: An optional tuple/list of two floats.
+        center: An optional tuple of two floats.
             The percentage of center position for the circle.
             Defaults to the center (0.5, 0.5).
 
@@ -85,13 +94,18 @@ def radial_gradient_mask(size, length=0, scale=1, center=(0.5, 0.5)):
     return Image.fromarray(np.uint8(mask.round()))
 
 
-def radial_gradient(size, colors, positions=None, **kwargs):
+def radial_gradient(
+    size: Size,
+    colors: Sequence[RGBColor],
+    positions: Sequence[float] | None = None,
+    **kwargs: Any,
+) -> Image.Image:
     """Creates radial gradient image.
 
     Arguments:
-        size: A tuple/list of 2 integers. The size of output image.
-        colors: A tuple/list of RGB colors.
-        positions: An optional tuple/list of floats.
+        size: A tuple of 2 integers. The size of output image.
+        colors: A sequence of RGB colors.
+        positions: An optional sequence of floats.
             The position of color stops.
             If omitted, the positions are equal spacing.
 
@@ -108,18 +122,20 @@ def radial_gradient(size, colors, positions=None, **kwargs):
         assert len(color) == 3
 
     if positions is None:
-        positions = np.linspace(0, 1, len(colors))
+        positions = list(np.linspace(0, 1, len(colors)))
     else:
         assert len(positions) >= 2
         assert len(colors) == len(positions)
 
-    colors = [fill(size, color) for color in colors]
+    color_images = [fill(size, color) for color in colors]
 
-    def compose(x, y):
+    def compose(
+        x: tuple[Image.Image, float], y: tuple[Image.Image, float]
+    ) -> tuple[Image.Image, float]:
         kwargs_ = kwargs.copy()
         kwargs_["length"] = x[1]
         kwargs_["scale"] = y[1]
         mask = radial_gradient_mask(size, **kwargs_)
         return (Image.composite(x[0], y[0], mask), y[1])
 
-    return reduce(compose, zip(colors, positions, strict=False))[0]
+    return reduce(compose, zip(color_images, positions, strict=False))[0]

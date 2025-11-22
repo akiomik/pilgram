@@ -17,7 +17,7 @@ from PIL import Image
 from pilgram import css, util
 
 
-def walden(im):
+def walden(im: Image.Image) -> Image.Image:
     """Applies Walden filter.
 
     Arguments:

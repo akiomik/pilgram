@@ -17,7 +17,7 @@ from PIL import Image
 from pilgram import css, util
 
 
-def rise(im):
+def rise(im: Image.Image) -> Image.Image:
     """Applies Rise filter.
 
     Arguments:

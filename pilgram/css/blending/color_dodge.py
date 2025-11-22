@@ -13,6 +13,7 @@
 # limitations under the License.
 
 from PIL import Image, ImageMath
+from PIL.ImageMath import _Operand
 from PIL.ImageMath import imagemath_convert as _convert
 from PIL.ImageMath import imagemath_float as _float
 
@@ -20,7 +21,7 @@ from pilgram.css.blending.alpha import alpha_blend
 from pilgram.util import invert
 
 
-def _color_dodge_image_math(cb, cs_inv):
+def _color_dodge_image_math(cb: _Operand, cs_inv: _Operand) -> _Operand:
     """Returns ImageMath operands for color dodge blend mode"""
     cb = _float(cb)
     cs_inv = _float(cs_inv)
@@ -29,7 +30,7 @@ def _color_dodge_image_math(cb, cs_inv):
     return _convert(cm, "L")
 
 
-def _color_dodge(im1, im2):
+def _color_dodge(im1: Image.Image, im2: Image.Image) -> Image.Image:
     """The color dodge blend mode.
 
     Arguments:
@@ -53,7 +54,7 @@ def _color_dodge(im1, im2):
     )
 
 
-def color_dodge(im1, im2):
+def color_dodge(im1: Image.Image, im2: Image.Image) -> Image.Image:
     """Brightens the backdrop color to reflect the source color.
 
     The color dodge formula is defined as:

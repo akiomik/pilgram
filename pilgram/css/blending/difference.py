@@ -12,12 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from PIL import ImageChops
+from PIL import Image, ImageChops
 
 from pilgram.css.blending.alpha import alpha_blend
 
 
-def _difference(im1, im2):
+def _difference(im1: Image.Image, im2: Image.Image) -> Image.Image:
     """The difference blend mode.
 
     Arguments:
@@ -31,7 +31,7 @@ def _difference(im1, im2):
     return ImageChops.difference(im1, im2)
 
 
-def difference(im1, im2):
+def difference(im1: Image.Image, im2: Image.Image) -> Image.Image:
     """Subtracts the darker of the two constituent colors
     from the lighter color.
 

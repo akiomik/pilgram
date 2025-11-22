@@ -13,18 +13,19 @@
 # limitations under the License.
 
 from PIL import Image, ImageMath
+from PIL.ImageMath import _Operand
 from PIL.ImageMath import imagemath_convert as _convert
 
 from pilgram.css.blending.alpha import alpha_blend
 
 
-def _color_burn_image_math(cb, cs):
+def _color_burn_image_math(cb: _Operand, cs: _Operand) -> _Operand:
     """Returns ImageMath operands for color burn blend mode"""
     cm = (cb == 255) * 255 + (cb < 255) * (cs > 0) * (255 - ((255 - cb) * 255 / cs))
     return _convert(cm, "L")
 
 
-def _color_burn(im1, im2):
+def _color_burn(im1: Image.Image, im2: Image.Image) -> Image.Image:
     """The color burn blend mode.
 
     Arguments:
@@ -48,7 +49,7 @@ def _color_burn(im1, im2):
     )
 
 
-def color_burn(im1, im2):
+def color_burn(im1: Image.Image, im2: Image.Image) -> Image.Image:
     """Darkens the backdrop color to reflect the source color.
 
     The color burn formula is defined as:

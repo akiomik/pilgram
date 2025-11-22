@@ -39,9 +39,9 @@ def test_overlay():
         (1, 128, 255),
         (255, 255, 255),  # screen
     ]
-    expected = [pytest.approx(c, abs=1) for c in expected]
+    expected_approx = [pytest.approx(c, abs=1) for c in expected]
 
-    assert list(overlay.getdata()) == expected  # almost eq
+    assert list(overlay.getdata()) == expected_approx  # almost eq
 
 
 def test_overlay2():

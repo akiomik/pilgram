@@ -17,7 +17,7 @@ from PIL import Image
 from pilgram import css, util
 
 
-def xpro2(im):
+def xpro2(im: Image.Image) -> Image.Image:
     """Applies X-pro II filter.
 
     Arguments:

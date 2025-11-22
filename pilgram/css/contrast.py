@@ -13,7 +13,10 @@
 # limitations under the License.
 
 
-def contrast(im, amount=1):
+from PIL import Image
+
+
+def contrast(im: Image.Image, amount: float = 1) -> Image.Image:
     """Adjusts the contrast.
 
     A contrast operation is equivalent to the following matrix operation:
@@ -29,7 +32,7 @@ def contrast(im, amount=1):
 
     Arguments:
         im: An input image.
-        amount: An optional integer/float. The filter amount (percentage).
+        amount: An optional number. The filter amount (percentage).
             Defaults to 1.
 
     Returns:

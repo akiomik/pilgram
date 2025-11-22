@@ -17,7 +17,7 @@ from PIL import Image
 from pilgram import css, util
 
 
-def mayfair(im):
+def mayfair(im: Image.Image) -> Image.Image:
     """Applies Mayfair filter.
 
     Arguments:

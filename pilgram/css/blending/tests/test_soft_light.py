@@ -38,9 +38,9 @@ def test_soft_light():
         (0, 128, 255),
         (0, 181, 255),
     ]
-    expected = [pytest.approx(c, abs=1) for c in expected]
+    expected_approx = [pytest.approx(c, abs=1) for c in expected]
 
-    assert list(soft_light.getdata()) == expected  # almost eq
+    assert list(soft_light.getdata()) == expected_approx  # almost eq
 
 
 def test_soft_light_alpha_support(mocker):

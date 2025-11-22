@@ -227,7 +227,7 @@ def test_radial_gradient():
 def test_radial_gradient_255_to_0():
     # this case is the same as radial_gradient_mask
     w, h = (5, 5)
-    gradient = util.radial_gradient((w, h), [[255, 255, 255], [0, 0, 0]])
+    gradient = util.radial_gradient((w, h), [(255, 255, 255), (0, 0, 0)])
 
     expected = util.radial_gradient_mask((w, h))
     assert list(gradient.getdata(0)) == list(expected.getdata())

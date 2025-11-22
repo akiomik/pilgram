@@ -11,6 +11,9 @@ format:
 format-check:
 	uv run ruff check ${SRC_DIR} && uv run ruff format --check ${SRC_DIR}
 
+typecheck:
+	uv run mypy ${SRC_DIR}
+
 test: lint format-check
 	uv run pytest
 

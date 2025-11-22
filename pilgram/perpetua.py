@@ -17,7 +17,7 @@ from PIL import Image
 from pilgram import css, util
 
 
-def perpetua(im):
+def perpetua(im: Image.Image) -> Image.Image:
     """Applies Perpetua filter.
 
     Arguments:
@@ -29,7 +29,7 @@ def perpetua(im):
 
     cb = util.or_convert(im, "RGB")
 
-    cs = util.linear_gradient(cb.size, [0, 91, 154], [230, 193, 61], False)
+    cs = util.linear_gradient(cb.size, (0, 91, 154), (230, 193, 61), False)
     cs = css.blending.soft_light(cb, cs)
     cr = Image.blend(cb, cs, 0.5)  # opacity
 

@@ -20,28 +20,29 @@ from PIL import Image, ImageChops
 
 from pilgram import util
 from pilgram.css.blending.alpha import alpha_blend
+from pilgram.types import LUT256
 
 
-def _d_cb(cb):
+def _d_cb(cb: int) -> float:
     """Returns D(Cb) - Cb"""
 
-    cb = float(cb) / 255
+    cb_float = float(cb) / 255
 
-    if cb <= 0.25:
-        d = ((16 * cb - 12) * cb + 4) * cb
+    if cb_float <= 0.25:
+        d = ((16 * cb_float - 12) * cb_float + 4) * cb_float
     else:
-        d = math.sqrt(cb)
+        d = math.sqrt(cb_float)
 
-    return round((d - cb) * 255)
-
-
-LUT_1_2_x_cs = [util.clip(255 - 2 * i) for i in range(256)]
-LUT_cb_x_1_cb = [round(util.clip(i * (1 - i / 255))) for i in range(256)]
-LUT_2_x_cs_1 = [util.clip(2 * i - 255) for i in range(256)]
-LUT_d_cb = [_d_cb(i) for i in range(256)]
+    return round((d - cb_float) * 255)
 
 
-def _soft_light(im1, im2):
+LUT_1_2_x_cs: LUT256 = [int(util.clip(255 - 2 * i)) for i in range(256)]
+LUT_cb_x_1_cb: LUT256 = [int(round(util.clip(i * (1 - i / 255)))) for i in range(256)]
+LUT_2_x_cs_1: LUT256 = [int(util.clip(2 * i - 255)) for i in range(256)]
+LUT_d_cb: LUT256 = [int(_d_cb(i)) for i in range(256)]
+
+
+def _soft_light(im1: Image.Image, im2: Image.Image) -> Image.Image:
     """The soft light blend mode.
 
     Arguments:
@@ -64,7 +65,7 @@ def _soft_light(im1, im2):
     return Image.fromarray(cm)
 
 
-def soft_light(im1, im2):
+def soft_light(im1: Image.Image, im2: Image.Image) -> Image.Image:
     """Darkens or lightens the colors, depending on the source color value.
 
     The soft light formula is defined as:

@@ -13,13 +13,13 @@
 # limitations under the License.
 
 
-def clip(a, a_min=0, a_max=255):
+def clip(a: float, a_min: float = 0, a_max: float = 255) -> float:
     """Clips value
 
     Arguments:
-        a: An integer/float. The input value to clip.
-        a_min: An optional integer/float. The minimum value. Defaults to 0.
-        a_max: An optional integer/float. The maximum value. Defaults to 255.
+        a: A number. The input value to clip.
+        a_min: An optional number. The minimum value. Defaults to 0.
+        a_max: An optional number. The maximum value. Defaults to 255.
 
     Returns:
         The clipped value.

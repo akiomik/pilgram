@@ -13,23 +13,27 @@
 # limitations under the License.
 
 from PIL import Image, ImageMath
+from PIL.ImageMath import _Operand
 from PIL.ImageMath import imagemath_convert as _convert
 from PIL.ImageMath import imagemath_float as _float
 
 from pilgram.css.blending.alpha import alpha_blend
 from pilgram.css.blending.nonseparable import lum_im, set_lum_im
+from pilgram.types import RGBOperands
 
 
-def _color_image_math(cs, lum_cb, lum_cs):
+def _color_image_math(
+    cs: RGBOperands, lum_cb: _Operand, lum_cs: _Operand
+) -> RGBOperands:
     """Returns ImageMath operands for color blend mode"""
-    cs = [_float(c) for c in cs]
+    cs = (_float(cs[0]), _float(cs[1]), _float(cs[2]))
     lum_cb = _float(lum_cb)
     lum_cs = _float(lum_cs)
 
     return set_lum_im(cs, lum_cb, lum_cs)
 
 
-def _color(im1, im2):
+def _color(im1: Image.Image, im2: Image.Image) -> Image.Image:
     """The color blend mode.
 
     Arguments:
@@ -59,7 +63,7 @@ def _color(im1, im2):
     return Image.merge("RGB", bands)
 
 
-def color(im1, im2):
+def color(im1: Image.Image, im2: Image.Image) -> Image.Image:
     """Creates a color with the hue and saturation of the source color
     and the luminosity of the backdrop color.
 

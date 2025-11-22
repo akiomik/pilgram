@@ -17,7 +17,7 @@ from PIL import Image
 from pilgram import css, util
 
 
-def brooklyn(im):
+def brooklyn(im: Image.Image) -> Image.Image:
     """Applies Brooklyn filter.
 
     Arguments:
