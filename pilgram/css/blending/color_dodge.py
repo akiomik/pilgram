@@ -46,7 +46,7 @@ def _color_dodge(im1, im2):
             ImageMath.eval(
                 "f(cb, cs_inv)", f=_color_dodge_image_math, cb=cb, cs_inv=cs_inv
             )
-            for cb, cs_inv in zip(im1.split(), invert(im2).split())
+            for cb, cs_inv in zip(im1.split(), invert(im2).split(), strict=False)
         ],
     )
 

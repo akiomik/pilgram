@@ -28,6 +28,6 @@ def apply_lut(im, lut):
     """
 
     if len(lut) != 256:
-        raise ValueError("A size of LUT must be 256: {}".format(len(lut)))
+        raise ValueError(f"A size of LUT must be 256: {len(lut)}")
 
     return im.point(lut * len(im.getbands()))

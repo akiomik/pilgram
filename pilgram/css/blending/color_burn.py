@@ -39,7 +39,7 @@ def _color_burn(im1, im2):
         "RGB",
         [
             ImageMath.eval("f(cb, cs)", f=_color_burn_image_math, cb=cb, cs=cs)
-            for cb, cs in zip(im1.split(), im2.split())
+            for cb, cs in zip(im1.split(), im2.split(), strict=False)
         ],
     )
 

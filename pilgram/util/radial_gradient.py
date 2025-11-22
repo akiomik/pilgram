@@ -122,4 +122,4 @@ def radial_gradient(size, colors, positions=None, **kwargs):
         mask = radial_gradient_mask(size, **kwargs_)
         return (Image.composite(x[0], y[0], mask), y[1])
 
-    return reduce(compose, zip(colors, positions))[0]
+    return reduce(compose, zip(colors, positions, strict=False))[0]

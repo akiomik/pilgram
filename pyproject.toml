@@ -13,16 +13,32 @@ numpy = ">=1.21.0"
 [tool.poetry.group.dev.dependencies]
 pytest = ">=7.2,<9.0"
 pytest-cov = ">=4,<6"
-flake8 = "^5.0.4"
 Pillow = ">=9.3,<11.0"
 pytest-benchmark = "^4.0.0"
 pytest-mock = "^3.10.0"
-black = ">=22.10,<25.0"
-isort = "^5.10.1"
+ruff = "^0.8.0"
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
-[tool.isort]
-profile = "black"
+[tool.ruff]
+target-version = "py310"
+line-length = 88
+
+[tool.ruff.lint]
+select = [
+    "E",    # pycodestyle errors
+    "W",    # pycodestyle warnings
+    "F",    # pyflakes
+    "I",    # isort
+    "B",    # flake8-bugbear
+    "C4",   # flake8-comprehensions
+    "UP",   # pyupgrade
+]
+ignore = []
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
