@@ -14,7 +14,7 @@ The filter implementations are inspired by [CSSgram](https://una.github.io/CSSgr
 
 ## Requirements
 
-- Python >= 3.4
+- Python >= 3.10
 - [Pillow](https://pillow.readthedocs.io/en/stable/) or [pillow-simd](https://github.com/uploadcare/pillow-simd)
 - [NumPy](https://numpy.org)
 
