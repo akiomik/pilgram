@@ -44,9 +44,12 @@ def _hue(im1, im2):
     r2, g2, b2 = im2.split()  # Cs
     lum_cb = lum_im(im1)  # Lum(Cb)
 
-    bands = ImageMath.eval(
-        "f((r1, g1, b1), (r2, g2, b2), lum_cb)",
-        f=_hue_image_math,
+    bands = ImageMath.lambda_eval(
+        lambda args: _hue_image_math(
+            (args["r1"], args["g1"], args["b1"]),
+            (args["r2"], args["g2"], args["b2"]),
+            args["lum_cb"],
+        ),
         r1=r1,
         g1=g1,
         b1=b1,

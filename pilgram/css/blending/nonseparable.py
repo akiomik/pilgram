@@ -12,6 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import numpy as np
+from PIL import Image
 from PIL.ImageMath import imagemath_max as _max
 from PIL.ImageMath import imagemath_min as _min
 
@@ -92,11 +94,33 @@ def lum(c):
         c: A tuple/list of 3 ImageMath operands. The color.
 
     Returns:
-        A tuple/list of 3 ImageMath operands. The luminosity.
+        A float image representing the luminosity.
     """
-
     r, g, b = c
-    return r * 0.3 + g * 0.59 + b * 0.11
+
+    # For backward compatibility with ImageMath,
+    # check if inputs are PIL images or ImageMath operands
+    try:
+        # Try to get data from ImageMath operands
+        r_data = np.array(r.im, dtype=np.float64)
+        g_data = np.array(g.im, dtype=np.float64)
+        b_data = np.array(b.im, dtype=np.float64)
+    except AttributeError:
+        # Fall back to treating as regular PIL images
+        r_data = np.array(r, dtype=np.float64)
+        g_data = np.array(g, dtype=np.float64)
+        b_data = np.array(b, dtype=np.float64)
+
+    # Calculate luminosity with exact float coefficients
+    result_data = r_data * 0.3 + g_data * 0.59 + b_data * 0.11
+
+    # Convert back to PIL image in float mode
+    result_img = Image.fromarray(result_data.astype(np.float32), mode="F")
+
+    # Return as ImageMath compatible object
+    from PIL.ImageMath import _Operand
+
+    return _Operand(result_img)
 
 
 def lum_im(im):
