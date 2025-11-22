@@ -5,8 +5,8 @@
 
 version: 2
 updates:
-  - package-ecosystem: "pip" # Python dependencies (pyproject.toml PEP 621)
-    directory: "/" # Location of pyproject.toml
+  - package-ecosystem: "uv"
+    directory: "/"
     schedule:
       interval: "weekly"
 
