@@ -20,7 +20,7 @@ from pilgram import util
 
 def test_apply_lut_identity():
     im = util.fill((2, 2), [0, 127, 255])
-    lut_identity = [i for i in range(256)]
+    lut_identity = list(range(256))
     assert util.apply_lut(im, lut_identity) == im
 
 

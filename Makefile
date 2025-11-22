@@ -3,13 +3,13 @@ SRC_DIR = pilgram
 all: test clean build;
 
 lint:
-	poetry run flake8 ${SRC_DIR}
+	poetry run ruff check ${SRC_DIR}
 
 format:
-	poetry run black ${SRC_DIR} && poetry run isort ${SRC_DIR}
+	poetry run ruff format ${SRC_DIR}
 
 format-check:
-	poetry run black --check ${SRC_DIR} && poetry run isort -c ${SRC_DIR}
+	poetry run ruff check ${SRC_DIR} && poetry run ruff format --check ${SRC_DIR}
 
 test: lint format-check
 	poetry run pytest
