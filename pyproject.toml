@@ -1,14 +1,41 @@
 [project]
 name = "pilgram"
-version = "1.2.1"
+dynamic = ["version"]
 description = "library for instagram filters"
 authors = [{name = "Akiomi Kamakura", email = "akiomik@gmail.com"}]
 license = {text = "Apache-2.0"}
 readme = "README.md"
 requires-python = ">=3.10"
-dependencies = [
-    "numpy>=1.21.0",
+keywords = [
+    "pillow",
+    "instagram",
+    "instagram-filters",
+    "css-filters",
+    "image-blending",
+    "blend-modes",
+    "image-processing",
+    "data-augmentation",
 ]
+classifiers = [
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Topic :: Multimedia :: Graphics",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+dependencies = [
+    "numpy>=1.21.0",  # Minimum version that supports Python 3.10
+]
+
+[project.urls]
+Homepage = "https://github.com/akiomik/pilgram"
+Repository = "https://github.com/akiomik/pilgram"
+Issues = "https://github.com/akiomik/pilgram/issues"
 
 [project.optional-dependencies]
 dev = [
@@ -24,6 +51,22 @@ dev = [
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.sdist]
+include = [
+  "/pilgram",
+  "/README.md",
+  "/LICENSE",
+  "/CITATION.cff",
+  "/screenshots",
+]
+
+[tool.hatch.version]
+path = "pilgram/_version.py"
+
+[tool.hatch.build.targets.wheel]
+packages = ["pilgram"]
+exclude = ["pilgram/tests", "pilgram/*/tests"]
 
 [tool.ruff]
 target-version = "py314"
@@ -55,7 +98,16 @@ disallow_untyped_defs = true
 disallow_incomplete_defs = true
 check_untyped_defs = true
 
-# 外部ライブラリの型情報
+# External libraries
 [[tool.mypy.overrides]]
 module = ["PIL.*", "numpy.*"]
 ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+addopts = "-v --cov=pilgram --benchmark-skip"
+
+[tool.coverage.run]
+omit = ["*/tests/*"]
+
+[tool.coverage.report]
+show_missing = true
