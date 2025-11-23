@@ -29,6 +29,9 @@ jobs:
             uv lock
             uv sync --locked --all-extras --dev
           }
-      - run: make check
-      - run: pipx install codecov
-      - run: codecov
+      - run: make check-ci
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          fail_ci_if_error: false
