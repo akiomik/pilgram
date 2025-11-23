@@ -18,7 +18,7 @@ from pilgram import css, util
 from pilgram.css.blending.tests.helpers import assert_alpha_support
 
 
-def test_lighten():
+def test_lighten() -> None:
     cb = util.fill((2, 2), [255, 128, 0])
     cs = util.fill((2, 2), [0, 128, 255])
 
@@ -27,5 +27,5 @@ def test_lighten():
     assert actual == expected
 
 
-def test_overlay_alpha_support(mocker):
+def test_overlay_alpha_support() -> None:
     assert_alpha_support(css.blending.lighten)

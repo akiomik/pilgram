@@ -17,7 +17,7 @@ import pytest
 from pilgram import css, util
 
 
-def test_saturate():
+def test_saturate() -> None:
     im = util.fill((4, 4), [174, 56, 3])
     saturated_im = css.saturate(im)
 
@@ -25,7 +25,7 @@ def test_saturate():
     assert saturated_im.mode == im.mode
 
 
-def test_saturate_1():
+def test_saturate_1() -> None:
     im = util.fill((4, 4), [174, 56, 3])
     saturated_im = css.saturate(im, 1)
     saturated_im2 = css.saturate(im)
@@ -35,7 +35,7 @@ def test_saturate_1():
     assert saturated_im.mode == im.mode
 
 
-def test_saturate_greater_than_1():
+def test_saturate_greater_than_1() -> None:
     im = util.fill((4, 4), [174, 56, 3])
     saturated_im = css.saturate(im, 2)
     saturateed_im2 = css.saturate(im, 1)
@@ -45,7 +45,7 @@ def test_saturate_greater_than_1():
     assert saturated_im.mode == im.mode
 
 
-def test_saturate_0():
+def test_saturate_0() -> None:
     im = util.fill((4, 4), [174, 56, 3])
     saturated_im = css.saturate(im, 0)
     grayscaled_im = css.grayscale(im)
@@ -55,13 +55,13 @@ def test_saturate_0():
     assert saturated_im.mode == im.mode
 
 
-def test_saturate_less_than_0():
+def test_saturate_less_than_0() -> None:
     with pytest.raises(AssertionError):
         im = util.fill((4, 4), [174, 56, 3])
         css.saturate(im, -1)
 
 
-def test_saturate_hsv():
+def test_saturate_hsv() -> None:
     im = util.fill((4, 4), [174, 56, 3])
     im2 = im.convert("HSV")
     saturated_im = css.saturate(im)

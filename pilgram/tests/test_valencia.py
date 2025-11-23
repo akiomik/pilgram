@@ -13,15 +13,16 @@
 # limitations under the License.
 
 from PIL import Image
+from pytest_benchmark.fixture import BenchmarkFixture
 
 from pilgram import util, valencia
 
 
-def test_valencia():
+def test_valencia() -> None:
     im = util.fill((32, 32), [255] * 3)
     valencia(im)
 
 
-def test_valencia_benchmark(benchmark):
+def test_valencia_benchmark(benchmark: BenchmarkFixture) -> None:
     with Image.open("examples/mtjimba.jpg") as im:
         benchmark(valencia, im)

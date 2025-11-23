@@ -13,15 +13,16 @@
 # limitations under the License.
 
 from PIL import Image
+from pytest_benchmark.fixture import BenchmarkFixture
 
 from pilgram import moon, util
 
 
-def test_moon():
+def test_moon() -> None:
     im = util.fill((32, 32), [255] * 3)
     moon(im)
 
 
-def test_moon_benchmark(benchmark):
+def test_moon_benchmark(benchmark: BenchmarkFixture) -> None:
     with Image.open("examples/mtjimba.jpg") as im:
         benchmark(moon, im)

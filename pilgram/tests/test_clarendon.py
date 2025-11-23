@@ -13,15 +13,16 @@
 # limitations under the License.
 
 from PIL import Image
+from pytest_benchmark.fixture import BenchmarkFixture
 
 from pilgram import clarendon, util
 
 
-def test_clarendon():
+def test_clarendon() -> None:
     im = util.fill((32, 32), [255] * 3)
     clarendon(im)
 
 
-def test_clarendon_benchmark(benchmark):
+def test_clarendon_benchmark(benchmark: BenchmarkFixture) -> None:
     with Image.open("examples/mtjimba.jpg") as im:
         benchmark(clarendon, im)

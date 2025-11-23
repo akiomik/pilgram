@@ -13,15 +13,16 @@
 # limitations under the License.
 
 from PIL import Image
+from pytest_benchmark.fixture import BenchmarkFixture
 
 from pilgram import inkwell, util
 
 
-def test_inkwell():
+def test_inkwell() -> None:
     im = util.fill((32, 32), [255] * 3)
     inkwell(im)
 
 
-def test_inkwell_benchmark(benchmark):
+def test_inkwell_benchmark(benchmark: BenchmarkFixture) -> None:
     with Image.open("examples/mtjimba.jpg") as im:
         benchmark(inkwell, im)

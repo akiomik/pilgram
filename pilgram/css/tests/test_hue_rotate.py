@@ -15,7 +15,7 @@
 from pilgram import css, util
 
 
-def test_hue_rotate():
+def test_hue_rotate() -> None:
     im = util.fill((4, 4), [174, 56, 3])
     hue_rotated_im = css.hue_rotate(im)
 
@@ -24,7 +24,7 @@ def test_hue_rotate():
     assert hue_rotated_im.mode == im.mode
 
 
-def test_hue_rotate_0():
+def test_hue_rotate_0() -> None:
     im = util.fill((4, 4), [174, 56, 3])
     hue_rotated_im = css.hue_rotate(im)
     hue_rotated_im2 = css.hue_rotate(im, 0)
@@ -34,7 +34,7 @@ def test_hue_rotate_0():
     assert hue_rotated_im.mode == im.mode
 
 
-def test_hue_rotate_360():
+def test_hue_rotate_360() -> None:
     im = util.fill((4, 4), [174, 56, 3])
     hue_rotated_im = css.hue_rotate(im)
     hue_rotated_im2 = css.hue_rotate(im, 360)
@@ -44,7 +44,7 @@ def test_hue_rotate_360():
     assert hue_rotated_im.mode == im.mode
 
 
-def test_hue_rotate_greater_than_0():
+def test_hue_rotate_greater_than_0() -> None:
     im = util.fill((4, 4), [174, 56, 3])
     hue_rotated_im = css.hue_rotate(im, 42)
     hue_rotated_im2 = css.hue_rotate(im)
@@ -54,7 +54,7 @@ def test_hue_rotate_greater_than_0():
     assert hue_rotated_im.mode == im.mode
 
 
-def test_hue_rotate_less_than_0():
+def test_hue_rotate_less_than_0() -> None:
     im = util.fill((4, 4), [174, 56, 3])
     hue_rotated_im = css.hue_rotate(im, -42)
     hue_rotated_im2 = css.hue_rotate(im)
@@ -64,7 +64,7 @@ def test_hue_rotate_less_than_0():
     assert hue_rotated_im.mode == im.mode
 
 
-def test_hue_rotate_hsv():
+def test_hue_rotate_hsv() -> None:
     im = util.fill((4, 4), [174, 56, 3])
     im2 = im.convert("HSV")
     hue_rotated_im = css.hue_rotate(im)

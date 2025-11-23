@@ -13,15 +13,16 @@
 # limitations under the License.
 
 from PIL import Image
+from pytest_benchmark.fixture import BenchmarkFixture
 
 from pilgram import util, willow
 
 
-def test_willow():
+def test_willow() -> None:
     im = util.fill((32, 32), [255] * 3)
     willow(im)
 
 
-def test_willow_benchmark(benchmark):
+def test_willow_benchmark(benchmark: BenchmarkFixture) -> None:
     with Image.open("examples/mtjimba.jpg") as im:
         benchmark(willow, im)

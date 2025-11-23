@@ -15,27 +15,27 @@
 from pilgram import util
 
 
-def test_clip_minus_1():
+def test_clip_minus_1() -> None:
     assert util.clip(-1) == 0
 
 
-def test_clip_0():
+def test_clip_0() -> None:
     assert util.clip(0) == 0
 
 
-def test_clip_255():
+def test_clip_255() -> None:
     assert util.clip(255) == 255
 
 
-def test_clip_256():
+def test_clip_256() -> None:
     assert util.clip(256) == 255
 
 
-def test_clip_min_minus_1000():
+def test_clip_min_minus_1000() -> None:
     assert util.clip(-1000, a_min=-1000) == -1000
     assert util.clip(-1001, a_min=-1000) == -1000
 
 
-def test_clip_max_1000():
+def test_clip_max_1000() -> None:
     assert util.clip(1000, a_max=1000) == 1000
     assert util.clip(1001, a_max=1000) == 1000

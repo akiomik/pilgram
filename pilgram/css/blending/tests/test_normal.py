@@ -20,7 +20,7 @@ from pilgram.css.blending.alpha import split_alpha
 from pilgram.css.blending.tests.helpers import assert_alpha_support
 
 
-def test_normal():
+def test_normal() -> None:
     cb = util.fill((2, 2), [255, 128, 0])
     cs = util.fill((2, 2), [0, 128, 255])
 
@@ -29,7 +29,7 @@ def test_normal():
     assert actual == expected
 
 
-def test_normal2():
+def test_normal2() -> None:
     cb = util.fill((2, 2), [255, 128, 0, 1.0])
     cs_array = np.array(
         [
@@ -45,5 +45,5 @@ def test_normal2():
     assert actual == expected
 
 
-def test_overlay_alpha_support(mocker):
+def test_overlay_alpha_support() -> None:
     assert_alpha_support(css.blending.normal)

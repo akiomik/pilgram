@@ -17,7 +17,7 @@ import pytest
 from pilgram import css, util
 
 
-def test_grayscale():
+def test_grayscale() -> None:
     im = util.fill((4, 4), [174, 56, 3])
     grayscaled_im = css.grayscale(im)
 
@@ -25,7 +25,7 @@ def test_grayscale():
     assert grayscaled_im.mode == im.mode
 
 
-def test_grayscale_1():
+def test_grayscale_1() -> None:
     im = util.fill((4, 4), [174, 56, 3])
     grayscaled_im = css.grayscale(im, 1)
     grayscaled_im2 = css.grayscale(im)
@@ -35,7 +35,7 @@ def test_grayscale_1():
     assert grayscaled_im.mode == im.mode
 
 
-def test_grayscale_greater_than_1():
+def test_grayscale_greater_than_1() -> None:
     im = util.fill((4, 4), [174, 56, 3])
     grayscaled_im = css.grayscale(im, 2)
     grayscaleed_im2 = css.grayscale(im, 1)
@@ -45,7 +45,7 @@ def test_grayscale_greater_than_1():
     assert grayscaled_im.mode == im.mode
 
 
-def test_grayscale_0():
+def test_grayscale_0() -> None:
     im = util.fill((4, 4), [174, 56, 3])
     grayscaled_im = css.grayscale(im, 0)
 
@@ -54,13 +54,13 @@ def test_grayscale_0():
     assert grayscaled_im.mode == im.mode
 
 
-def test_grayscale_less_than_0():
+def test_grayscale_less_than_0() -> None:
     with pytest.raises(AssertionError):
         im = util.fill((4, 4), [174, 56, 3])
         css.grayscale(im, -1)
 
 
-def test_grayscale_hsv():
+def test_grayscale_hsv() -> None:
     im = util.fill((4, 4), [174, 56, 3])
     im2 = im.convert("HSV")
     grayscaled_im = css.grayscale(im)

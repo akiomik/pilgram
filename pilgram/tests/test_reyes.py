@@ -13,15 +13,16 @@
 # limitations under the License.
 
 from PIL import Image
+from pytest_benchmark.fixture import BenchmarkFixture
 
 from pilgram import reyes, util
 
 
-def test_reyes():
+def test_reyes() -> None:
     im = util.fill((32, 32), [255] * 3)
     reyes(im)
 
 
-def test_reyes_benchmark(benchmark):
+def test_reyes_benchmark(benchmark: BenchmarkFixture) -> None:
     with Image.open("examples/mtjimba.jpg") as im:
         benchmark(reyes, im)

@@ -16,7 +16,7 @@
 from pilgram import util
 
 
-def test_radial_gradient_mask_prepared():
+def test_radial_gradient_mask_prepared() -> None:
     w, h = (5, 5)
     mask = util.radial_gradient_mask((w, h))
 
@@ -54,7 +54,7 @@ def test_radial_gradient_mask_prepared():
     assert mask.mode == "L"
 
 
-def test_radial_gradient_mask_length():
+def test_radial_gradient_mask_length() -> None:
     w, h = (5, 5)
     mask = util.radial_gradient_mask((w, h), length=0.5)
 
@@ -91,7 +91,7 @@ def test_radial_gradient_mask_length():
     assert mask.mode == "L"
 
 
-def test_radial_gradient_mask_prepared_scale():
+def test_radial_gradient_mask_prepared_scale() -> None:
     w, h = (5, 5)
     mask = util.radial_gradient_mask((w, h), scale=1.5)
 
@@ -128,7 +128,7 @@ def test_radial_gradient_mask_prepared_scale():
     assert mask.mode == "L"
 
 
-def test_radial_gradient_mask_position():
+def test_radial_gradient_mask_position() -> None:
     w, h = (5, 5)
     mask = util.radial_gradient_mask((w, h), center=(0, 0))
 
@@ -165,7 +165,7 @@ def test_radial_gradient_mask_position():
     assert mask.mode == "L"
 
 
-def test_radial_gradient_mask_length_eq_scale():
+def test_radial_gradient_mask_length_eq_scale() -> None:
     w, h = (5, 5)
     mask = util.radial_gradient_mask((w, h), length=0.5, scale=0.5)
 
@@ -202,7 +202,7 @@ def test_radial_gradient_mask_length_eq_scale():
     assert mask.mode == "L"
 
 
-def test_radial_gradient_mask_length_ge_1():
+def test_radial_gradient_mask_length_ge_1() -> None:
     w, h = (4, 4)
     mask = util.radial_gradient_mask((w, h), length=1)
 
@@ -211,7 +211,7 @@ def test_radial_gradient_mask_length_ge_1():
     assert mask.mode == "L"
 
 
-def test_radial_gradient_mask_scale_le_0():
+def test_radial_gradient_mask_scale_le_0() -> None:
     w, h = (4, 4)
     mask = util.radial_gradient_mask((w, h), scale=0)
 
@@ -220,11 +220,11 @@ def test_radial_gradient_mask_scale_le_0():
     assert mask.mode == "L"
 
 
-def test_radial_gradient():
+def test_radial_gradient() -> None:
     pass  # TODO
 
 
-def test_radial_gradient_255_to_0():
+def test_radial_gradient_255_to_0() -> None:
     # this case is the same as radial_gradient_mask
     w, h = (5, 5)
     gradient = util.radial_gradient((w, h), [(255, 255, 255), (0, 0, 0)])

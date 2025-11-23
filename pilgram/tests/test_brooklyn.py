@@ -13,15 +13,16 @@
 # limitations under the License.
 
 from PIL import Image
+from pytest_benchmark.fixture import BenchmarkFixture
 
 from pilgram import brooklyn, util
 
 
-def test_brooklyn():
+def test_brooklyn() -> None:
     im = util.fill((32, 32), [255] * 3)
     brooklyn(im)
 
 
-def test_brooklyn_benchmark(benchmark):
+def test_brooklyn_benchmark(benchmark: BenchmarkFixture) -> None:
     with Image.open("examples/mtjimba.jpg") as im:
         benchmark(brooklyn, im)

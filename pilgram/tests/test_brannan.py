@@ -13,15 +13,16 @@
 # limitations under the License.
 
 from PIL import Image
+from pytest_benchmark.fixture import BenchmarkFixture
 
 from pilgram import brannan, util
 
 
-def test_brannan():
+def test_brannan() -> None:
     im = util.fill((32, 32), [255] * 3)
     brannan(im)
 
 
-def test_brannan_benchmark(benchmark):
+def test_brannan_benchmark(benchmark: BenchmarkFixture) -> None:
     with Image.open("examples/mtjimba.jpg") as im:
         benchmark(brannan, im)

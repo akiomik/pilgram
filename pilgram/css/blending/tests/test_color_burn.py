@@ -20,7 +20,7 @@ from pilgram import css, util
 from pilgram.css.blending.tests.helpers import assert_alpha_support
 
 
-def test_color_burn():
+def test_color_burn() -> None:
     cb = util.fill((2, 2), [0, 128, 255])
     cs_array = np.array(
         [
@@ -43,5 +43,5 @@ def test_color_burn():
     assert list(color_burn.getdata()) == expected_approx  # almost eq
 
 
-def test_color_burn_alpha_support(mocker):
+def test_color_burn_alpha_support() -> None:
     assert_alpha_support(css.blending.color_burn)

@@ -31,7 +31,7 @@ from pilgram.css.blending.nonseparable import (
 )
 
 
-def test_min3():
+def test_min3() -> None:
     im = util.fill((1, 1), [0, 128, 255])
     r, g, b = im.split()
     im_min = ImageMath.lambda_eval(
@@ -44,7 +44,7 @@ def test_min3():
     assert list(im_min.getdata()) == [0]
 
 
-def test_max3():
+def test_max3() -> None:
     im = util.fill((1, 1), [0, 128, 255])
     r, g, b = im.split()
     im_max = ImageMath.lambda_eval(
@@ -57,7 +57,7 @@ def test_max3():
     assert list(im_max.getdata()) == [255]
 
 
-def test_clip_color():
+def test_clip_color() -> None:
     im = util.fill((1, 1), [0, 128, 255])
     r, g, b = im.split()
     bands = ImageMath.lambda_eval(
@@ -75,7 +75,7 @@ def test_clip_color():
     assert [list(band.im.getdata()) for band in bands] == expected
 
 
-def test_lum():
+def test_lum() -> None:
     im = util.fill((1, 1), [0, 128, 255])
     r, g, b = im.split()
     im_f = ImageMath.lambda_eval(
@@ -87,14 +87,14 @@ def test_lum():
     assert list(im_l.getdata()) == [floor(103.57)]
 
 
-def test_lum_im():
+def test_lum_im() -> None:
     im = util.fill((1, 1), [0, 128, 255])
     im_lum = lum_im(im)
 
     assert list(im_lum.getdata()) == [round(103.57)]
 
 
-def test_set_lum():
+def test_set_lum() -> None:
     im1 = util.fill((1, 1), [0, 128, 255])
     im2 = util.fill((1, 1), [128, 128, 128])
     r1, g1, b1 = im1.split()
@@ -124,7 +124,7 @@ def test_set_lum():
     assert list(im_set_lum.getdata()) == expected2
 
 
-def test_sat():
+def test_sat() -> None:
     im = util.fill((1, 1), [80, 128, 200])
     r, g, b = im.split()
     im_sat = ImageMath.lambda_eval(
@@ -137,7 +137,7 @@ def test_sat():
     assert list(im_sat.getdata()) == [120]
 
 
-def test_set_sat_cmax_gt_cmin():
+def test_set_sat_cmax_gt_cmin() -> None:
     im1 = util.fill((1, 1), [0, 128, 255])
     im2 = util.fill((1, 1), [64, 96, 128])  # sat = 64
     r1, g1, b1 = im1.split()
@@ -163,7 +163,7 @@ def test_set_sat_cmax_gt_cmin():
     assert [list(band.im.getdata()) for band in bands] == expected
 
 
-def test_set_sat_cmax_eq_cmid_gt_cmin():
+def test_set_sat_cmax_eq_cmid_gt_cmin() -> None:
     im1 = util.fill((1, 1), [0, 128, 128])
     im2 = util.fill((1, 1), [64, 96, 128])  # sat = 64
     r1, g1, b1 = im1.split()
@@ -185,7 +185,7 @@ def test_set_sat_cmax_eq_cmid_gt_cmin():
     assert [list(band.im.getdata()) for band in bands] == expected
 
 
-def test_set_sat_cmax_eq_cmin():
+def test_set_sat_cmax_eq_cmin() -> None:
     im1 = util.fill((1, 1), [128, 128, 128])
     im2 = util.fill((1, 1), [64, 96, 128])  # sat = 64
     r1, g1, b1 = im1.split()

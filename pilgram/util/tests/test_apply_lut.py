@@ -18,19 +18,19 @@ from PIL import ImageChops
 from pilgram import util
 
 
-def test_apply_lut_identity():
+def test_apply_lut_identity() -> None:
     im = util.fill((2, 2), [0, 127, 255])
     lut_identity = list(range(256))
     assert util.apply_lut(im, lut_identity) == im
 
 
-def test_apply_lut_invert():
+def test_apply_lut_invert() -> None:
     im = util.fill((2, 2), [0, 127, 255])
     lut_invert = [255 - i for i in range(256)]
     assert util.apply_lut(im, lut_invert) == ImageChops.invert(im)
 
 
-def test_apply_lut_value_error():
+def test_apply_lut_value_error() -> None:
     im = util.fill((2, 2), [0, 127, 255])
     lut = [255 - i for i in range(255)]
     with pytest.raises(ValueError):
