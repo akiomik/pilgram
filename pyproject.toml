@@ -30,6 +30,7 @@ classifiers = [
 ]
 dependencies = [
     "numpy>=1.21.0",  # Minimum version that supports Python 3.10
+    "Pillow>=10.3.0", # Minimum version that support ImageMath.lambda_eval
 ]
 
 [project.urls]
@@ -41,7 +42,6 @@ Issues = "https://github.com/akiomik/pilgram/issues"
 dev = [
     "pytest>=8.0.0",
     "pytest-cov>=6.0.0",
-    "Pillow>=10.3.0",
     "pytest-benchmark>=4.0.0",
     "pytest-mock>=3.10.0",
     "ruff>=0.8.0",
