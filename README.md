@@ -172,7 +172,8 @@ uv add pillow>=9.3.0  # or uv add pillow-simd
 ### Run commands
 
 ```sh
-make test        # Run all tests
+make check       # Run all checks (lint + format-check + type-check + test)
+make test        # Run tests only
 make lint        # Run ruff linting
 make format      # Format code with ruff
 make test-benchmark  # Run performance benchmarks
