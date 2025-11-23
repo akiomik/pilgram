@@ -36,9 +36,9 @@ build:
 	uv build
 
 test-upload: clean build
-	uv run twine upload -s -r test dist/*
+	uv publish --repository testpypi dist/*
 
 upload: clean build
-	uv run twine upload -s -r pypi dist/*
+	uv publish dist/*
 
 .PHONY: all sync lint lint-fix format format-check type-check test check test-benchmark benchmark clean build test-upload upload
