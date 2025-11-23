@@ -13,22 +13,23 @@
 # limitations under the License.
 
 from pilgram import util
+from pilgram.types import BlendingFunction
 
 
-def _assert_alpha_backdrop_support(blending):
+def _assert_alpha_backdrop_support(blending: BlendingFunction) -> None:
     cb = util.fill((2, 2), [0, 128, 255, 0])
     cs = util.fill((2, 2), [255, 128, 0])
     cr = blending(cb, cs)
     assert cr == cs
 
 
-def _assert_alpha_source_support(blending):
+def _assert_alpha_source_support(blending: BlendingFunction) -> None:
     cb = util.fill((2, 2), [0, 128, 255])
     cs = util.fill((2, 2), [255, 128, 0, 0])
     cr = blending(cb, cs)
     assert cr == cb
 
 
-def assert_alpha_support(blending):
+def assert_alpha_support(blending: BlendingFunction) -> None:
     _assert_alpha_backdrop_support(blending)
     _assert_alpha_source_support(blending)

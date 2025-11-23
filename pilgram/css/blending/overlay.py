@@ -12,10 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from pilgram.css.blending import hard_light
+from PIL import Image
+
+from pilgram.css.blending.hard_light import hard_light
 
 
-def overlay(im1, im2):
+def overlay(im1: Image.Image, im2: Image.Image) -> Image.Image:
     """Multiplies or screens the colors, depending on the backdrop color value
 
     The overlay formula is defined as:

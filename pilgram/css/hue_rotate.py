@@ -14,10 +14,12 @@
 
 import math
 
+from PIL import Image
+
 from pilgram import util
 
 
-def hue_rotate(im, deg=0):
+def hue_rotate(im: Image.Image, deg: float = 0) -> Image.Image:
     """Applies hue rotation.
 
     A hue rotate operation is equivalent to the following matrix operation:
@@ -45,7 +47,7 @@ def hue_rotate(im, deg=0):
 
     Arguments:
         im: An input image.
-        deg: An optional integer/float. The hue rotate value (degrees).
+        deg: An optional number. The hue rotate value (degrees).
             Defaults to 0.
 
     Returns:
@@ -55,7 +57,7 @@ def hue_rotate(im, deg=0):
     cos_hue = math.cos(math.radians(deg))
     sin_hue = math.sin(math.radians(deg))
 
-    matrix = [
+    matrix = (
         0.213 + cos_hue * 0.787 - sin_hue * 0.213,
         0.715 - cos_hue * 0.715 - sin_hue * 0.715,
         0.072 - cos_hue * 0.072 + sin_hue * 0.928,
@@ -68,7 +70,7 @@ def hue_rotate(im, deg=0):
         0.715 - cos_hue * 0.715 + sin_hue * 0.715,
         0.072 + cos_hue * 0.928 + sin_hue * 0.072,
         0,
-    ]
+    )
 
     rotated = util.or_convert(im, "RGB").convert("RGB", matrix)
     return util.or_convert(rotated, im.mode)

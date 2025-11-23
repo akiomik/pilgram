@@ -12,29 +12,25 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+"""Common type definitions for pilgram."""
+
+from collections.abc import Callable, Sequence
+
 from PIL import Image
+from PIL.ImageMath import _Operand
 
-from pilgram import css, util
+# Color types
+RGBColor = tuple[int, int, int]
+RGBAColor = tuple[int, int, int, float]
 
+# Image size
+Size = tuple[int, int]
 
-def hudson(im: Image.Image) -> Image.Image:
-    """Applies Hudson filter.
+# Blending function type
+BlendingFunction = Callable[[Image.Image, Image.Image], Image.Image]
 
-    Arguments:
-        im: An input image.
+# ImageMath operand types
+RGBOperands = tuple[_Operand, _Operand, _Operand]  # RGB color as ImageMath operands
 
-    Returns:
-        The output image.
-    """
-
-    cb = util.or_convert(im, "RGB")
-
-    cs = util.radial_gradient(cb.size, [(166, 177, 255), (52, 33, 52)], [0.5, 1])
-    cs = css.blending.multiply(cb, cs)
-    cr = Image.blend(cb, cs, 0.5)  # opacity
-
-    cr = css.brightness(cr, 1.2)
-    cr = css.contrast(cr, 0.9)
-    cr = css.saturate(cr, 1.1)
-
-    return cr
+# LUT types
+LUT256 = Sequence[int]  # Look-up table with exactly 256 elements

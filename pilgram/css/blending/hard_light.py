@@ -17,12 +17,13 @@ from PIL import Image, ImageChops
 
 from pilgram import util
 from pilgram.css.blending.alpha import alpha_blend
+from pilgram.types import LUT256
 
-LUT_2x = [util.clip(2 * i) for i in range(256)]
-LUT_2x_1 = [util.clip(2 * i - 255) for i in range(256)]
+LUT_2x: LUT256 = [int(util.clip(2 * i)) for i in range(256)]
+LUT_2x_1: LUT256 = [int(util.clip(2 * i - 255)) for i in range(256)]
 
 
-def _hard_light(im1, im2):
+def _hard_light(im1: Image.Image, im2: Image.Image) -> Image.Image:
     """The hard light blend mode.
 
     Arguments:
@@ -43,7 +44,7 @@ def _hard_light(im1, im2):
     return Image.fromarray(cm)
 
 
-def hard_light(im1, im2):
+def hard_light(im1: Image.Image, im2: Image.Image) -> Image.Image:
     """Multiplies or screens the colors, depending on the source color value
 
     The hard light formula is defined as:

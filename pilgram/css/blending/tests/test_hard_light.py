@@ -38,9 +38,9 @@ def test_hard_light():
         (1, 128, 255),
         (255, 255, 255),  # screen
     ]
-    expected = [pytest.approx(c, abs=1) for c in expected]
+    expected_approx = [pytest.approx(c, abs=1) for c in expected]
 
-    assert list(hard_light.getdata()) == expected  # almost eq
+    assert list(hard_light.getdata()) == expected_approx  # almost eq
 
 
 def test_hard_light_alpha_support(mocker):

@@ -13,7 +13,10 @@
 # limitations under the License.
 
 
-def brightness(im, amount=1):
+from PIL import Image
+
+
+def brightness(im: Image.Image, amount: float = 1) -> Image.Image:
     """Adjusts the brightness.
 
     A brightness operation is equivalent to the following matrix operation:
@@ -27,7 +30,7 @@ def brightness(im, amount=1):
 
     Arguments:
         im: An input image.
-        amount: An optional integer/float. The filter amount (percentage).
+        amount: An optional number. The filter amount (percentage).
             Defaults to 1.
 
     Returns:

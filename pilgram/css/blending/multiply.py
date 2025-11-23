@@ -12,12 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from PIL import ImageChops
+from PIL import Image, ImageChops
 
 from pilgram.css.blending.alpha import alpha_blend
 
 
-def _multiply(im1, im2):
+def _multiply(im1: Image.Image, im2: Image.Image) -> Image.Image:
     """The multiply blend mode.
 
     Arguments:
@@ -31,7 +31,7 @@ def _multiply(im1, im2):
     return ImageChops.multiply(im1, im2)
 
 
-def multiply(im1, im2):
+def multiply(im1: Image.Image, im2: Image.Image) -> Image.Image:
     """The source color is multiplied by the destination color
     and replaces the destination.
 

@@ -12,12 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from PIL import ImageChops
+from PIL import Image, ImageChops
 
 from pilgram.css.blending.alpha import alpha_blend
 
 
-def _lighten(im1, im2):
+def _lighten(im1: Image.Image, im2: Image.Image) -> Image.Image:
     """The lighten blend mode.
 
     Arguments:
@@ -31,7 +31,7 @@ def _lighten(im1, im2):
     return ImageChops.lighter(im1, im2)
 
 
-def lighten(im1, im2):
+def lighten(im1: Image.Image, im2: Image.Image) -> Image.Image:
     """Selects the lighter of the backdrop and source colors.
 
     The lighten formula is defined as:

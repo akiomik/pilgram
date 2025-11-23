@@ -12,12 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from PIL import ImageChops
+from PIL import Image, ImageChops
 
 from pilgram.css.blending.alpha import alpha_blend
 
 
-def _screen(im1, im2):
+def _screen(im1: Image.Image, im2: Image.Image) -> Image.Image:
     """The screen blend mode.
 
     Arguments:
@@ -31,7 +31,7 @@ def _screen(im1, im2):
     return ImageChops.screen(im1, im2)
 
 
-def screen(im1, im2):
+def screen(im1: Image.Image, im2: Image.Image) -> Image.Image:
     """Multiplies the complements of the backdrop and source color values,
     then complements the result.
 

@@ -38,9 +38,9 @@ def test_exclusion():
         (128, 127, 127),
         (255, 127, 0),
     ]
-    expected = [pytest.approx(c, abs=1) for c in expected]
+    expected_approx = [pytest.approx(c, abs=1) for c in expected]
 
-    assert list(exclusion.getdata()) == expected  # almost eq
+    assert list(exclusion.getdata()) == expected_approx  # almost eq
 
 
 def test_exclusion_alpha_support(mocker):

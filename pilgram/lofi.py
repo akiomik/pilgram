@@ -17,7 +17,7 @@ from PIL import Image
 from pilgram import css, util
 
 
-def lofi(im):
+def lofi(im: Image.Image) -> Image.Image:
     """Applies Lo-Fi filter.
 
     Arguments:

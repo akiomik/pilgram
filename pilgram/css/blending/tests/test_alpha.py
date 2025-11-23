@@ -19,7 +19,7 @@ from pilgram import util
 from pilgram.css.blending.alpha import alpha_blend, alpha_to_rgb, split_alpha
 
 
-def _normal(cb, cs):
+def _normal(cb: Image.Image, cs: Image.Image) -> Image.Image:
     """The normal blend mode"""
     return cs
 

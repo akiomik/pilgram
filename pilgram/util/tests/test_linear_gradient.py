@@ -60,8 +60,8 @@ def test_linear_gradient_mask_start_end_vertical():
 
 def test_linear_gradient_prepared():
     w, h = (4, 4)
-    white = [255] * 3
-    black = [0] * 3
+    white = (255,) * 3
+    black = (0,) * 3
     gradient = util.linear_gradient((w, h), white, black)
     expected_data = [(c,) * 3 for c in [222, 161, 94, 33]] * h
 

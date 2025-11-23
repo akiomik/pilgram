@@ -12,12 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from PIL import ImageChops
+from PIL import Image, ImageChops
 
 from pilgram.css.blending.alpha import alpha_blend
 
 
-def _darken(im1, im2):
+def _darken(im1: Image.Image, im2: Image.Image) -> Image.Image:
     """The darken blend mode.
 
     Arguments:
@@ -31,7 +31,7 @@ def _darken(im1, im2):
     return ImageChops.darker(im1, im2)
 
 
-def darken(im1, im2):
+def darken(im1: Image.Image, im2: Image.Image) -> Image.Image:
     """Selects the darker of the backdrop and source colors.
 
     The darken formula is defined as:

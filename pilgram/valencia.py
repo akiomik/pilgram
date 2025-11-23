@@ -17,7 +17,7 @@ from PIL import Image
 from pilgram import css, util
 
 
-def valencia(im):
+def valencia(im: Image.Image) -> Image.Image:
     """Applies Valencia filter.
 
     Arguments:

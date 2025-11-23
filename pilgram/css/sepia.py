@@ -12,10 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+
+from PIL import Image
+
 from pilgram import util
 
 
-def sepia(im, amount=1):
+def sepia(im: Image.Image, amount: float = 1) -> Image.Image:
     """Converts image to sepia.
 
     A sepia operation is equivalent to the following matrix operation:
@@ -31,7 +34,7 @@ def sepia(im, amount=1):
 
     Arguments:
         im: An input image.
-        amount: An optional integer/float. The filter amount (percentage).
+        amount: An optional number. The filter amount (percentage).
             Defaults to 1.
 
     Returns:
@@ -44,7 +47,7 @@ def sepia(im, amount=1):
     assert amount >= 0
 
     amount = 1 - min(amount, 1)
-    matrix = [
+    matrix = (
         0.393 + 0.607 * amount,
         0.769 - 0.769 * amount,
         0.189 - 0.189 * amount,
@@ -57,7 +60,7 @@ def sepia(im, amount=1):
         0.534 - 0.534 * amount,
         0.131 + 0.869 * amount,
         0,
-    ]
+    )
 
     sepia_toned = util.or_convert(im, "RGB").convert("RGB", matrix)
     return util.or_convert(sepia_toned, im.mode)

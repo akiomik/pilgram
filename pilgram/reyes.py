@@ -17,7 +17,7 @@ from PIL import Image
 from pilgram import css, util
 
 
-def reyes(im):
+def reyes(im: Image.Image) -> Image.Image:
     """Applies Reyes filter.
 
     Arguments:

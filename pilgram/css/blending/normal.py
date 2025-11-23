@@ -12,10 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from PIL import Image
+
 from pilgram.css.blending.alpha import alpha_blend
 
 
-def _normal(im1, im2):
+def _normal(im1: Image.Image, im2: Image.Image) -> Image.Image:
     """The normal blend mode.
 
     Arguments:
@@ -29,7 +31,7 @@ def _normal(im1, im2):
     return im2
 
 
-def normal(im1, im2):
+def normal(im1: Image.Image, im2: Image.Image) -> Image.Image:
     """The blending formula simply selects the source color.
 
     The normal formula is defined as:

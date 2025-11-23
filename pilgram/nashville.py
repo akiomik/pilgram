@@ -12,10 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from PIL import Image
+
 from pilgram import css, util
 
 
-def nashville(im):
+def nashville(im: Image.Image) -> Image.Image:
     """Applies Nashville filter.
 
     Arguments:
