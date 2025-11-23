@@ -3,7 +3,7 @@ SRC_DIR = pilgram
 all: check clean build;
 
 sync:
-	uv sync --all-extras --dev
+	uv sync --all-extras
 
 lint:
 	uv run ruff check ${SRC_DIR}
