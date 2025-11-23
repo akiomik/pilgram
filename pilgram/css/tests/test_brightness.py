@@ -17,7 +17,7 @@ import pytest
 from pilgram import css, util
 
 
-def test_brightness():
+def test_brightness() -> None:
     im = util.fill((4, 4), [174, 56, 3])
     im_b = css.brightness(im)
 
@@ -26,7 +26,7 @@ def test_brightness():
     assert im_b.mode == im.mode
 
 
-def test_brightness_1():
+def test_brightness_1() -> None:
     im = util.fill((4, 4), [174, 56, 3])
     im_b = css.brightness(im, 1)
     im_b2 = css.brightness(im)
@@ -36,7 +36,7 @@ def test_brightness_1():
     assert im_b.mode == im.mode
 
 
-def test_brightness_greater_than_1():
+def test_brightness_greater_than_1() -> None:
     im = util.fill((4, 4), [174, 56, 3])
     im_b = css.brightness(im, 2)
     im_b2 = css.brightness(im, 1)
@@ -46,7 +46,7 @@ def test_brightness_greater_than_1():
     assert im_b.mode == im.mode
 
 
-def test_brightness_0():
+def test_brightness_0() -> None:
     im = util.fill((4, 4), [174, 56, 3])
     black = util.fill((4, 4), [0] * 3)
     im_b = css.brightness(im, 0)
@@ -56,13 +56,13 @@ def test_brightness_0():
     assert im_b.mode == im.mode
 
 
-def test_brightness_less_than_0():
+def test_brightness_less_than_0() -> None:
     with pytest.raises(AssertionError):
         im = util.fill((4, 4), [174, 56, 3])
         css.brightness(im, -1)
 
 
-def test_brightness_hsv():
+def test_brightness_hsv() -> None:
     im = util.fill((4, 4), [174, 56, 3])
     im2 = im.convert("HSV")
     im_b = css.brightness(im)

@@ -20,7 +20,7 @@ from pilgram import css, util
 from pilgram.css.blending.tests.helpers import assert_alpha_support
 
 
-def test_soft_light():
+def test_soft_light() -> None:
     cb = util.fill((2, 2), [0, 128, 255])
     cs_array = np.array(
         [
@@ -43,5 +43,5 @@ def test_soft_light():
     assert list(soft_light.getdata()) == expected_approx  # almost eq
 
 
-def test_soft_light_alpha_support(mocker):
+def test_soft_light_alpha_support() -> None:
     assert_alpha_support(css.blending.soft_light)

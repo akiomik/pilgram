@@ -13,15 +13,16 @@
 # limitations under the License.
 
 from PIL import Image
+from pytest_benchmark.fixture import BenchmarkFixture
 
 from pilgram import util, walden
 
 
-def test_walden():
+def test_walden() -> None:
     im = util.fill((32, 32), [255] * 3)
     walden(im)
 
 
-def test_walden_benchmark(benchmark):
+def test_walden_benchmark(benchmark: BenchmarkFixture) -> None:
     with Image.open("examples/mtjimba.jpg") as im:
         benchmark(walden, im)

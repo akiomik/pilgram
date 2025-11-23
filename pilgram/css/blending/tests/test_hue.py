@@ -20,7 +20,7 @@ from pilgram import css, util
 from pilgram.css.blending.tests.helpers import assert_alpha_support
 
 
-def test_hue1():
+def test_hue1() -> None:
     cb_array = np.array(
         [
             [[0, 128, 255], [0, 255, 128]],
@@ -38,7 +38,7 @@ def test_hue1():
     assert list(hue.getdata()) == expected_approx  # almost eq
 
 
-def test_hue2():
+def test_hue2() -> None:
     cb = util.fill((2, 2), [0, 128, 255])
     cs_array = np.array(
         [
@@ -56,5 +56,5 @@ def test_hue2():
     assert list(hue.getdata()) == expected_approx  # almost eq
 
 
-def test_hue_alpha_support(mocker):
+def test_hue_alpha_support() -> None:
     assert_alpha_support(css.blending.hue)

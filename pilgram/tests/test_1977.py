@@ -13,15 +13,16 @@
 # limitations under the License.
 
 from PIL import Image
+from pytest_benchmark.fixture import BenchmarkFixture
 
 from pilgram import _1977, util
 
 
-def test_1977():
+def test_1977() -> None:
     im = util.fill((32, 32), [255] * 3)
     _1977(im)
 
 
-def test_1977_benchmark(benchmark):
+def test_1977_benchmark(benchmark: BenchmarkFixture) -> None:
     with Image.open("examples/mtjimba.jpg") as im:
         benchmark(_1977, im)

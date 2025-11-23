@@ -13,15 +13,16 @@
 # limitations under the License.
 
 from PIL import Image
+from pytest_benchmark.fixture import BenchmarkFixture
 
 from pilgram import kelvin, util
 
 
-def test_kelvin():
+def test_kelvin() -> None:
     im = util.fill((32, 32), [255] * 3)
     kelvin(im)
 
 
-def test_kelvin_benchmark(benchmark):
+def test_kelvin_benchmark(benchmark: BenchmarkFixture) -> None:
     with Image.open("examples/mtjimba.jpg") as im:
         benchmark(kelvin, im)

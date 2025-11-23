@@ -13,15 +13,16 @@
 # limitations under the License.
 
 from PIL import Image
+from pytest_benchmark.fixture import BenchmarkFixture
 
 from pilgram import slumber, util
 
 
-def test_slumber():
+def test_slumber() -> None:
     im = util.fill((32, 32), [255] * 3)
     slumber(im)
 
 
-def test_slumber_benchmark(benchmark):
+def test_slumber_benchmark(benchmark: BenchmarkFixture) -> None:
     with Image.open("examples/mtjimba.jpg") as im:
         benchmark(slumber, im)

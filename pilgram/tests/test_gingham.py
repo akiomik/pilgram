@@ -13,15 +13,16 @@
 # limitations under the License.
 
 from PIL import Image
+from pytest_benchmark.fixture import BenchmarkFixture
 
 from pilgram import gingham, util
 
 
-def test_gingham():
+def test_gingham() -> None:
     im = util.fill((32, 32), [255] * 3)
     gingham(im)
 
 
-def test_gingham_benchmark(benchmark):
+def test_gingham_benchmark(benchmark: BenchmarkFixture) -> None:
     with Image.open("examples/mtjimba.jpg") as im:
         benchmark(gingham, im)

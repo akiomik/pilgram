@@ -20,7 +20,7 @@ from pilgram import css, util
 from pilgram.css.blending.tests.helpers import assert_alpha_support
 
 
-def test_overlay():
+def test_overlay() -> None:
     cb_array = np.array(
         [
             [[0] * 3, [127] * 3],
@@ -44,7 +44,7 @@ def test_overlay():
     assert list(overlay.getdata()) == expected_approx  # almost eq
 
 
-def test_overlay2():
+def test_overlay2() -> None:
     cb = util.fill((2, 2), [0, 128, 255])
     cs = util.fill((2, 2), [255, 128, 0])
 
@@ -53,5 +53,5 @@ def test_overlay2():
     assert actual == expected
 
 
-def test_overlay_alpha_support(mocker):
+def test_overlay_alpha_support() -> None:
     assert_alpha_support(css.blending.overlay)

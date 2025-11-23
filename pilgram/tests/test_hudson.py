@@ -13,15 +13,16 @@
 # limitations under the License.
 
 from PIL import Image
+from pytest_benchmark.fixture import BenchmarkFixture
 
 from pilgram import hudson, util
 
 
-def test_hudson():
+def test_hudson() -> None:
     im = util.fill((32, 32), [255] * 3)
     hudson(im)
 
 
-def test_hudson_benchmark(benchmark):
+def test_hudson_benchmark(benchmark: BenchmarkFixture) -> None:
     with Image.open("examples/mtjimba.jpg") as im:
         benchmark(hudson, im)

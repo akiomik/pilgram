@@ -17,7 +17,7 @@ from PIL import ImageChops
 from pilgram import util
 
 
-def test_add():
+def test_add() -> None:
     im1 = util.fill((2, 2), [0, 127, 255])
     im2 = util.fill((2, 2), [0, 127, 255])
 
@@ -26,7 +26,7 @@ def test_add():
     assert actual == expected
 
 
-def test_add2():
+def test_add2() -> None:
     im1 = util.fill((2, 2), [0, 127, 255])
     im2 = util.fill((2, 2), [0, 127, 255])
 

@@ -20,7 +20,7 @@ from pilgram import css, util
 from pilgram.css.blending.tests.helpers import assert_alpha_support
 
 
-def test_color_dodge():
+def test_color_dodge() -> None:
     cb = util.fill((2, 2), [0, 128, 255])
     cs_array = np.array(
         [
@@ -43,5 +43,5 @@ def test_color_dodge():
     assert list(color_dodge.getdata()) == expected_approx  # almost eq
 
 
-def test_color_dodge_alpha_support(mocker):
+def test_color_dodge_alpha_support() -> None:
     assert_alpha_support(css.blending.color_dodge)

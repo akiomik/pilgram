@@ -15,7 +15,7 @@
 from pilgram import util
 
 
-def test_fill():
+def test_fill() -> None:
     w, h = (4, 4)
     im = util.fill((w, h), [0, 127, 255])
 
@@ -24,7 +24,7 @@ def test_fill():
     assert im.mode == "RGB"
 
 
-def test_fill_alpha():
+def test_fill_alpha() -> None:
     w, h = (4, 4)
     im = util.fill((w, h), [0, 127, 255, 0.5])
 

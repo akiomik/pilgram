@@ -13,15 +13,16 @@
 # limitations under the License.
 
 from PIL import Image
+from pytest_benchmark.fixture import BenchmarkFixture
 
 from pilgram import aden, util
 
 
-def test_aden():
+def test_aden() -> None:
     im = util.fill((32, 32), [255] * 3)
     aden(im)
 
 
-def test_aden_benchmark(benchmark):
+def test_aden_benchmark(benchmark: BenchmarkFixture) -> None:
     with Image.open("examples/mtjimba.jpg") as im:
         benchmark(aden, im)

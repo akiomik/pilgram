@@ -55,11 +55,6 @@ disallow_untyped_defs = true
 disallow_incomplete_defs = true
 check_untyped_defs = true
 
-[[tool.mypy.overrides]]
-module = ["pilgram.tests.*", "pilgram.*.tests.*"]
-disallow_untyped_defs = false
-disallow_incomplete_defs = false
-
 # 外部ライブラリの型情報
 [[tool.mypy.overrides]]
 module = ["PIL.*", "numpy.*"]

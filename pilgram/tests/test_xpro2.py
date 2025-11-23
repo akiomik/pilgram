@@ -13,15 +13,16 @@
 # limitations under the License.
 
 from PIL import Image
+from pytest_benchmark.fixture import BenchmarkFixture
 
 from pilgram import util, xpro2
 
 
-def test_xpro2():
+def test_xpro2() -> None:
     im = util.fill((32, 32), [255] * 3)
     xpro2(im)
 
 
-def test_xpro2_benchmark(benchmark):
+def test_xpro2_benchmark(benchmark: BenchmarkFixture) -> None:
     with Image.open("examples/mtjimba.jpg") as im:
         benchmark(xpro2, im)

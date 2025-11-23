@@ -14,6 +14,7 @@
 
 import pytest
 from PIL import Image
+from pytest_mock import MockerFixture
 
 from pilgram import util
 from pilgram.css.blending.alpha import alpha_blend, alpha_to_rgb, split_alpha
@@ -24,27 +25,27 @@ def _normal(cb: Image.Image, cs: Image.Image) -> Image.Image:
     return cs
 
 
-def test_split_alpha_rgba():
+def test_split_alpha_rgba() -> None:
     im = util.fill((2, 2), [0, 128, 255, 0.5])
     rgb, a = split_alpha(im)
     assert rgb == util.fill((2, 2), [0, 128, 255])
     assert a == Image.new("L", (2, 2), 128)
 
 
-def test_split_alpha_rgb():
+def test_split_alpha_rgb() -> None:
     im = util.fill((2, 2), [0, 128, 255])
     rgb, a = split_alpha(im)
     assert id(rgb) == id(im)
     assert a is None
 
 
-def test_split_alpha_unsupported_mode():
+def test_split_alpha_unsupported_mode() -> None:
     im = Image.new("L", (2, 2), 128)
     with pytest.raises(ValueError):
         split_alpha(im)
 
 
-def test_alpha_to_rgb():
+def test_alpha_to_rgb() -> None:
     im = Image.new("L", (2, 2), 128)
     im_rgb = alpha_to_rgb(im)
     assert im_rgb.mode == "RGB"
@@ -55,13 +56,13 @@ def test_alpha_to_rgb():
     assert b == im
 
 
-def test_alpha_to_rgb_unsupported_mode():
+def test_alpha_to_rgb_unsupported_mode() -> None:
     im = util.fill((2, 2), [0, 128, 255])
     with pytest.raises(ValueError):
         alpha_to_rgb(im)
 
 
-def test_alpha_blend_call_blending(mocker):
+def test_alpha_blend_call_blending(mocker: MockerFixture) -> None:
     cb = util.fill((2, 2), [0, 128, 255, 1])
     cs = util.fill((2, 2), [255, 128, 0, 1])
 
@@ -73,21 +74,21 @@ def test_alpha_blend_call_blending(mocker):
     normal_stub.assert_called_once()
 
 
-def test_alpha_blend_normal_rgb_with_rgb():
+def test_alpha_blend_normal_rgb_with_rgb() -> None:
     cb = util.fill((2, 2), [0, 128, 255])
     cs = util.fill((2, 2), [255, 128, 0])
     cr = alpha_blend(cb, cs, _normal)
     assert cr == _normal(cb, cs)
 
 
-def test_alpha_blend_normal_rgb_with_transparent_source():
+def test_alpha_blend_normal_rgb_with_transparent_source() -> None:
     cb = util.fill((2, 2), [0, 128, 255])
     cs = util.fill((2, 2), [255, 128, 0, 0])
     cr = alpha_blend(cb, cs, _normal)
     assert cr == cb
 
 
-def test_alpha_blend_normal_rgb_with_opaque_source():
+def test_alpha_blend_normal_rgb_with_opaque_source() -> None:
     cb = util.fill((2, 2), [0, 128, 255])
     cs = util.fill((2, 2), [255, 128, 0, 1])
     cr = alpha_blend(cb, cs, _normal)
@@ -96,21 +97,21 @@ def test_alpha_blend_normal_rgb_with_opaque_source():
     assert cr == expected
 
 
-def test_alpha_blend_normal_transparent_backdrop_with_rgb():
+def test_alpha_blend_normal_transparent_backdrop_with_rgb() -> None:
     cb = util.fill((2, 2), [0, 128, 255, 0])
     cs = util.fill((2, 2), [255, 128, 0])
     cr = alpha_blend(cb, cs, _normal)
     assert cr == cs
 
 
-def test_alpha_blend_normal_opaque_backdrop_with_rgb():
+def test_alpha_blend_normal_opaque_backdrop_with_rgb() -> None:
     cb = util.fill((2, 2), [0, 128, 255, 1])
     cs = util.fill((2, 2), [255, 128, 0])
     cr = alpha_blend(cb, cs, _normal)
     assert cr == cs
 
 
-def test_alpha_blend_normal_transparent_backdrop_with_transparent_source():
+def test_alpha_blend_normal_transparent_backdrop_with_transparent_source() -> None:
     cb = util.fill((2, 2), [0, 128, 255, 0])
     cs = util.fill((2, 2), [255, 128, 0, 0])
     cr = alpha_blend(cb, cs, _normal)
@@ -119,7 +120,7 @@ def test_alpha_blend_normal_transparent_backdrop_with_transparent_source():
     assert cr == expected
 
 
-def test_alpha_blend_normal_transparent_backdrop_with_opaque_source():
+def test_alpha_blend_normal_transparent_backdrop_with_opaque_source() -> None:
     cb = util.fill((2, 2), [0, 128, 255, 0])
     cs = util.fill((2, 2), [255, 128, 0, 1])
     cr = alpha_blend(cb, cs, _normal)
@@ -128,7 +129,7 @@ def test_alpha_blend_normal_transparent_backdrop_with_opaque_source():
     assert cr == expected
 
 
-def test_alpha_blend_normal_opaque_backdrop_with_transparent_source():
+def test_alpha_blend_normal_opaque_backdrop_with_transparent_source() -> None:
     cb = util.fill((2, 2), [0, 128, 255, 1])
     cs = util.fill((2, 2), [255, 128, 0, 0])
     cr = alpha_blend(cb, cs, _normal)
@@ -137,7 +138,7 @@ def test_alpha_blend_normal_opaque_backdrop_with_transparent_source():
     assert cr == expected
 
 
-def test_alpha_blend_normal_opaque_backdrop_with_opaque_source():
+def test_alpha_blend_normal_opaque_backdrop_with_opaque_source() -> None:
     cb = util.fill((2, 2), [0, 128, 255, 1])
     cs = util.fill((2, 2), [255, 128, 0, 1])
     cr = alpha_blend(cb, cs, _normal)

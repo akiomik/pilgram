@@ -13,15 +13,16 @@
 # limitations under the License.
 
 from PIL import Image
+from pytest_benchmark.fixture import BenchmarkFixture
 
 from pilgram import mayfair, util
 
 
-def test_mayfair():
+def test_mayfair() -> None:
     im = util.fill((32, 32), [255] * 3)
     mayfair(im)
 
 
-def test_mayfair_benchmark(benchmark):
+def test_mayfair_benchmark(benchmark: BenchmarkFixture) -> None:
     with Image.open("examples/mtjimba.jpg") as im:
         benchmark(mayfair, im)

@@ -13,15 +13,16 @@
 # limitations under the License.
 
 from PIL import Image
+from pytest_benchmark.fixture import BenchmarkFixture
 
 from pilgram import perpetua, util
 
 
-def test_perpetua():
+def test_perpetua() -> None:
     im = util.fill((32, 32), [255] * 3)
     perpetua(im)
 
 
-def test_perpetua_benchmark(benchmark):
+def test_perpetua_benchmark(benchmark: BenchmarkFixture) -> None:
     with Image.open("examples/mtjimba.jpg") as im:
         benchmark(perpetua, im)

@@ -13,15 +13,16 @@
 # limitations under the License.
 
 from PIL import Image
+from pytest_benchmark.fixture import BenchmarkFixture
 
 from pilgram import earlybird, util
 
 
-def test_earlybird():
+def test_earlybird() -> None:
     im = util.fill((32, 32), [255] * 3)
     earlybird(im)
 
 
-def test_earlybird_benchmark(benchmark):
+def test_earlybird_benchmark(benchmark: BenchmarkFixture) -> None:
     with Image.open("examples/mtjimba.jpg") as im:
         benchmark(earlybird, im)

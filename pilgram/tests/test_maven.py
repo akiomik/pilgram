@@ -13,15 +13,16 @@
 # limitations under the License.
 
 from PIL import Image
+from pytest_benchmark.fixture import BenchmarkFixture
 
 from pilgram import maven, util
 
 
-def test_maven():
+def test_maven() -> None:
     im = util.fill((32, 32), [255] * 3)
     maven(im)
 
 
-def test_maven_benchmark(benchmark):
+def test_maven_benchmark(benchmark: BenchmarkFixture) -> None:
     with Image.open("examples/mtjimba.jpg") as im:
         benchmark(maven, im)

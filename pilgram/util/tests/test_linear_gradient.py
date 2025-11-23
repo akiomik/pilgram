@@ -16,7 +16,7 @@
 from pilgram import util
 
 
-def test_linear_gradient_mask_prepared_horizontal():
+def test_linear_gradient_mask_prepared_horizontal() -> None:
     w, h = (4, 4)
     mask = util.linear_gradient_mask((w, h))
 
@@ -25,7 +25,7 @@ def test_linear_gradient_mask_prepared_horizontal():
     assert mask.mode == "L"
 
 
-def test_linear_gradient_mask_prepared_vertical():
+def test_linear_gradient_mask_prepared_vertical() -> None:
     w, h = (4, 4)
     mask = util.linear_gradient_mask((w, h), is_horizontal=False)
 
@@ -34,7 +34,7 @@ def test_linear_gradient_mask_prepared_vertical():
     assert mask.mode == "L"
 
 
-def test_linear_gradient_mask_start_end():
+def test_linear_gradient_mask_start_end() -> None:
     w, h = (4, 4)
     start = 100 / 255
     end = 200 / 255
@@ -45,7 +45,7 @@ def test_linear_gradient_mask_start_end():
     assert mask.mode == "L"
 
 
-def test_linear_gradient_mask_start_end_vertical():
+def test_linear_gradient_mask_start_end_vertical() -> None:
     w, h = (4, 4)
     start = 100 / 255
     end = 200 / 255
@@ -58,7 +58,7 @@ def test_linear_gradient_mask_start_end_vertical():
     assert mask.mode == "L"
 
 
-def test_linear_gradient_prepared():
+def test_linear_gradient_prepared() -> None:
     w, h = (4, 4)
     white = (255,) * 3
     black = (0,) * 3

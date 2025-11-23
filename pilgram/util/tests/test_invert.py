@@ -17,14 +17,14 @@ from PIL import ImageChops
 from pilgram.util import fill, invert
 
 
-def test_invert():
+def test_invert() -> None:
     w, h = (4, 4)
     actual = invert(fill((w, h), [0, 127, 255]))
     expected = fill((w, h), [255, 128, 0])
     assert actual == expected
 
 
-def test_invert2():
+def test_invert2() -> None:
     w, h = (4, 4)
     actual = invert(fill((w, h), [0, 127, 255]))
     expected = ImageChops.invert(fill((w, h), [0, 127, 255]))
