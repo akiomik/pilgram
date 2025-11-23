@@ -23,7 +23,12 @@ type-check:
 test:
 	uv run pytest
 
+test-ci:
+	uv run pytest --cov=. --cov-report=xml
+
 check: lint format-check type-check test
+
+check-ci: lint format-check type-check test-ci
 
 test-benchmark:
 	uv run pytest --benchmark-only --benchmark-max-time=5 --benchmark-columns="mean,stddev,min,max"
@@ -41,4 +46,4 @@ test-upload: clean build
 upload: clean build
 	uv publish dist/*
 
-.PHONY: all sync lint lint-fix format format-check type-check test check test-benchmark benchmark clean build test-upload upload
+.PHONY: all sync lint lint-fix format format-check type-check test test-ci check check-ci test-benchmark benchmark clean build test-upload upload
