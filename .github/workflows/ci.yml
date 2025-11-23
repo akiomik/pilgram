@@ -29,6 +29,6 @@ jobs:
             uv lock
             uv sync --locked --all-extras --dev
           }
-      - run: make test
+      - run: make check
       - run: pipx install codecov
       - run: codecov
