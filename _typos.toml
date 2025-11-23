@@ -1,0 +1,5 @@
+[files]
+extend-exclude = ["notebooks"]
+
+[default.extend-words]
+pilgram = "pilgram"
