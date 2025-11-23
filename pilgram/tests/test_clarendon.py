@@ -19,7 +19,7 @@ from pilgram import clarendon, util
 
 
 def test_clarendon() -> None:
-    im = util.fill((32, 32), [255] * 3)
+    im = util.fill((32, 32), (255,) * 3)
     clarendon(im)
 
 

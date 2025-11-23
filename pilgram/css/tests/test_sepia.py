@@ -18,7 +18,7 @@ from pilgram import css, util
 
 
 def test_sepia() -> None:
-    im = util.fill((4, 4), [174, 56, 3])
+    im = util.fill((4, 4), (174, 56, 3))
     sepiaed_im = css.sepia(im)
 
     assert sepiaed_im.size == im.size
@@ -26,7 +26,7 @@ def test_sepia() -> None:
 
 
 def test_sepia_1() -> None:
-    im = util.fill((4, 4), [174, 56, 3])
+    im = util.fill((4, 4), (174, 56, 3))
     sepiaed_im = css.sepia(im, 1)
     sepiaed_im2 = css.sepia(im)
 
@@ -36,7 +36,7 @@ def test_sepia_1() -> None:
 
 
 def test_sepia_greater_than_1() -> None:
-    im = util.fill((4, 4), [174, 56, 3])
+    im = util.fill((4, 4), (174, 56, 3))
     sepiaed_im = css.sepia(im, 2)
     sepiaed_im2 = css.sepia(im, 1)
 
@@ -46,7 +46,7 @@ def test_sepia_greater_than_1() -> None:
 
 
 def test_sepia_0() -> None:
-    im = util.fill((4, 4), [174, 56, 3])
+    im = util.fill((4, 4), (174, 56, 3))
     sepiaed_im = css.sepia(im, 0)
 
     assert list(sepiaed_im.getdata()) == list(im.getdata())
@@ -56,12 +56,12 @@ def test_sepia_0() -> None:
 
 def test_sepia_less_than_0() -> None:
     with pytest.raises(AssertionError):
-        im = util.fill((4, 4), [174, 56, 3])
+        im = util.fill((4, 4), (174, 56, 3))
         css.sepia(im, -1)
 
 
 def test_sepia_hsv() -> None:
-    im = util.fill((4, 4), [174, 56, 3])
+    im = util.fill((4, 4), (174, 56, 3))
     im2 = im.convert("HSV")
     sepiaed_im = css.sepia(im)
     sepiaed_im2 = css.sepia(im2)

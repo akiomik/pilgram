@@ -29,7 +29,7 @@ def stinson(im: Image.Image) -> Image.Image:
 
     cb = util.or_convert(im, "RGB")
 
-    cs = util.fill(cb.size, [240, 149, 128, 0.2])
+    cs = util.fill(cb.size, (240, 149, 128, 0.2))
     cr = css.blending.soft_light(cb, cs)
 
     cr = css.contrast(cr, 0.75)

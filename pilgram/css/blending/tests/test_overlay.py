@@ -30,7 +30,7 @@ def test_overlay() -> None:
     )
 
     cb = Image.fromarray(cb_array)
-    cs = util.fill((2, 2), [0, 128, 255])
+    cs = util.fill((2, 2), (0, 128, 255))
     overlay = css.blending.overlay(cb, cs)
 
     expected = [
@@ -45,8 +45,8 @@ def test_overlay() -> None:
 
 
 def test_overlay2() -> None:
-    cb = util.fill((2, 2), [0, 128, 255])
-    cs = util.fill((2, 2), [255, 128, 0])
+    cb = util.fill((2, 2), (0, 128, 255))
+    cs = util.fill((2, 2), (255, 128, 0))
 
     actual = css.blending.overlay(cb, cs)
     expected = css.blending.hard_light(cs, cb)

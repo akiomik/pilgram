@@ -19,7 +19,7 @@ from pilgram import moon, util
 
 
 def test_moon() -> None:
-    im = util.fill((32, 32), [255] * 3)
+    im = util.fill((32, 32), (255,) * 3)
     moon(im)
 
 

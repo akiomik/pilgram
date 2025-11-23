@@ -29,7 +29,7 @@ def test_hue1() -> None:
         dtype=np.uint8,
     )
     cb = Image.fromarray(cb_array)
-    cs = util.fill((2, 2), [0, 128, 255])
+    cs = util.fill((2, 2), (0, 128, 255))
     hue = css.blending.hue(cb, cs)
 
     expected = [(0, 128, 255), (102, 179, 255), (143, 199, 255), (0, 82, 163)]
@@ -39,7 +39,7 @@ def test_hue1() -> None:
 
 
 def test_hue2() -> None:
-    cb = util.fill((2, 2), [0, 128, 255])
+    cb = util.fill((2, 2), (0, 128, 255))
     cs_array = np.array(
         [
             [[0, 128, 255], [0, 255, 128]],

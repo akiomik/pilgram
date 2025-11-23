@@ -29,10 +29,10 @@ def slumber(im: Image.Image) -> Image.Image:
 
     cb = util.or_convert(im, "RGB")
 
-    cs1 = util.fill(cb.size, [69, 41, 12, 0.4])
+    cs1 = util.fill(cb.size, (69, 41, 12, 0.4))
     cm = css.blending.lighten(cb, cs1)
 
-    cs2 = util.fill(cb.size, [125, 105, 24, 0.5])
+    cs2 = util.fill(cb.size, (125, 105, 24, 0.5))
     cr = css.blending.soft_light(cm, cs2)
 
     cr = css.saturate(cr, 0.66)

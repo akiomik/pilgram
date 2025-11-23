@@ -29,10 +29,10 @@ def moon(im: Image.Image) -> Image.Image:
 
     cb = util.or_convert(im, "RGB")
 
-    cs1 = util.fill(cb.size, [160, 160, 160])
+    cs1 = util.fill(cb.size, (160, 160, 160))
     cs = css.blending.soft_light(cb, cs1)
 
-    cs2 = util.fill(cb.size, [56, 56, 56])
+    cs2 = util.fill(cb.size, (56, 56, 56))
     cr = css.blending.lighten(cs, cs2)
 
     cr = css.grayscale(cr)

@@ -19,8 +19,8 @@ from pilgram.css.blending.tests.helpers import assert_alpha_support
 
 
 def test_darken() -> None:
-    cb = util.fill((2, 2), [255, 128, 0])
-    cs = util.fill((2, 2), [0, 128, 255])
+    cb = util.fill((2, 2), (255, 128, 0))
+    cs = util.fill((2, 2), (0, 128, 255))
 
     actual = css.blending.darken(cb, cs)
     expected = ImageChops.darker(cb, cs)

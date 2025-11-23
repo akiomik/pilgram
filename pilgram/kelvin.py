@@ -29,10 +29,10 @@ def kelvin(im: Image.Image) -> Image.Image:
 
     cb = util.or_convert(im, "RGB")
 
-    cs1 = util.fill(cb.size, [56, 44, 52])
+    cs1 = util.fill(cb.size, (56, 44, 52))
     cs = css.blending.color_dodge(cb, cs1)
 
-    cs2 = util.fill(cb.size, [183, 125, 33])
+    cs2 = util.fill(cb.size, (183, 125, 33))
     cr = css.blending.overlay(cs, cs2)
 
     return cr

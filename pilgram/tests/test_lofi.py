@@ -19,7 +19,7 @@ from pilgram import lofi, util
 
 
 def test_lofi() -> None:
-    im = util.fill((32, 32), [255] * 3)
+    im = util.fill((32, 32), (255,) * 3)
     lofi(im)
 
 

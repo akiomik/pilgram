@@ -18,17 +18,17 @@ from pilgram import util
 
 
 def test_subtract() -> None:
-    im1 = util.fill((2, 2), [0, 127, 255])
-    im2 = util.fill((2, 2), [255, 127, 0])
+    im1 = util.fill((2, 2), (0, 127, 255))
+    im2 = util.fill((2, 2), (255, 127, 0))
 
     actual = util.subtract(im1, im2)
-    expected = util.fill((2, 2), [0, 0, 255])
+    expected = util.fill((2, 2), (0, 0, 255))
     assert actual == expected
 
 
 def test_subtract2() -> None:
-    im1 = util.fill((2, 2), [0, 127, 255])
-    im2 = util.fill((2, 2), [255, 127, 0])
+    im1 = util.fill((2, 2), (0, 127, 255))
+    im2 = util.fill((2, 2), (255, 127, 0))
 
     actual = util.subtract(im1, im2)
     expected = ImageChops.subtract(im1, im2)

@@ -19,7 +19,7 @@ from pilgram import util, xpro2
 
 
 def test_xpro2() -> None:
-    im = util.fill((32, 32), [255] * 3)
+    im = util.fill((32, 32), (255,) * 3)
     xpro2(im)
 
 

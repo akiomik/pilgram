@@ -19,7 +19,7 @@ from pilgram import _1977, util
 
 
 def test_1977() -> None:
-    im = util.fill((32, 32), [255] * 3)
+    im = util.fill((32, 32), (255,) * 3)
     _1977(im)
 
 

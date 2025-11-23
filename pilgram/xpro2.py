@@ -29,8 +29,8 @@ def xpro2(im: Image.Image) -> Image.Image:
 
     cb = util.or_convert(im, "RGB")
 
-    cs1 = util.fill(cb.size, [230, 231, 224])
-    cs2 = util.fill(cb.size, [43, 42, 161])
+    cs1 = util.fill(cb.size, (230, 231, 224))
+    cs2 = util.fill(cb.size, (43, 42, 161))
     cs2 = Image.blend(cb, cs2, 0.6)
 
     gradient_mask = util.radial_gradient_mask(cb.size, length=0.4, scale=1.1)

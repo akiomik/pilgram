@@ -19,7 +19,7 @@ from pilgram import util, willow
 
 
 def test_willow() -> None:
-    im = util.fill((32, 32), [255] * 3)
+    im = util.fill((32, 32), (255,) * 3)
     willow(im)
 
 

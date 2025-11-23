@@ -32,7 +32,7 @@ from pilgram.css.blending.nonseparable import (
 
 
 def test_min3() -> None:
-    im = util.fill((1, 1), [0, 128, 255])
+    im = util.fill((1, 1), (0, 128, 255))
     r, g, b = im.split()
     im_min = ImageMath.lambda_eval(
         lambda args: _convert(_min3((args["r"], args["g"], args["b"])), "L"),
@@ -45,7 +45,7 @@ def test_min3() -> None:
 
 
 def test_max3() -> None:
-    im = util.fill((1, 1), [0, 128, 255])
+    im = util.fill((1, 1), (0, 128, 255))
     r, g, b = im.split()
     im_max = ImageMath.lambda_eval(
         lambda args: _convert(_max3((args["r"], args["g"], args["b"])), "L"),
@@ -58,7 +58,7 @@ def test_max3() -> None:
 
 
 def test_clip_color() -> None:
-    im = util.fill((1, 1), [0, 128, 255])
+    im = util.fill((1, 1), (0, 128, 255))
     r, g, b = im.split()
     bands = ImageMath.lambda_eval(
         lambda args: _clip_color((args["r"] - 64, args["g"], args["b"] + 64)),
@@ -76,7 +76,7 @@ def test_clip_color() -> None:
 
 
 def test_lum() -> None:
-    im = util.fill((1, 1), [0, 128, 255])
+    im = util.fill((1, 1), (0, 128, 255))
     r, g, b = im.split()
     im_f = ImageMath.lambda_eval(
         lambda args: lum((args["r"], args["g"], args["b"])), r=r, g=g, b=b
@@ -88,15 +88,15 @@ def test_lum() -> None:
 
 
 def test_lum_im() -> None:
-    im = util.fill((1, 1), [0, 128, 255])
+    im = util.fill((1, 1), (0, 128, 255))
     im_lum = lum_im(im)
 
     assert list(im_lum.getdata()) == [round(103.57)]
 
 
 def test_set_lum() -> None:
-    im1 = util.fill((1, 1), [0, 128, 255])
-    im2 = util.fill((1, 1), [128, 128, 128])
+    im1 = util.fill((1, 1), (0, 128, 255))
+    im2 = util.fill((1, 1), (128, 128, 128))
     r1, g1, b1 = im1.split()
     r2, g2, b2 = im2.split()
     bands = ImageMath.lambda_eval(
@@ -125,7 +125,7 @@ def test_set_lum() -> None:
 
 
 def test_sat() -> None:
-    im = util.fill((1, 1), [80, 128, 200])
+    im = util.fill((1, 1), (80, 128, 200))
     r, g, b = im.split()
     im_sat = ImageMath.lambda_eval(
         lambda args: _convert(sat((args["r"], args["g"], args["b"])), "L"),
@@ -138,8 +138,8 @@ def test_sat() -> None:
 
 
 def test_set_sat_cmax_gt_cmin() -> None:
-    im1 = util.fill((1, 1), [0, 128, 255])
-    im2 = util.fill((1, 1), [64, 96, 128])  # sat = 64
+    im1 = util.fill((1, 1), (0, 128, 255))
+    im2 = util.fill((1, 1), (64, 96, 128))  # sat = 64
     r1, g1, b1 = im1.split()
     r2, g2, b2 = im2.split()
     bands = ImageMath.lambda_eval(
@@ -164,8 +164,8 @@ def test_set_sat_cmax_gt_cmin() -> None:
 
 
 def test_set_sat_cmax_eq_cmid_gt_cmin() -> None:
-    im1 = util.fill((1, 1), [0, 128, 128])
-    im2 = util.fill((1, 1), [64, 96, 128])  # sat = 64
+    im1 = util.fill((1, 1), (0, 128, 128))
+    im2 = util.fill((1, 1), (64, 96, 128))  # sat = 64
     r1, g1, b1 = im1.split()
     r2, g2, b2 = im2.split()
     bands = ImageMath.lambda_eval(
@@ -186,8 +186,8 @@ def test_set_sat_cmax_eq_cmid_gt_cmin() -> None:
 
 
 def test_set_sat_cmax_eq_cmin() -> None:
-    im1 = util.fill((1, 1), [128, 128, 128])
-    im2 = util.fill((1, 1), [64, 96, 128])  # sat = 64
+    im1 = util.fill((1, 1), (128, 128, 128))
+    im2 = util.fill((1, 1), (64, 96, 128))  # sat = 64
     r1, g1, b1 = im1.split()
     r2, g2, b2 = im2.split()
     bands = ImageMath.lambda_eval(

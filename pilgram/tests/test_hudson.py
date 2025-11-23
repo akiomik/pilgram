@@ -19,7 +19,7 @@ from pilgram import hudson, util
 
 
 def test_hudson() -> None:
-    im = util.fill((32, 32), [255] * 3)
+    im = util.fill((32, 32), (255,) * 3)
     hudson(im)
 
 

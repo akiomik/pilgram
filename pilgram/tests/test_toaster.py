@@ -19,7 +19,7 @@ from pilgram import toaster, util
 
 
 def test_toaster() -> None:
-    im = util.fill((32, 32), [255] * 3)
+    im = util.fill((32, 32), (255,) * 3)
     toaster(im)
 
 

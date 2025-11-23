@@ -29,7 +29,7 @@ def walden(im: Image.Image) -> Image.Image:
 
     cb = util.or_convert(im, "RGB")
 
-    cs = util.fill(cb.size, [0, 68, 204])
+    cs = util.fill(cb.size, (0, 68, 204))
     cs = css.blending.screen(cb, cs)
     cr = Image.blend(cb, cs, 0.3)  # opacity
 

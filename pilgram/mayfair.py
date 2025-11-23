@@ -31,13 +31,13 @@ def mayfair(im: Image.Image) -> Image.Image:
     size = cb.size
     pos = (0.4, 0.4)
 
-    cs1 = util.fill(size, [255, 255, 255, 0.8])
+    cs1 = util.fill(size, (255, 255, 255, 0.8))
     cm1 = css.blending.overlay(cb, cs1)
 
-    cs2 = util.fill(size, [255, 200, 200, 0.6])
+    cs2 = util.fill(size, (255, 200, 200, 0.6))
     cm2 = css.blending.overlay(cb, cs2)
 
-    cs3 = util.fill(size, [17, 17, 17])
+    cs3 = util.fill(size, (17, 17, 17))
     cm3 = css.blending.overlay(cb, cs3)
 
     mask1 = util.radial_gradient_mask(size, scale=0.3, center=pos)

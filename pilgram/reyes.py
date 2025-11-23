@@ -29,7 +29,7 @@ def reyes(im: Image.Image) -> Image.Image:
 
     cb = util.or_convert(im, "RGB")
 
-    cs = util.fill(cb.size, [239, 205, 173])
+    cs = util.fill(cb.size, (239, 205, 173))
     cs = css.blending.soft_light(cb, cs)
     cr = Image.blend(cb, cs, 0.5)  # opacity
 

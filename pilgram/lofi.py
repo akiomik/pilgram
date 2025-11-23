@@ -29,7 +29,7 @@ def lofi(im: Image.Image) -> Image.Image:
 
     cb = util.or_convert(im, "RGB")
 
-    cs = util.fill(cb.size, [34, 34, 34])
+    cs = util.fill(cb.size, (34, 34, 34))
     cs = css.blending.multiply(cb, cs)
 
     mask = util.radial_gradient_mask(cb.size, length=0.7, scale=1.5)

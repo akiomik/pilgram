@@ -19,7 +19,7 @@ from pilgram import kelvin, util
 
 
 def test_kelvin() -> None:
-    im = util.fill((32, 32), [255] * 3)
+    im = util.fill((32, 32), (255,) * 3)
     kelvin(im)
 
 

@@ -28,7 +28,7 @@ def brannan(im: Image.Image) -> Image.Image:
     """
 
     cb = util.or_convert(im, "RGB")
-    cs = util.fill(cb.size, [161, 44, 199, 0.31])
+    cs = util.fill(cb.size, (161, 44, 199, 0.31))
     cr = css.blending.lighten(cb, cs)
 
     cr = css.sepia(cr, 0.5)
