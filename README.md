@@ -23,8 +23,8 @@ The filter implementations are inspired by [CSSgram](https://una.github.io/CSSgr
 **Important**: This library requires specific Pillow versions for optimal compatibility:
 
 - **Pillow >= 10.3.0**: Use latest pilgram version for full feature support including `ImageMath.lambda_eval`
-- **Pillow < 10.3.0**: Use `pilgram==1.2.1` which supports older Pillow versions with `ImageMath.eval`
-- **pillow-simd**: Use `pilgram==1.2.1` (pillow-simd lacks `ImageMath.lambda_eval` support)
+- **Pillow < 10.3.0**: Use `pilgram<2.0.0` which supports older Pillow versions with `ImageMath.eval`
+- **pillow-simd**: Use `pilgram<2.0.0` (pillow-simd lacks `ImageMath.lambda_eval` support)
 
 ### Version Selection Guide
 
@@ -35,7 +35,7 @@ pip install pilgram  # Latest version
 
 # For Pillow < 10.3.0 or pillow-simd
 pip install pillow<10.3.0  # or pillow-simd
-pip install pilgram==1.2.1
+pip install "pilgram<2.0.0"
 ```
 
 ## Install
@@ -53,7 +53,7 @@ pip install pilgram  # Latest version with ImageMath.lambda_eval support
 ```sh
 pip install pillow<10.3.0  # or pillow-simd
 pip install numpy
-pip install pilgram==1.2.1  # Last version supporting ImageMath.eval
+pip install "pilgram<2.0.0"  # Last version supporting ImageMath.eval
 ```
 
 ## Usage
