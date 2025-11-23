@@ -35,7 +35,7 @@ def multiply(im1: Image.Image, im2: Image.Image) -> Image.Image:
     """The source color is multiplied by the destination color
     and replaces the destination.
 
-    The mutiply formula is defined as:
+    The multiply formula is defined as:
 
         B(Cb, Cs) = Cb x Cs
 
