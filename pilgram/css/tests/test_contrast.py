@@ -18,7 +18,7 @@ from pilgram import css, util
 
 
 def test_contrast() -> None:
-    im = util.fill((4, 4), [174, 56, 3])
+    im = util.fill((4, 4), (174, 56, 3))
     contrasted_im = css.contrast(im)
 
     assert list(contrasted_im.getdata()) == list(im.getdata())
@@ -27,7 +27,7 @@ def test_contrast() -> None:
 
 
 def test_contrast_1() -> None:
-    im = util.fill((4, 4), [174, 56, 3])
+    im = util.fill((4, 4), (174, 56, 3))
     contrasted_im = css.contrast(im, 1)
     contrasted_im2 = css.contrast(im)
 
@@ -37,7 +37,7 @@ def test_contrast_1() -> None:
 
 
 def test_contrast_greater_than_1() -> None:
-    im = util.fill((4, 4), [174, 56, 3])
+    im = util.fill((4, 4), (174, 56, 3))
     contrasted_im = css.contrast(im, 2)
     contrasted_im2 = css.contrast(im, 1)
 
@@ -47,8 +47,8 @@ def test_contrast_greater_than_1() -> None:
 
 
 def test_contrast_0() -> None:
-    im = util.fill((4, 4), [174, 56, 3])
-    im2 = util.fill((4, 4), [128] * 3)
+    im = util.fill((4, 4), (174, 56, 3))
+    im2 = util.fill((4, 4), (128,) * 3)
     contrasted_im = css.contrast(im, 0)
 
     assert list(contrasted_im.getdata()) == list(im2.getdata())
@@ -58,12 +58,12 @@ def test_contrast_0() -> None:
 
 def test_contrast_less_than_0() -> None:
     with pytest.raises(AssertionError):
-        im = util.fill((4, 4), [174, 56, 3])
+        im = util.fill((4, 4), (174, 56, 3))
         css.contrast(im, -1)
 
 
 def test_contrast_hsv() -> None:
-    im = util.fill((4, 4), [174, 56, 3])
+    im = util.fill((4, 4), (174, 56, 3))
     im2 = im.convert("HSV")
     contrasted_im = css.contrast(im)
     contrasted_im2 = css.contrast(im2)

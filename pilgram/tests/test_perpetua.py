@@ -19,7 +19,7 @@ from pilgram import perpetua, util
 
 
 def test_perpetua() -> None:
-    im = util.fill((32, 32), [255] * 3)
+    im = util.fill((32, 32), (255,) * 3)
     perpetua(im)
 
 

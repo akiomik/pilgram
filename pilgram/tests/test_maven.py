@@ -19,7 +19,7 @@ from pilgram import maven, util
 
 
 def test_maven() -> None:
-    im = util.fill((32, 32), [255] * 3)
+    im = util.fill((32, 32), (255,) * 3)
     maven(im)
 
 

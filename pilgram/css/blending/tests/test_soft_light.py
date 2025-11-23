@@ -21,7 +21,7 @@ from pilgram.css.blending.tests.helpers import assert_alpha_support
 
 
 def test_soft_light() -> None:
-    cb = util.fill((2, 2), [0, 128, 255])
+    cb = util.fill((2, 2), (0, 128, 255))
     cs_array = np.array(
         [
             [[0] * 3, [127] * 3],

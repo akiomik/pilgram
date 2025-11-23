@@ -19,7 +19,7 @@ from pilgram import rise, util
 
 
 def test_rise() -> None:
-    im = util.fill((32, 32), [255] * 3)
+    im = util.fill((32, 32), (255,) * 3)
     rise(im)
 
 

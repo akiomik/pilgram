@@ -19,7 +19,7 @@ from pilgram import nashville, util
 
 
 def test_nashville() -> None:
-    im = util.fill((32, 32), [255] * 3)
+    im = util.fill((32, 32), (255,) * 3)
     nashville(im)
 
 

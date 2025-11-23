@@ -19,7 +19,7 @@ from pilgram import lark, util
 
 
 def test_lark() -> None:
-    im = util.fill((32, 32), [255] * 3)
+    im = util.fill((32, 32), (255,) * 3)
     lark(im)
 
 

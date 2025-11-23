@@ -19,7 +19,7 @@ from pilgram import brooklyn, util
 
 
 def test_brooklyn() -> None:
-    im = util.fill((32, 32), [255] * 3)
+    im = util.fill((32, 32), (255,) * 3)
     brooklyn(im)
 
 

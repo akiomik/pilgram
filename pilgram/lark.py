@@ -29,10 +29,10 @@ def lark(im: Image.Image) -> Image.Image:
 
     cb = util.or_convert(im, "RGB")
 
-    cs1 = util.fill(cb.size, [34, 37, 63])
+    cs1 = util.fill(cb.size, (34, 37, 63))
     cm1 = css.blending.color_dodge(cb, cs1)
 
-    cs2 = util.fill(cb.size, [242, 242, 242, 0.8])
+    cs2 = util.fill(cb.size, (242, 242, 242, 0.8))
     cr = css.blending.darken(cm1, cs2)
 
     cr = css.contrast(cr, 0.9)

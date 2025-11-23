@@ -17,7 +17,7 @@ from pilgram import util
 
 def test_or_convert_same_mode() -> None:
     w, h = (4, 4)
-    im = util.fill((w, h), [0, 127, 255])  # RGB
+    im = util.fill((w, h), (0, 127, 255))  # RGB
     converted = util.or_convert(im, "RGB")
 
     assert converted == im  # should be the same instance
@@ -26,7 +26,7 @@ def test_or_convert_same_mode() -> None:
 
 def test_or_convert_different_mode() -> None:
     w, h = (4, 4)
-    im = util.fill((w, h), [0, 127, 255, 0.5])  # RGBA
+    im = util.fill((w, h), (0, 127, 255, 0.5))  # RGBA
     converted = util.or_convert(im, "RGB")
 
     assert converted != im

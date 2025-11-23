@@ -29,10 +29,10 @@ def nashville(im: Image.Image) -> Image.Image:
 
     cb = util.or_convert(im, "RGB")
 
-    cs1 = util.fill(cb.size, [247, 176, 153, 0.56])
+    cs1 = util.fill(cb.size, (247, 176, 153, 0.56))
     cm1 = css.blending.darken(cb, cs1)
 
-    cs2 = util.fill(cb.size, [0, 70, 150, 0.4])
+    cs2 = util.fill(cb.size, (0, 70, 150, 0.4))
     cr = css.blending.lighten(cm1, cs2)
 
     cr = css.sepia(cr, 0.2)

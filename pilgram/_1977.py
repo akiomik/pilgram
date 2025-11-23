@@ -29,7 +29,7 @@ def _1977(im: Image.Image) -> Image.Image:
 
     cb = util.or_convert(im, "RGB")
 
-    cs = util.fill(cb.size, [243, 106, 188, 0.3])
+    cs = util.fill(cb.size, (243, 106, 188, 0.3))
     cr = css.blending.screen(cb, cs)
 
     cr = css.contrast(cr, 1.1)

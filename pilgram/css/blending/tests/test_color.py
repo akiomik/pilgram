@@ -29,7 +29,7 @@ def test_color() -> None:
         dtype=np.uint8,
     )
     cb = Image.fromarray(cb_array)
-    cs = util.fill((2, 2), [0, 128, 255])
+    cs = util.fill((2, 2), (0, 128, 255))
     color = css.blending.color(cb, cs)
 
     expected = [

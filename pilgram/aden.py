@@ -29,7 +29,7 @@ def aden(im: Image.Image) -> Image.Image:
 
     cb = util.or_convert(im, "RGB")
 
-    cs = util.fill(cb.size, [66, 10, 14])
+    cs = util.fill(cb.size, (66, 10, 14))
     cs = css.blending.darken(cb, cs)
 
     alpha_mask = util.linear_gradient_mask(cb.size, start=0.8)

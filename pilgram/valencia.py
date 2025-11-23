@@ -29,7 +29,7 @@ def valencia(im: Image.Image) -> Image.Image:
 
     cb = util.or_convert(im, "RGB")
 
-    cs = util.fill(cb.size, [58, 3, 57])
+    cs = util.fill(cb.size, (58, 3, 57))
     cs = css.blending.exclusion(cb, cs)
     cr = Image.blend(cb, cs, 0.5)  # opacity
 

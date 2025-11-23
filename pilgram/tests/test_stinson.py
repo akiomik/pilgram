@@ -19,7 +19,7 @@ from pilgram import stinson, util
 
 
 def test_stinson() -> None:
-    im = util.fill((32, 32), [255] * 3)
+    im = util.fill((32, 32), (255,) * 3)
     stinson(im)
 
 

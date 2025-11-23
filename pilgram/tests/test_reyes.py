@@ -19,7 +19,7 @@ from pilgram import reyes, util
 
 
 def test_reyes() -> None:
-    im = util.fill((32, 32), [255] * 3)
+    im = util.fill((32, 32), (255,) * 3)
     reyes(im)
 
 

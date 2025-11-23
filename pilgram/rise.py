@@ -29,16 +29,16 @@ def rise(im: Image.Image) -> Image.Image:
 
     cb = util.or_convert(im, "RGB")
 
-    cs1 = util.fill(cb.size, [236, 205, 169, 0.15])
+    cs1 = util.fill(cb.size, (236, 205, 169, 0.15))
     cm1 = css.blending.multiply(cb, cs1)
 
-    cs2 = util.fill(cb.size, [50, 30, 7, 0.4])
+    cs2 = util.fill(cb.size, (50, 30, 7, 0.4))
     cm2 = css.blending.multiply(cb, cs2)
 
     gradient_mask1 = util.radial_gradient_mask(cb.size, length=0.55)
     cm = Image.composite(cm1, cm2, gradient_mask1)
 
-    cs3 = util.fill(cb.size, [232, 197, 152, 0.8])
+    cs3 = util.fill(cb.size, (232, 197, 152, 0.8))
     cm3 = css.blending.overlay(cm, cs3)
 
     gradient_mask2 = util.radial_gradient_mask(cb.size, scale=0.9)

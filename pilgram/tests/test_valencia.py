@@ -19,7 +19,7 @@ from pilgram import util, valencia
 
 
 def test_valencia() -> None:
-    im = util.fill((32, 32), [255] * 3)
+    im = util.fill((32, 32), (255,) * 3)
     valencia(im)
 
 

@@ -19,7 +19,7 @@ from pilgram import earlybird, util
 
 
 def test_earlybird() -> None:
-    im = util.fill((32, 32), [255] * 3)
+    im = util.fill((32, 32), (255,) * 3)
     earlybird(im)
 
 

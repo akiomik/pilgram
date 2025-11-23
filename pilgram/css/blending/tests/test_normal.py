@@ -21,8 +21,8 @@ from pilgram.css.blending.tests.helpers import assert_alpha_support
 
 
 def test_normal() -> None:
-    cb = util.fill((2, 2), [255, 128, 0])
-    cs = util.fill((2, 2), [0, 128, 255])
+    cb = util.fill((2, 2), (255, 128, 0))
+    cs = util.fill((2, 2), (0, 128, 255))
 
     actual = css.blending.normal(cb, cs)
     expected = cs
@@ -30,7 +30,7 @@ def test_normal() -> None:
 
 
 def test_normal2() -> None:
-    cb = util.fill((2, 2), [255, 128, 0, 1.0])
+    cb = util.fill((2, 2), (255, 128, 0, 1.0))
     cs_array = np.array(
         [
             [[0, 128, 255, 0.25], [0, 255, 128, 0.5]],

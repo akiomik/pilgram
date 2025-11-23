@@ -19,7 +19,7 @@ from pilgram import gingham, util
 
 
 def test_gingham() -> None:
-    im = util.fill((32, 32), [255] * 3)
+    im = util.fill((32, 32), (255,) * 3)
     gingham(im)
 
 

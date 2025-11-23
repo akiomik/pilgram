@@ -18,8 +18,7 @@ from PIL import Image
 from pilgram.types import RGBAColor, RGBColor, Size
 
 
-# TODO: Remove list[int | float] from color type once all usages are converted to tuples
-def fill(size: Size, color: RGBColor | RGBAColor | list[int | float]) -> Image.Image:
+def fill(size: Size, color: RGBColor | RGBAColor) -> Image.Image:
     """Fills new image with the color.
 
     Arguments:
@@ -36,11 +35,10 @@ def fill(size: Size, color: RGBColor | RGBAColor | list[int | float]) -> Image.I
     assert len(size) == 2
     assert len(color) in [3, 4]
 
-    # TODO: Improve type safety by accepting only tuples instead of lists
     if len(color) == 4:
-        color_list = list(color)
-        color_list[3] = int(round(color_list[3] * 255))  # alpha
-        color = color_list
+        r, g, b, a = color
+        alpha_int = int(round(a * 255))
+        color = (r, g, b, alpha_int)
 
     uniqued = list(set(color))
     cmap = {c: Image.new("L", size, c) for c in uniqued}

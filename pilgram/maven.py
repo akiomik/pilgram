@@ -29,7 +29,7 @@ def maven(im: Image.Image) -> Image.Image:
 
     cb = util.or_convert(im, "RGB")
 
-    cs = util.fill(cb.size, [3, 230, 26, 0.2])
+    cs = util.fill(cb.size, (3, 230, 26, 0.2))
     cr = css.blending.hue(cb, cs)
 
     cr = css.sepia(cr, 0.25)
