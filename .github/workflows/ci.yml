@@ -19,16 +19,7 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
       - name: Install dependencies
-        run: |
-          # Attempt locked sync first for deterministic builds
-          # Fallback handles cases where dependabot updates pyproject.toml 
-          # but uv.lock becomes outdated, causing "lockfile needs to be updated" errors
-          # This ensures CI doesn't fail while maintaining lockfile-based reproducibility
-          uv sync --locked --all-extras --dev || {
-            echo "Lockfile outdated (likely from dependabot), updating..."
-            uv lock
-            uv sync --locked --all-extras --dev
-          }
+        run: uv sync --locked --all-extras
       - run: make check-ci
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v5
