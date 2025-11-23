@@ -41,7 +41,7 @@ build:
 	uv build
 
 test-upload: clean build
-	uv publish --repository testpypi dist/*
+	uv publish --index testpypi dist/*
 
 upload: clean build
 	uv publish dist/*
