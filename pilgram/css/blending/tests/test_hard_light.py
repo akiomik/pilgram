@@ -40,7 +40,7 @@ def test_hard_light() -> None:
     ]
     expected_approx = [pytest.approx(c, abs=1) for c in expected]
 
-    assert list(hard_light.getdata()) == expected_approx  # almost eq
+    assert list(hard_light.get_flattened_data()) == expected_approx  # almost eq
 
 
 def test_hard_light_alpha_support() -> None:

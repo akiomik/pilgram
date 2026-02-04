@@ -41,7 +41,7 @@ def test_min3() -> None:
         b=b,
     )
 
-    assert list(im_min.getdata()) == [0]
+    assert list(im_min.get_flattened_data()) == [0]
 
 
 def test_max3() -> None:
@@ -54,7 +54,7 @@ def test_max3() -> None:
         b=b,
     )
 
-    assert list(im_max.getdata()) == [255]
+    assert list(im_max.get_flattened_data()) == [255]
 
 
 def test_clip_color() -> None:
@@ -72,7 +72,7 @@ def test_clip_color() -> None:
         [pytest.approx(106.8796587856024, 1e-6)],
         [pytest.approx(187.63136220320442, 1e-6)],
     ]
-    assert [list(band.im.getdata()) for band in bands] == expected
+    assert [list(band.im.get_flattened_data()) for band in bands] == expected
 
 
 def test_lum() -> None:
@@ -83,15 +83,15 @@ def test_lum() -> None:
     )
     im_l = im_f.convert("L")
 
-    assert list(im_f.getdata()) == [pytest.approx(103.57, 1e-6)]
-    assert list(im_l.getdata()) == [floor(103.57)]
+    assert list(im_f.get_flattened_data()) == [pytest.approx(103.57, 1e-6)]
+    assert list(im_l.get_flattened_data()) == [floor(103.57)]
 
 
 def test_lum_im() -> None:
     im = util.fill((1, 1), (0, 128, 255))
     im_lum = lum_im(im)
 
-    assert list(im_lum.getdata()) == [round(103.57)]
+    assert list(im_lum.get_flattened_data()) == [round(103.57)]
 
 
 def test_set_lum() -> None:
@@ -117,11 +117,11 @@ def test_set_lum() -> None:
         [pytest.approx(148.48874067225782, 1e-6)],
         [255],
     ]
-    assert [list(band.im.getdata()) for band in bands] == expected1
+    assert [list(band.im.get_flattened_data()) for band in bands] == expected1
 
     im_set_lum = Image.merge("RGB", [_convert(band, "L").im for band in bands])
     expected2 = [(floor(41.13881001122631), floor(148.48874067225782), 255)]
-    assert list(im_set_lum.getdata()) == expected2
+    assert list(im_set_lum.get_flattened_data()) == expected2
 
 
 def test_sat() -> None:
@@ -134,7 +134,7 @@ def test_sat() -> None:
         b=b,
     )
 
-    assert list(im_sat.getdata()) == [120]
+    assert list(im_sat.get_flattened_data()) == [120]
 
 
 def test_set_sat_cmax_gt_cmin() -> None:
@@ -160,7 +160,7 @@ def test_set_sat_cmax_gt_cmin() -> None:
         [pytest.approx(32.12549019607843, abs=1)],
         [64],
     ]
-    assert [list(band.im.getdata()) for band in bands] == expected
+    assert [list(band.im.get_flattened_data()) for band in bands] == expected
 
 
 def test_set_sat_cmax_eq_cmid_gt_cmin() -> None:
@@ -182,7 +182,7 @@ def test_set_sat_cmax_eq_cmid_gt_cmin() -> None:
     )
 
     expected = [[0], [64], [64]]
-    assert [list(band.im.getdata()) for band in bands] == expected
+    assert [list(band.im.get_flattened_data()) for band in bands] == expected
 
 
 def test_set_sat_cmax_eq_cmin() -> None:
@@ -204,4 +204,4 @@ def test_set_sat_cmax_eq_cmin() -> None:
     )
 
     expected = [[0], [0], [0]]
-    assert [list(band.im.getdata()) for band in bands] == expected
+    assert [list(band.im.get_flattened_data()) for band in bands] == expected

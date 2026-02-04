@@ -49,7 +49,7 @@ def test_radial_gradient_mask_prepared() -> None:
     ]
 
     # TODO: test rectangle
-    assert list(mask.getdata()) == expected_data
+    assert list(mask.get_flattened_data()) == expected_data
     assert mask.size == (w, h)
     assert mask.mode == "L"
 
@@ -86,7 +86,7 @@ def test_radial_gradient_mask_length() -> None:
         0,
     ]
 
-    assert list(mask.getdata()) == expected_data
+    assert list(mask.get_flattened_data()) == expected_data
     assert mask.size == (w, h)
     assert mask.mode == "L"
 
@@ -123,7 +123,7 @@ def test_radial_gradient_mask_prepared_scale() -> None:
         120,
     ]
 
-    assert list(mask.getdata()) == expected_data
+    assert list(mask.get_flattened_data()) == expected_data
     assert mask.size == (w, h)
     assert mask.mode == "L"
 
@@ -160,7 +160,7 @@ def test_radial_gradient_mask_position() -> None:
         0,
     ]
 
-    assert list(mask.getdata()) == expected_data
+    assert list(mask.get_flattened_data()) == expected_data
     assert mask.size == (w, h)
     assert mask.mode == "L"
 
@@ -197,7 +197,7 @@ def test_radial_gradient_mask_length_eq_scale() -> None:
         0,
     ]
 
-    assert list(mask.getdata()) == expected_data
+    assert list(mask.get_flattened_data()) == expected_data
     assert mask.size == (w, h)
     assert mask.mode == "L"
 
@@ -206,7 +206,7 @@ def test_radial_gradient_mask_length_ge_1() -> None:
     w, h = (4, 4)
     mask = util.radial_gradient_mask((w, h), length=1)
 
-    assert list(mask.getdata()) == [255] * (w * h)
+    assert list(mask.get_flattened_data()) == [255] * (w * h)
     assert mask.size == (w, h)
     assert mask.mode == "L"
 
@@ -215,7 +215,7 @@ def test_radial_gradient_mask_scale_le_0() -> None:
     w, h = (4, 4)
     mask = util.radial_gradient_mask((w, h), scale=0)
 
-    assert list(mask.getdata()) == [0] * (w * h)
+    assert list(mask.get_flattened_data()) == [0] * (w * h)
     assert mask.size == (w, h)
     assert mask.mode == "L"
 
@@ -230,8 +230,9 @@ def test_radial_gradient_255_to_0() -> None:
     gradient = util.radial_gradient((w, h), [(255, 255, 255), (0, 0, 0)])
 
     expected = util.radial_gradient_mask((w, h))
-    assert list(gradient.getdata(0)) == list(expected.getdata())
-    assert list(gradient.getdata(1)) == list(expected.getdata())
-    assert list(gradient.getdata(2)) == list(expected.getdata())
+    r, g, b = gradient.split()
+    assert list(r.get_flattened_data()) == list(expected.get_flattened_data())
+    assert list(g.get_flattened_data()) == list(expected.get_flattened_data())
+    assert list(b.get_flattened_data()) == list(expected.get_flattened_data())
     assert gradient.size == (w, h)
     assert gradient.mode == "RGB"

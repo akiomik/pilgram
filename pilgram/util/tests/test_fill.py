@@ -19,7 +19,7 @@ def test_fill() -> None:
     w, h = (4, 4)
     im = util.fill((w, h), (0, 127, 255))
 
-    assert list(im.getdata()) == [(0, 127, 255)] * (w * h)
+    assert list(im.get_flattened_data()) == [(0, 127, 255)] * (w * h)
     assert im.size == (w, h)
     assert im.mode == "RGB"
 
@@ -28,6 +28,6 @@ def test_fill_alpha() -> None:
     w, h = (4, 4)
     im = util.fill((w, h), (0, 127, 255, 0.5))
 
-    assert list(im.getdata()) == [(0, 127, 255, 128)] * (w * h)
+    assert list(im.get_flattened_data()) == [(0, 127, 255, 128)] * (w * h)
     assert im.size == (w, h)
     assert im.mode == "RGBA"

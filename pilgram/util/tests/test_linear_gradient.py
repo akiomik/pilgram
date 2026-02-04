@@ -20,7 +20,7 @@ def test_linear_gradient_mask_prepared_horizontal() -> None:
     w, h = (4, 4)
     mask = util.linear_gradient_mask((w, h))
 
-    assert list(mask.getdata()) == [222, 161, 94, 33] * h
+    assert list(mask.get_flattened_data()) == [222, 161, 94, 33] * h
     assert mask.size == (w, h)
     assert mask.mode == "L"
 
@@ -29,7 +29,9 @@ def test_linear_gradient_mask_prepared_vertical() -> None:
     w, h = (4, 4)
     mask = util.linear_gradient_mask((w, h), is_horizontal=False)
 
-    assert list(mask.getdata()) == [222] * w + [161] * w + [94] * w + [33] * w
+    assert (
+        list(mask.get_flattened_data()) == [222] * w + [161] * w + [94] * w + [33] * w
+    )
     assert mask.size == (w, h)
     assert mask.mode == "L"
 
@@ -40,7 +42,7 @@ def test_linear_gradient_mask_start_end() -> None:
     end = 200 / 255
     mask = util.linear_gradient_mask((w, h), start=start, end=end)
 
-    assert list(mask.getdata()) == [100, 133, 166, 200] * h
+    assert list(mask.get_flattened_data()) == [100, 133, 166, 200] * h
     assert mask.size == (w, h)
     assert mask.mode == "L"
 
@@ -53,7 +55,7 @@ def test_linear_gradient_mask_start_end_vertical() -> None:
 
     expected = [100] * w + [133] * w + [166] * w + [200] * w
 
-    assert list(mask.getdata()) == expected
+    assert list(mask.get_flattened_data()) == expected
     assert mask.size == (w, h)
     assert mask.mode == "L"
 
@@ -65,6 +67,6 @@ def test_linear_gradient_prepared() -> None:
     gradient = util.linear_gradient((w, h), white, black)
     expected_data = [(c,) * 3 for c in [222, 161, 94, 33]] * h
 
-    assert list(gradient.getdata()) == expected_data
+    assert list(gradient.get_flattened_data()) == expected_data
     assert gradient.size == (w, h)
     assert gradient.mode == "RGB"

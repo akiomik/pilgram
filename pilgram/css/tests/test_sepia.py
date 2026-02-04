@@ -30,7 +30,9 @@ def test_sepia_1() -> None:
     sepiaed_im = css.sepia(im, 1)
     sepiaed_im2 = css.sepia(im)
 
-    assert list(sepiaed_im.getdata()) == list(sepiaed_im2.getdata())
+    assert list(sepiaed_im.get_flattened_data()) == list(
+        sepiaed_im2.get_flattened_data()
+    )
     assert sepiaed_im.size == im.size
     assert sepiaed_im.mode == im.mode
 
@@ -40,7 +42,9 @@ def test_sepia_greater_than_1() -> None:
     sepiaed_im = css.sepia(im, 2)
     sepiaed_im2 = css.sepia(im, 1)
 
-    assert list(sepiaed_im.getdata()) == list(sepiaed_im2.getdata())
+    assert list(sepiaed_im.get_flattened_data()) == list(
+        sepiaed_im2.get_flattened_data()
+    )
     assert sepiaed_im.size == im.size
     assert sepiaed_im.mode == im.mode
 
@@ -49,7 +53,7 @@ def test_sepia_0() -> None:
     im = util.fill((4, 4), (174, 56, 3))
     sepiaed_im = css.sepia(im, 0)
 
-    assert list(sepiaed_im.getdata()) == list(im.getdata())
+    assert list(sepiaed_im.get_flattened_data()) == list(im.get_flattened_data())
     assert sepiaed_im.size == im.size
     assert sepiaed_im.mode == im.mode
 
@@ -67,6 +71,8 @@ def test_sepia_hsv() -> None:
     sepiaed_im2 = css.sepia(im2)
     sepiaed_im2_rgb = sepiaed_im2.convert("RGB")
 
-    assert list(sepiaed_im.getdata()) == list(sepiaed_im2_rgb.getdata())
+    assert list(sepiaed_im.get_flattened_data()) == list(
+        sepiaed_im2_rgb.get_flattened_data()
+    )
     assert sepiaed_im2.size == im2.size
     assert sepiaed_im2.mode == im2.mode
