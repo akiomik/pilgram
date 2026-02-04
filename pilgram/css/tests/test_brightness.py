@@ -21,7 +21,7 @@ def test_brightness() -> None:
     im = util.fill((4, 4), (174, 56, 3))
     im_b = css.brightness(im)
 
-    assert list(im_b.getdata()) == list(im.getdata())
+    assert list(im_b.get_flattened_data()) == list(im.get_flattened_data())
     assert im_b.size == im.size
     assert im_b.mode == im.mode
 
@@ -31,7 +31,7 @@ def test_brightness_1() -> None:
     im_b = css.brightness(im, 1)
     im_b2 = css.brightness(im)
 
-    assert list(im_b.getdata()) == list(im_b2.getdata())
+    assert list(im_b.get_flattened_data()) == list(im_b2.get_flattened_data())
     assert im_b.size == im.size
     assert im_b.mode == im.mode
 
@@ -41,7 +41,7 @@ def test_brightness_greater_than_1() -> None:
     im_b = css.brightness(im, 2)
     im_b2 = css.brightness(im, 1)
 
-    assert list(im_b.getdata()) != list(im_b2.getdata())
+    assert list(im_b.get_flattened_data()) != list(im_b2.get_flattened_data())
     assert im_b.size == im.size
     assert im_b.mode == im.mode
 
@@ -51,7 +51,7 @@ def test_brightness_0() -> None:
     black = util.fill((4, 4), (0,) * 3)
     im_b = css.brightness(im, 0)
 
-    assert list(im_b.getdata()) == list(black.getdata())
+    assert list(im_b.get_flattened_data()) == list(black.get_flattened_data())
     assert im_b.size == im.size
     assert im_b.mode == im.mode
 
@@ -69,6 +69,6 @@ def test_brightness_hsv() -> None:
     im_b2 = css.brightness(im2)
     im_b2_rgb = im_b2.convert("RGB")
 
-    assert list(im_b.getdata()) == list(im_b2_rgb.getdata())
+    assert list(im_b.get_flattened_data()) == list(im_b2_rgb.get_flattened_data())
     assert im_b2.size == im2.size
     assert im_b2.mode == im2.mode

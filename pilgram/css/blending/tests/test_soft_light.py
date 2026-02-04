@@ -40,7 +40,7 @@ def test_soft_light() -> None:
     ]
     expected_approx = [pytest.approx(c, abs=1) for c in expected]
 
-    assert list(soft_light.getdata()) == expected_approx  # almost eq
+    assert list(soft_light.get_flattened_data()) == expected_approx  # almost eq
 
 
 def test_soft_light_alpha_support() -> None:

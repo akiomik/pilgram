@@ -30,7 +30,9 @@ def test_grayscale_1() -> None:
     grayscaled_im = css.grayscale(im, 1)
     grayscaled_im2 = css.grayscale(im)
 
-    assert list(grayscaled_im.getdata()) == list(grayscaled_im2.getdata())
+    assert list(grayscaled_im.get_flattened_data()) == list(
+        grayscaled_im2.get_flattened_data()
+    )
     assert grayscaled_im.size == im.size
     assert grayscaled_im.mode == im.mode
 
@@ -40,7 +42,9 @@ def test_grayscale_greater_than_1() -> None:
     grayscaled_im = css.grayscale(im, 2)
     grayscaleed_im2 = css.grayscale(im, 1)
 
-    assert list(grayscaled_im.getdata()) == list(grayscaleed_im2.getdata())
+    assert list(grayscaled_im.get_flattened_data()) == list(
+        grayscaleed_im2.get_flattened_data()
+    )
     assert grayscaled_im.size == im.size
     assert grayscaled_im.mode == im.mode
 
@@ -49,7 +53,7 @@ def test_grayscale_0() -> None:
     im = util.fill((4, 4), (174, 56, 3))
     grayscaled_im = css.grayscale(im, 0)
 
-    assert list(grayscaled_im.getdata()) == list(im.getdata())
+    assert list(grayscaled_im.get_flattened_data()) == list(im.get_flattened_data())
     assert grayscaled_im.size == im.size
     assert grayscaled_im.mode == im.mode
 
@@ -67,6 +71,8 @@ def test_grayscale_hsv() -> None:
     grayscaled_im2 = css.grayscale(im2)
     grayscaled_im2_rgb = grayscaled_im2.convert("RGB")
 
-    assert list(grayscaled_im.getdata()) == list(grayscaled_im2_rgb.getdata())
+    assert list(grayscaled_im.get_flattened_data()) == list(
+        grayscaled_im2_rgb.get_flattened_data()
+    )
     assert grayscaled_im2.size == im2.size
     assert grayscaled_im2.mode == im2.mode

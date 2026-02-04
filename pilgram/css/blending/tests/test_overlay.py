@@ -41,7 +41,7 @@ def test_overlay() -> None:
     ]
     expected_approx = [pytest.approx(c, abs=1) for c in expected]
 
-    assert list(overlay.getdata()) == expected_approx  # almost eq
+    assert list(overlay.get_flattened_data()) == expected_approx  # almost eq
 
 
 def test_overlay2() -> None:

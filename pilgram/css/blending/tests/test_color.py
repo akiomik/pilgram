@@ -40,7 +40,7 @@ def test_color() -> None:
     ]
     expected_approx = [pytest.approx(c, abs=1) for c in expected]
 
-    assert list(color.getdata()) == expected_approx  # almost eq
+    assert list(color.get_flattened_data()) == expected_approx  # almost eq
 
 
 def test_color_alpha_support() -> None:
