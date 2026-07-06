@@ -91,7 +91,7 @@ def radial_gradient_mask(
     mask *= 255
     mask = mask.clip(0, 255)
 
-    return Image.fromarray(np.uint8(mask.round()))
+    return Image.fromarray(mask.round().astype(np.uint8))
 
 
 def radial_gradient(
