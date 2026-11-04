@@ -25,6 +25,24 @@ def test_linear_gradient_mask_prepared_horizontal() -> None:
     assert mask.mode == "L"
 
 
+def test_linear_gradient_mask_prepared_horizontal_landscape() -> None:
+    w, h = (4, 2)
+    mask = util.linear_gradient_mask((w, h))
+
+    assert list(mask.get_flattened_data()) == [222, 161, 94, 33] * h
+    assert mask.size == (w, h)
+    assert mask.mode == "L"
+
+
+def test_linear_gradient_mask_prepared_horizontal_portrait() -> None:
+    w, h = (2, 4)
+    mask = util.linear_gradient_mask((w, h))
+
+    assert list(mask.get_flattened_data()) == [186, 69] * h
+    assert mask.size == (w, h)
+    assert mask.mode == "L"
+
+
 def test_linear_gradient_mask_prepared_vertical() -> None:
     w, h = (4, 4)
     mask = util.linear_gradient_mask((w, h), is_horizontal=False)
