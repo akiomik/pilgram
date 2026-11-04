@@ -33,12 +33,13 @@ def _prepared_linear_gradient_mask(
     mask = invert(Image.linear_gradient("L"))
     w, h = mask.size
     box = (0, round(h * start), w, round(h / end))
-    resized_mask = mask.resize(size, box=box)
 
     if is_horizontal:
-        return resized_mask.rotate(90)
+        # resize to the transposed size since the mask is rotated afterwards
+        resized_mask = mask.resize((size[1], size[0]), box=box)
+        return resized_mask.rotate(90, expand=True)
     else:
-        return resized_mask
+        return mask.resize(size, box=box)
 
 
 def linear_gradient_mask(

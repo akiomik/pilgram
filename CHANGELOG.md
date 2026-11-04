@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- `aden` filter applied to only part of non-square images ([#176]).
+- Horizontal gradients from `pilgram.util.linear_gradient_mask` (with `end` of 1 or more, including the default) and `pilgram.util.linear_gradient` not spanning the full width of non-square images.
+
 ## [2.0.0] - 2025-11-23
 
 ### Added
@@ -101,3 +106,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [1.0.0]: https://github.com/akiomik/pilgram/releases/tag/v1.0.0
 [#1]: https://github.com/akiomik/pilgram/issues/1
 [#16]: https://github.com/akiomik/pilgram/issues/16
+[#176]: https://github.com/akiomik/pilgram/issues/176
