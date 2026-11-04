@@ -99,3 +99,7 @@ jobs:
 
       - name: Publish to PyPI
         uses: pypa/gh-action-pypi-publish@v1.14.3
+        with:
+          # PyPI never replaces a file, so this only lets a re-run finish an
+          # upload that stopped part way.
+          skip-existing: true
